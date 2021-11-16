@@ -49,7 +49,7 @@ MongoClient.connect('mongodb://' + credentials + domain + ':' + port + '/').then
     await initDb(db); //run initialization function
     app.set('db',db); //register database in the express app
 
-    app.listen(8080, () => { //start webserver, after database-connection was established
+    app.listen(8088, () => { //start webserver, after database-connection was established
         console.log('Webserver started.');
     });
 });
