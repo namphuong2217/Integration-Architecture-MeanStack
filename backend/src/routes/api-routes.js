@@ -14,4 +14,14 @@ router.get('/login', authApi.isLoggedIn); //the function, which handles requests
 const userApi = require('../apis/user-api');
 router.get('/user', checkAuthorization(), userApi.getSelf);
 
+//ADDED
+const salesManApi = require("../apis/salesman-api")
+router.get("/firstTest", salesManApi.firstTest);
+router.post("/salesMan", salesManApi.addSalesMan);
+router.get("/salesMan", salesManApi.getSalesMan);
+
+
+
+//ADDED END
+
 module.exports = router;

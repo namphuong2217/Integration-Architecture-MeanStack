@@ -65,3 +65,5 @@ async function initDb(db){
         console.log('created admin user with password: '+adminPassword);
     }
 }
+
+
