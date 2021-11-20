@@ -1,23 +1,81 @@
 /**
  * inserts a new salesMan into database
  * @param db target database
- * @param {User} user new user
- * @return {Promise<any>}
+ * @param salesman new salesman
+ * @return {Promise<insertedId>}
  */
 exports.add = async function (db, salesMan){
-    return (await db.collection('salesMan').insertOne(salesMan)).insertedId; //return unique ID
+    try {
+        //if(get(db,salesMan.sid)===null){console.log("DOPPELT")}
+        return (await db.collection('salesMan').insertOne(salesMan)).insertedId; //return unique ID
+    }catch(e){
+        return e;
+    }
 }
 
 /**
- * retrieves salesMan from database by its username
+ * retrieves salesMan from database by its sid
  * @param db source database
- * @param {string} username
- * @return {Promise<User>}
+ * @param sid salesman id
+ * @return {Promise<salesManr>}
  */
-exports.get = function (db, sid){
-    return db.collection('salesMan').findOne({sid : sid});
+exports.get = function(db, sid){
+    try {
+        return db.collection('salesMan').findOne({sid : sid});
+    }catch(e){
+        return e;
+    }
+}
+//module.exports = get;
+
+/**
+ * retrieves all salesMan from database by its sid
+ * @param db source database
+ * @param sid salesman id
+ * @return {Promise<salesManr>}
+ */
+exports.getAll = function (db){
+    try {
+        return db.collection('salesMan').find({}).toArray();
+    }catch(e){
+        return e;
+    }
 }
 
-//SHOW WHOLE COLLECTION
-//db.collection("salesMan").find().forEach(element => console.log(element));
-//db.collection("salesMan").drop();
+/**
+ * deletes salesMan from database by its sid
+ * @param db source database
+ * @param sid salesman id
+ */
+exports.delete = function (db, sid){
+
+    try {
+        db.collection('salesMan').deleteOne({sid : sid});
+    }catch(e){
+        return e;
+    }
+    return `Salesman mit sid ${sid} wurde gelöscht!`
+}
+
+/**
+ * updates salesMan from database by its sid
+ * @param db source database
+ * @param sid salesman id
+ */
+exports.update = function (db, sid, body){
+    try {
+        db.collection('salesMan').updateOne({sid: sid}, {$set: body});
+    }catch(e){
+        return e;
+    }
+    return `Salesman mit sid ${sid} wurde aktualisiert!`
+}
+
+exports.drop = function(db){
+    try {
+        db.collection('salesMan').drop();
+    }catch(e){
+        return e;
+    }
+    return `Alle salesman wurden gelöscht!`
+}

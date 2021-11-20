@@ -19,7 +19,10 @@ const salesManApi = require("../apis/salesman-api")
 router.get("/firstTest", salesManApi.firstTest);
 router.post("/salesMan", salesManApi.addSalesMan);
 router.get("/salesMan/:sid", salesManApi.getSalesMan);
-router.delete("/salesMan", salesManApi.addSalesMan);
+router.get("/salesMan", salesManApi.getAllSalesMan);
+router.delete("/salesMan/:sid", salesManApi.deleteSalesMan);
+router.delete("/salesMan", salesManApi.deleteAllSalesMan);
+router.put("/salesMan/:sid", salesManApi.updateSalesMan);
 
 
 

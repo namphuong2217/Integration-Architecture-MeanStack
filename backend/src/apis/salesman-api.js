@@ -28,7 +28,60 @@ exports.getSalesMan = async function (req, res) {
     const db = req.app.get('db');//get database from express
     const sid = parseInt(req.params.sid);
     const salesMan = await salesManService.get(db, sid);
-    console.log("HERE");
     return res.send(JSON.stringify(salesMan));
 }
+
+/**
+ * endpoint, which deletes collection salesman
+ * @param req express request
+ * @param res express response
+ * @return eString answer
+ */
+
+exports.getAllSalesMan = async function (req, res) {
+    const db = req.app.get('db');//get database from express
+    const answer = await salesManService.getAll(db);
+    return res.send(answer);
+}
+
+/**
+ * endpoint, which deletes salesman
+ * @param req express request
+ * @param res express response
+ * @return  String answer
+ */
+exports.deleteSalesMan = async function (req, res) {
+    const db = req.app.get('db');//get database from express
+    const sid = parseInt(req.params.sid);
+    const answer = await salesManService.delete(db, sid);
+    return res.send(answer);
+}
+
+/**
+ * endpoint, which deletes collection salesman
+ * @param req express request
+ * @param res express response
+ * @return eString answer
+ */
+
+exports.deleteAllSalesMan = async function (req, res) {
+    const db = req.app.get('db');//get database from express
+    const answer = await salesManService.drop(db);
+    return res.send(answer);
+}
+
+/**
+ * endpoint, which updates salesman
+ * @param req express request
+ * @param res express response
+ * @return eString answer
+ */
+exports.updateSalesMan = async function (req, res) {
+    const db = req.app.get('db');//get database from express
+    const sid = parseInt(req.params.sid);
+    const answer = await salesManService.update(db, sid, req.body);
+    return res.send(answer);
+}
+
+
 
