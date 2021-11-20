@@ -18,7 +18,8 @@ router.get('/user', checkAuthorization(), userApi.getSelf);
 const salesManApi = require("../apis/salesman-api")
 router.get("/firstTest", salesManApi.firstTest);
 router.post("/salesMan", salesManApi.addSalesMan);
-router.get("/salesMan", salesManApi.getSalesMan);
+router.get("/salesMan/:sid", salesManApi.getSalesMan);
+router.delete("/salesMan", salesManApi.addSalesMan);
 
 
 
