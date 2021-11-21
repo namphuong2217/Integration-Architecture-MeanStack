@@ -14,8 +14,8 @@ exports.firstTest = async function(req, res){
 exports.addSalesMan = async function (req, res) {
     const db = req.app.get('db');//get database from express
     const salesMan = new SalesMan(req.body.sid, req.body.first_name, req.body.last_name);
-    const insertedId = await salesManService.add(db, salesMan);
-    return res.send(`{insertedId : ${insertedId}}`);
+    const answer = await salesManService.add(db, salesMan);
+    return res.send("answer");
 }
 
 /**

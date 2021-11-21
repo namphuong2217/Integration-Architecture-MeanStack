@@ -6,7 +6,7 @@
  */
 exports.add = async function (db, salesMan){
     try {
-        //if(get(db,salesMan.sid)===null){console.log("DOPPELT")}
+        if(await get(db,salesMan.sid)!==null){return `Salesman mit sid ${salesMan.sid} ist bereits vorhanden!`}
         return (await db.collection('salesMan').insertOne(salesMan)).insertedId; //return unique ID
     }catch(e){
         return e;
@@ -19,14 +19,14 @@ exports.add = async function (db, salesMan){
  * @param sid salesman id
  * @return {Promise<salesManr>}
  */
-exports.get = function(db, sid){
+get = function(db, sid){
     try {
         return db.collection('salesMan').findOne({sid : sid});
     }catch(e){
         return e;
     }
 }
-//module.exports = get;
+module.exports.get = get;
 
 /**
  * retrieves all salesMan from database by its sid
@@ -62,7 +62,8 @@ exports.delete = function (db, sid){
  * @param db source database
  * @param sid salesman id
  */
-exports.update = function (db, sid, body){
+exports.update = async function (db, sid, body){
+    if(await get(db,sid)===null){return `Salesman mit sid ${sid} ist nicht vorhanden!`}
     try {
         db.collection('salesMan').updateOne({sid: sid}, {$set: body});
     }catch(e){
