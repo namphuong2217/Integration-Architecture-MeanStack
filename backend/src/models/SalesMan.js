@@ -1,4 +1,3 @@
-
 class SalesMan{
     constructor(sid, first_name, last_name) {
         this.sid = sid;
