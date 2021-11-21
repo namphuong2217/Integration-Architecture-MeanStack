@@ -24,7 +24,12 @@ router.delete("/salesMan/:sid", salesManApi.deleteSalesMan);
 router.delete("/salesMan", salesManApi.deleteAllSalesMan);
 router.put("/salesMan/:sid", salesManApi.updateSalesMan);
 
-
+//performance record routes
+const performanceRecordApi = require("../apis/performanceRecord-api")
+router.post("/performanceRecord", performanceRecordApi.addPerformanceRecord);
+router.get("/performanceRecord/sid/:sid", performanceRecordApi.getPerformanceRecord);
+router.delete("/performanceRecord/sid/:sid/goalID/:goalID", performanceRecordApi.deletePerformanceRecord);
+router.put("/performanceRecord/sid/:sid/goalID/:goalID", performanceRecordApi.updatePerformanceRecord);
 
 //ADDED END
 

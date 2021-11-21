@@ -1,7 +1,7 @@
 /*
     This file acts as the entrypoint for node.js
  */
-
+const PORT = process.env.PORT || 8088;
 const express = require('express');
 const session = require('express-session');
 
@@ -49,8 +49,8 @@ MongoClient.connect('mongodb://' + credentials + domain + ':' + port + '/').then
     await initDb(db); //run initialization function
     app.set('db',db); //register database in the express app
 
-    app.listen(8088, () => { //start webserver, after database-connection was established
-        console.log('Webserver started.');
+    app.listen(PORT, () => { //start webserver, after database-connection was established
+        console.log(`Webserver started on Port: ${PORT}`);
     });
 });
 
@@ -65,5 +65,3 @@ async function initDb(db){
         console.log('created admin user with password: '+adminPassword);
     }
 }
-
-
