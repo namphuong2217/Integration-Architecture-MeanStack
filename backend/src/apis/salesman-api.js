@@ -1,9 +1,6 @@
 const salesManService = require("../services/salesMan-service");
 const SalesMan = require("../models/SalesMan")
-exports.firstTest = async function(req, res){
-    console.log("HELLO WORLD")
-    res.send("Hello World");
-}
+
 
 /**
  * endpoint, which saves salesman
@@ -15,7 +12,7 @@ exports.addSalesMan = async function (req, res) {
     const db = req.app.get('db');//get database from express
     const salesMan = new SalesMan(req.body.sid, req.body.first_name, req.body.last_name);
     const answer = await salesManService.add(db, salesMan);
-    return res.send("answer");
+    return res.send(answer);
 }
 
 /**
