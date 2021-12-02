@@ -22,6 +22,7 @@ router.get("/salesMan", salesManApi.getAllSalesMan);
 router.delete("/salesMan/:sid", salesManApi.deleteSalesMan);
 router.delete("/salesMan", salesManApi.deleteAllSalesMan);
 router.put("/salesMan/:sid", salesManApi.updateSalesMan);
+router.get("/salesmanOHRM/:sid", salesManApi.getOHRM);
 
 //performance record routes
 const performanceRecordApi = require("../apis/performanceRecord-api")

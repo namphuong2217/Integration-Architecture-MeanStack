@@ -1,5 +1,6 @@
 const salesManService = require("../services/salesMan-service");
 const SalesMan = require("../models/SalesMan")
+const ohrmConsumer = require("../crmConsumer/ohrmConsumer");
 
 
 /**
@@ -80,5 +81,15 @@ exports.updateSalesMan = async function (req, res) {
     return res.send(answer);
 }
 
+
+//TEST
+exports.getOHRM = async function(req, res) {
+    const resp = await ohrmConsumer.hrmRead("https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/kpis")
+        .catch((error) => {
+            console.log(error);
+        });
+    return res.send(resp.data);
+
+}
 
 
