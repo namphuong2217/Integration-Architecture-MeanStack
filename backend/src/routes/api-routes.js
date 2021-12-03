@@ -14,6 +14,7 @@ router.get('/login', authApi.isLoggedIn); //the function, which handles requests
 const userApi = require('../apis/user-api');
 router.get('/user', checkAuthorization(), userApi.getSelf);
 
+/*
 //salesman routes
 const salesManApiOld = require("../apis/old/salesman-api")
 router.post("/salesManOld", salesManApiOld.addSalesMan);
@@ -30,6 +31,7 @@ router.post("/performanceRecord", performanceRecordApi.addPerformanceRecord);
 router.get("/performanceRecord/sid/:sid", performanceRecordApi.getPerformanceRecord);
 router.delete("/performanceRecord/sid/:sid/goalID/:goalID", performanceRecordApi.deletePerformanceRecord);
 router.put("/performanceRecord/sid/:sid/goalID/:goalID", performanceRecordApi.updatePerformanceRecord);
+ */
 
 //SALESMAN
 const salesManApi = require("../apis/salesman-api")
@@ -39,5 +41,7 @@ router.post("/salesman/:sid/bonus", salesManApi.postEmployeeBonus);
 router.get("/salesman/:sid/bonus", salesManApi.getEmployeeBonus);
 
 //ORDER EVALUATION
+//const orderEvaluation = require("../apis/salesman-api")
+//router.get("/orderEvaluation/:oid", orderEvaluationApi.getOrderEvaluation)
 
 module.exports = router;
