@@ -35,9 +35,8 @@ const hrmCreate = async(url, body) => {
     return res.data;
 }
 
-exports.salesManRead = async(sid) => {
-    //todo adapt url
-    const url = "https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/kpis";
+exports.employeeRead = async(sid) => {
+    const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${sid}`;
     const res = await axios.get(url, await header)
         .catch((error) => {
             console.log(error);
@@ -45,8 +44,29 @@ exports.salesManRead = async(sid) => {
     return res.data;
 }
 
-exports.salesManReadAll = async() => {
-    const url = "https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/user";
+exports.employeesRead = async() => {
+    const url = "https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/search";
+    const res = await axios.get(url, await header)
+        .catch((error) => {
+            console.log(error);
+        })
+    return res.data;
+}
+
+exports.salesManBonusWrite = async(sid) => {
+    /*
+    const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${sid}/bonussalary`;
+    const res = await axios.get(url, await header)
+        .catch((error) => {
+            console.log(error);
+        })
+
+     */
+    return "not yet implemented"; //res.data;
+}
+
+exports.salesManBonusRead = async(sid) => {
+    const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${sid}/bonussalary`;
     const res = await axios.get(url, await header)
         .catch((error) => {
             console.log(error);

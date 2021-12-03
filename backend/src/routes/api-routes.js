@@ -31,9 +31,13 @@ router.get("/performanceRecord/sid/:sid", performanceRecordApi.getPerformanceRec
 router.delete("/performanceRecord/sid/:sid/goalID/:goalID", performanceRecordApi.deletePerformanceRecord);
 router.put("/performanceRecord/sid/:sid/goalID/:goalID", performanceRecordApi.updatePerformanceRecord);
 
-//ADDED END
+//SALESMAN
 const salesManApi = require("../apis/salesman-api")
-router.get("/salesman/:sid", salesManApi.getSalesMan);
-router.get("/salesman", salesManApi.getAllSalesMan);
+router.get("/salesman/:sid", salesManApi.getEmployee);
+router.get("/salesman", salesManApi.getEmployees);
+router.post("/salesman/:sid/bonus", salesManApi.postEmployeeBonus);
+router.get("/salesman/:sid/bonus", salesManApi.getEmployeeBonus);
+
+//ORDER EVALUATION
 
 module.exports = router;
