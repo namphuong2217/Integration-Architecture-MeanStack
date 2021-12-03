@@ -16,12 +16,12 @@ router.get('/user', checkAuthorization(), userApi.getSelf);
 
 //salesman routes
 const salesManApiOld = require("../apis/old/salesman-api")
-router.post("/salesMan", salesManApiOld.addSalesMan);
-router.get("/salesMan/:sid", salesManApiOld.getSalesMan);
-router.get("/salesMan", salesManApiOld.getAllSalesMan);
-router.delete("/salesMan/:sid", salesManApiOld.deleteSalesMan);
-router.delete("/salesMan", salesManApiOld.deleteAllSalesMan);
-router.put("/salesMan/:sid", salesManApiOld.updateSalesMan);
+router.post("/salesManOld", salesManApiOld.addSalesMan);
+router.get("/salesManOld/:sid", salesManApiOld.getSalesMan);
+router.get("/salesManOld", salesManApiOld.getAllSalesMan);
+router.delete("/salesManOld/:sid", salesManApiOld.deleteSalesMan);
+router.delete("/salesManOld", salesManApiOld.deleteAllSalesMan);
+router.put("/salesManOld/:sid", salesManApiOld.updateSalesMan);
 
 
 //performance record routes
@@ -33,6 +33,7 @@ router.put("/performanceRecord/sid/:sid/goalID/:goalID", performanceRecordApi.up
 
 //ADDED END
 const salesManApi = require("../apis/salesman-api")
-router.get("/salesmanOHRM/:sid", salesManApi.getSalesMan);
+router.get("/salesman/:sid", salesManApi.getSalesMan);
+router.get("/salesman", salesManApi.getAllSalesMan);
 
 module.exports = router;

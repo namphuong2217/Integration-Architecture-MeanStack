@@ -35,12 +35,21 @@ const hrmCreate = async(url, body) => {
     return res.data;
 }
 
-exports.salesManRead = async() => {
+exports.salesManRead = async(sid) => {
+    //todo adapt url
     const url = "https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/kpis";
     const res = await axios.get(url, await header)
         .catch((error) => {
             console.log(error);
         })
-    /* TESTCOMMENT*/
+    return res.data;
+}
+
+exports.salesManReadAll = async() => {
+    const url = "https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/user";
+    const res = await axios.get(url, await header)
+        .catch((error) => {
+            console.log(error);
+        })
     return res.data;
 }
