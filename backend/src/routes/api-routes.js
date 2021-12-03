@@ -15,22 +15,24 @@ const userApi = require('../apis/user-api');
 router.get('/user', checkAuthorization(), userApi.getSelf);
 
 //salesman routes
-const salesManApi = require("../apis/salesman-api")
-router.post("/salesMan", salesManApi.addSalesMan);
-router.get("/salesMan/:sid", salesManApi.getSalesMan);
-router.get("/salesMan", salesManApi.getAllSalesMan);
-router.delete("/salesMan/:sid", salesManApi.deleteSalesMan);
-router.delete("/salesMan", salesManApi.deleteAllSalesMan);
-router.put("/salesMan/:sid", salesManApi.updateSalesMan);
-router.get("/salesmanOHRM/:sid", salesManApi.getOHRM);
+const salesManApiOld = require("../apis/old/salesman-api")
+router.post("/salesMan", salesManApiOld.addSalesMan);
+router.get("/salesMan/:sid", salesManApiOld.getSalesMan);
+router.get("/salesMan", salesManApiOld.getAllSalesMan);
+router.delete("/salesMan/:sid", salesManApiOld.deleteSalesMan);
+router.delete("/salesMan", salesManApiOld.deleteAllSalesMan);
+router.put("/salesMan/:sid", salesManApiOld.updateSalesMan);
+
 
 //performance record routes
-const performanceRecordApi = require("../apis/performanceRecord-api")
+const performanceRecordApi = require("../apis/old/performanceRecord-api")
 router.post("/performanceRecord", performanceRecordApi.addPerformanceRecord);
 router.get("/performanceRecord/sid/:sid", performanceRecordApi.getPerformanceRecord);
 router.delete("/performanceRecord/sid/:sid/goalID/:goalID", performanceRecordApi.deletePerformanceRecord);
 router.put("/performanceRecord/sid/:sid/goalID/:goalID", performanceRecordApi.updatePerformanceRecord);
 
 //ADDED END
+const salesManApi = require("../apis/salesman-api")
+router.get("/salesmanOHRM/:sid", salesManApi.getSalesMan);
 
 module.exports = router;
