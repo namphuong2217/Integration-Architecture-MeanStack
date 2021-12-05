@@ -1,0 +1,118 @@
+<head>
+  <!-- MATERIAL CDN -->
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+    rel="stylesheet"
+  />
+</head>
+<body>
+<div class="container">
+  <!------------ BEGIN OF LEFT SECTION -------------->
+  <aside>
+    <div class="top">
+      <div class="close" id="close-btn">
+        <span class="material-icons-sharp">close</span>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <a href="#" class="active">
+        <span class="material-icons-sharp">grid_view</span>
+        <h3>Dashboard</h3>
+      </a>
+      <a href="#">
+        <span class="material-icons-sharp">person_outline</span>
+        <h3>Salesman</h3>
+      </a>
+      <a href="#">
+        <span class="material-icons-sharp">receipt_long</span>
+        <h3>Orders</h3>
+      </a>
+    </div>
+  </aside>
+  <!------------------ END OF ASIDE ------------------>
+
+  <!------------ BEGIN OF CENTRAL SECTION -------------->
+  <main>
+    <h1>Dashboard</h1>
+
+    <div class="insights">
+      <div class="sales">
+        <span class="material-icons-sharp">analytics</span>
+        <div class="middle">
+          <div class="left">
+            <h3>Total Sales</h3>
+            <h1>$780</h1>
+          </div>
+        </div>
+      </div>
+      <!------------ END OF SALES -------------->
+      <div class="expenses">
+        <span class="material-icons-sharp">people</span>
+        <div class="middle">
+          <div class="left">
+            <h3>Total Salesman</h3>
+            <h1>3</h1>
+          </div>
+        </div>
+      </div>
+      <!------------ END OF EXPENSES -------------->
+      <div class="income">
+        <span class="material-icons-sharp">stacked_line_chart</span>
+        <div class="middle">
+          <div class="left">
+            <h3>Total Categories</h3>
+            <h1>2</h1>
+          </div>
+        </div>
+      </div>
+      <!------------ END OF INCOME -------------->
+    </div>
+    <!------------ END OF INSIGHTS -------------->
+
+    <div class="salesman-data-table">
+      <h2>Senior Salesman</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>Salesman Name</th>
+          <th>Employee ID</th>
+          <th>Department</th>
+          <th>Year of Performance</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let salesman of salesman">
+          <td>{{salesman.name}}</td>
+          <td>{{salesman.id}}</td>
+          <td>{{salesman.department}}</td>
+          <td>{{salesman.year_of_performance}}</td>
+          <td class="primary" style="text-decoration: underline; text-decoration-color: orangered"><a href="https://google.com" style="color:#FF0000;">Calculate Bonus</a></td>
+        </tr>
+        </tbody>
+      </table>
+
+      <a href="#">Show All</a>
+    </div>
+  </main>
+  <!----------------- END OF MAIN -------------------->
+
+  <!------------ BEGIN OF RIGHT SECTION -------------->
+  <div class="right">
+    <div class="top">
+      <button id="menu-btn">
+        <span class="material-icons-sharp">menu</span>
+      </button>
+      <div class="profile">
+        <div class="info">
+          <p><b>Michael Moore</b></p>
+          <small class="text-muted">CEO</small>
+        </div>
+      </div>
+    </div>
+    <!-- END OF TOP -->
+  </div>
+</div>
+
+</body>

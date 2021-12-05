@@ -17,6 +17,7 @@ import {MatIconModule} from "@angular/material/icon";
 import { MenuBarComponent } from './components/menu-bar/menu-bar.component';
 import { ExamplePageComponent } from './pages/example-page/example-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
     LandingPageComponent,
     MenuBarComponent,
     ExamplePageComponent,
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    DashboardPageComponent
   ],
   imports: [
     BrowserModule,
