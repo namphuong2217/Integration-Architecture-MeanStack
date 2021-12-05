@@ -42,7 +42,6 @@ router.get("/salesman/:sid/bonus", salesManApi.getEmployeeBonus);
 
 //ORDER EVALUATION
 const orderEvaluationApi = require("../apis/orderEvaluation-api")
-router.get("/orderEvaluation", orderEvaluationApi.getOrderEvaluations);
-router.get("/orderEvaluation/", orderEvaluationApi.getOrderEvaluations);
+router.get("/orderEvaluation/:sid", orderEvaluationApi.getOrderEvaluations);
 
 module.exports = router;

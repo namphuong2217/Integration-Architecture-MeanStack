@@ -1,20 +1,25 @@
 //const SalesMan = require("../models/SalesMan")
 const orderEvaluationService = require("../services/orderEvaluation-service");
+const orderEvaluationFilter = require("./filter/orderEvaluation-filter");
 
 exports.getOrderEvaluations = async function(req, res) {
-    const oid = req.params.oid;
-    const resp = await orderEvaluationService.orderEvaluationsRead()
-        .catch((error) => {
-            console.log(error);
-        });
-    return res.send(resp);
-}
+    const sid = req.params.sid;
 
-exports.getOrderEvaluation = async function(req, res) {
-    const oid = req.params.oid;
-    const resp = await orderEvaluationService.orderEvaluationsRead(oid)
+    // get evaluation records from OpenCRX
+    const respEvaluationRecords = await orderEvaluationService.orderEvaluationsRead()
         .catch((error) => {
             console.log(error);
         });
-    return res.send(resp);
+
+    //get accounts from OrangeHRM
+    const respAccounts = await orderEvaluationService.accountsRead()
+        .catch((error) => {
+            console.log(error);
+        });
+
+    //get OrderEvaluations
+    const filteredOrderEvaluations = orderEvaluationFilter.filterOrderEvaluationBySid(sid, respEvaluationRecords, respAccounts);
+    if(filteredOrderEvaluations.length === 0){return res.send("{status: error}")};
+
+    return res.send(filteredOrderEvaluations);
 }
