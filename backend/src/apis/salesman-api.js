@@ -7,16 +7,11 @@ exports.getEmployee = async function(req, res) {
         .catch((error) => {
             console.log(error);
         });
-    return res.send(resp);
+    if(resp.status){return res.send(resp)};
+    const salesMan = new SalesMan(resp["code"], resp["firstName"], resp["lastName"], "Sales");
+    return res.send(salesMan);
 }
 
-exports.getEmployees = async function(req, res) {
-    const resp = await salesManService.employeesRead()
-        .catch((error) => {
-            console.log(error);
-        });
-    return res.send(resp);
-}
 
 exports.postEmployeeBonus = async function(req, res) {
     const sid = parseInt(req.params.sid);

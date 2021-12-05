@@ -36,7 +36,6 @@ router.put("/performanceRecord/sid/:sid/goalID/:goalID", performanceRecordApi.up
 //SALESMAN
 const salesManApi = require("../apis/salesman-api")
 router.get("/salesman/:sid", salesManApi.getEmployee);
-router.get("/salesman", salesManApi.getEmployees);
 router.post("/salesman/:sid/bonus", salesManApi.postEmployeeBonus);
 router.get("/salesman/:sid/bonus", salesManApi.getEmployeeBonus);
 
