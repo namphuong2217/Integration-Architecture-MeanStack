@@ -41,8 +41,8 @@ router.post("/salesman/:sid/bonus", salesManApi.postEmployeeBonus);
 router.get("/salesman/:sid/bonus", salesManApi.getEmployeeBonus);
 
 //ORDER EVALUATION
-//const orderEvaluation = require("../apis/salesman-api")
-//router.get("/orderEvaluation/:oid", orderEvaluationApi.getOrderEvaluation)
+const orderEvaluationApi = require("../apis/orderEvaluation-api")
+router.get("/orderEvaluation/:sid", orderEvaluationApi.getOrderEvaluations);
 
 //Social Performance
 const socialPerformanceAPI = require("../apis/social-performance-api")
