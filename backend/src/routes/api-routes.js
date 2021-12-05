@@ -44,4 +44,11 @@ router.get("/salesman/:sid/bonus", salesManApi.getEmployeeBonus);
 //const orderEvaluation = require("../apis/salesman-api")
 //router.get("/orderEvaluation/:oid", orderEvaluationApi.getOrderEvaluation)
 
+//Social Performance
+const socialPerformanceAPI = require("../apis/social-performance-api")
+router.get("/socialPerformance/:sid", socialPerformanceAPI.getSocialPerformance);
+router.post("/socialPerformance", socialPerformanceAPI.addSocialPerformance);
+router.put("/socialPerformance/:sid/:year", socialPerformanceAPI.updateSocialPerformance);
+router.delete("/socialPerformance/:sid/:year", socialPerformanceAPI.deleteSocialPerformance);
+
 module.exports = router;
