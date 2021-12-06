@@ -40,7 +40,7 @@ router.post("/salesman/:sid/bonus", salesManApi.postEmployeeBonus);
 router.get("/salesman/:sid/bonus", salesManApi.getEmployeeBonus);
 
 //ORDER EVALUATION
-const orderEvaluationApi = require("../apis/orderEvaluation-api")
+const orderEvaluationApi = require("../apis/order-evaluation-api")
 router.get("/orderEvaluation/:sid", orderEvaluationApi.getOrderEvaluations);
 
 //Social Performance
@@ -49,5 +49,9 @@ router.get("/socialPerformance/:sid", socialPerformanceAPI.getSocialPerformance)
 router.post("/socialPerformance", socialPerformanceAPI.addSocialPerformance);
 router.put("/socialPerformance/:sid/:year", socialPerformanceAPI.updateSocialPerformance);
 router.delete("/socialPerformance/:sid/:year", socialPerformanceAPI.deleteSocialPerformance);
+
+//controller
+const performanceRecordController = require("../controllers/performance-record-controller");
+router.get("/performanceRecord/:sid", performanceRecordController.getPerformanceRecord)
 
 module.exports = router;

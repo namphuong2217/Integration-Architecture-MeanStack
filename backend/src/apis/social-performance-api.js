@@ -20,6 +20,13 @@ exports.getSocialPerformance = async(req, res) => {
     return res.send(JSON.stringify(socialPerformance));
 }
 
+exports.getSocialPerformanceObject = async(req, sid) => {
+    const db = req.app.get('db');
+    const sidInt = parseInt(sid);
+    const socialPerformance = await socialPerformanceService.get(db, sidInt);
+    return socialPerformance;
+}
+
 exports.deleteSocialPerformance = async(req, res) => {
     const db = req.app.get('db');
     const sid = parseInt(req.params.sid);

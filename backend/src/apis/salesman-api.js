@@ -11,6 +11,15 @@ exports.getEmployee = async function(req, res) {
     return res.send(salesMan);
 }
 
+exports.getEmployeeObject = async function(sid) {
+    const resp = await salesManService.employeeRead(sid)
+        .catch((error) => {
+            console.log(error);
+        });
+    const salesMan = new SalesMan(resp["code"], resp["firstName"], resp["lastName"], "Sales");
+    return salesMan;
+}
+
 
 exports.postEmployeeBonus = async function(req, res) {
     const resp = await salesManService.salesManBonusWrite(req.params.sid)

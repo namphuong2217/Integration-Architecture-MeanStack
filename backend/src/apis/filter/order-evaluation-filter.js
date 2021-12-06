@@ -26,7 +26,7 @@ exports.filterOrderEvaluationBySid = function(sid, evaluationRecords, accounts){
 
     //Get Vcard of salesman
     let vcardSalesman =  getVcardBySid(sid, accounts);
-    if(vcardSalesman.length !== 1){return "{status: error}"};
+    if(vcardSalesman.length !== 1){return []};
     vcardSalesman = vcardSalesman[0];
 
     //Get all order of salesman
