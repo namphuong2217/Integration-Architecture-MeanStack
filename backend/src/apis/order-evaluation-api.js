@@ -18,7 +18,6 @@ exports.getOrderEvaluations = async function(req, res) {
 
     //get OrderEvaluations
     const filteredOrderEvaluations = orderEvaluationFilter.filterOrderEvaluationBySid(sid, respEvaluationRecords, respAccounts);
-    //if(filteredOrderEvaluations.length === 0){return res.send("{status: error}")};
 
     return res.send(filteredOrderEvaluations);
 }
@@ -39,5 +38,6 @@ exports.getOrderEvaluationsObject = async function(sid){
 
     //get OrderEvaluations
     const filteredOrderEvaluations = orderEvaluationFilter.filterOrderEvaluationBySid(sid, respEvaluationRecords, respAccounts);
+
     return filteredOrderEvaluations;
 }
