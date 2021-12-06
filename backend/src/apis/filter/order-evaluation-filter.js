@@ -1,4 +1,5 @@
 const OrderEvaluation = require("../../models/OrderEvaluation");
+const mapRanking = require("../mapping/mapping-ranking");
 const Customer = require("../../models/Customer");
 
 getVcardBySid = function(sid, accounts) {
@@ -40,7 +41,7 @@ exports.filterOrderEvaluationBySid = function(sid, evaluationRecords, accounts){
         let customerAccount = getCustomerByVcard(vcardCustomer, accounts);
         const orderEvaluation = new OrderEvaluation(order["name"], // todo product name
                                                         customerAccount["fullName"],
-                                                        customerAccount["accountRating"], //todo = RATING???
+                                                        mapRanking.mapRatingToString(customerAccount["accountRating"]), //todo = RATING???
                                                         order["totalAmount"]
                                                     );
         listOrderEvaluation.push(orderEvaluation);
@@ -48,3 +49,6 @@ exports.filterOrderEvaluationBySid = function(sid, evaluationRecords, accounts){
 
     return listOrderEvaluation;
 }
+
+
+
