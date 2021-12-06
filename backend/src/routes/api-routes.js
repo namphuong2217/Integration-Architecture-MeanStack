@@ -34,6 +34,68 @@ router.put("/performanceRecord/sid/:sid/goalID/:goalID", performanceRecordApi.up
  */
 
 //SALESMAN
+
+/**
+*@swagger
+*components:
+*   schemas: 
+*       Salesman:
+*           type: object
+*           required:
+*               - sid
+*               - first_name
+*               - last_name
+*               - department
+*           properties:
+*               sid: 
+*                   type: int
+*                   description: Salesman ID
+*               first_name: 
+*                   type: string
+*                   description: First Name eg. John
+*               last_name: 
+*                   type: string
+*                   description: Last Name eg. Doe
+*               department: 
+*                   type: string
+*                   description: eg. Sales
+*           example:
+*               sid: 1
+*               first_name: John
+*               last_name: Doe
+*               department: Sales
+*/
+
+/**
+ * @swagger
+ * tags:
+ *  name: Salesman
+ *  description: The Salesman Managing API
+ */
+
+/**
+ * @swagger
+ * /api/salesman/{sid}:
+ *  get:
+ *      summary: Returns Salesman specified by SID
+ *      tags: [Salesman]
+ *      parameters:
+ *          - in: path
+ *            name: sid
+ *            schema: 
+ *              type: string
+ *            required: true
+ *            description: The Salesman ID
+ *      responses:
+ *          200:
+ *              description: The Salesman
+ *              contents:
+ *                  application/json
+ *              schema:
+ *                  type: array
+ *                  items:
+ *                      $ref: '#/components/schemas/Salesman'
+ */
 const salesManApi = require("../apis/salesman-api")
 router.get("/salesman/:sid", salesManApi.getEmployee);
 router.post("/salesman/:sid/bonus", salesManApi.postEmployeeBonus);

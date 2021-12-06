@@ -6,7 +6,9 @@ exports.getEmployee = async function(req, res) {
         .catch((error) => {
             console.log(error);
         });
-    if(resp.status){return res.send(resp)};
+    if(resp.status){
+        return res.send(resp)
+    };
     const salesMan = new SalesMan(resp["code"], resp["firstName"], resp["lastName"], "Sales");
     return res.send(salesMan);
 }
