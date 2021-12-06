@@ -18,6 +18,11 @@ import { MenuBarComponent } from './components/menu-bar/menu-bar.component';
 import { ExamplePageComponent } from './pages/example-page/example-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { BonusCalculationPageComponent } from './pages/bonus-calculation-page/bonus-calculation-page.component';
+import { OrdersDataTableComponent } from './orders-data-table/orders-data-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -28,7 +33,9 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
     MenuBarComponent,
     ExamplePageComponent,
     NotFoundPageComponent,
-    DashboardPageComponent
+    DashboardPageComponent,
+    BonusCalculationPageComponent,
+    OrdersDataTableComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +47,10 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
     MatButtonModule,
     MatCardModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

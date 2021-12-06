@@ -6,6 +6,7 @@ import {AuthGuardService} from "./services/auth-guard.service";
 import {ExamplePageComponent} from "./pages/example-page/example-page.component";
 import {NotFoundPageComponent} from "./pages/not-found-page/not-found-page.component";
 import {DashboardPageComponent} from "./pages/dashboard-page/dashboard-page.component";
+import {BonusCalculationPageComponent} from "./pages/bonus-calculation-page/bonus-calculation-page.component";
 
 /*
   This array holds the relation of paths and components which angular router should resolve.
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
   {path: 'example', component: ExamplePageComponent, canActivate: [AuthGuardService]},
   {path: 'dashboard', component: DashboardPageComponent, canActivate: [AuthGuardService]},
+  {path: 'dashboard/bonus-calculation', component: BonusCalculationPageComponent, canActivate: [AuthGuardService]},
   {path: '', component: LandingPageComponent, canActivate: [AuthGuardService]},
   {path:'**', component: NotFoundPageComponent} //these entries are matched from top to bottom => not found should be the last entry
 ];

@@ -5,7 +5,7 @@ export interface Salesman {
   year_of_performance: number;
 }
 
-export const SALESMAN = [
+export const SALESMEN = [
   {
     id: 90123,
     name: 'John Smith',
@@ -25,6 +25,7 @@ export const SALESMAN = [
     year_of_performance: '2018'
   },
 ];
+
 
 export const ORDERS_EVALUATION = [
   {
@@ -68,3 +69,10 @@ export const SOCIAL_PERFORMANCE_EVALUATION = [
     bonus: 60
   }
 ];
+
+export const SALESMAN = {
+  sid: '90123',
+  first_name: 'John',
+  last_name: 'Smith',
+  department: 'Sales'
+}

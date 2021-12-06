@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SALESMAN } from "../../mock-data";
+import { SALESMEN } from "../../mock-data";
 
 @Component({
   selector: 'app-dashboard-page',
@@ -8,7 +8,8 @@ import { SALESMAN } from "../../mock-data";
 })
 export class DashboardPageComponent implements OnInit {
 
-  salesman = SALESMAN;
+  salesman = SALESMEN;
+  button = {title: 'Bonus Calculation', routerLink: 'bonus-calculation'};
   constructor() { }
 
   ngOnInit(): void {
