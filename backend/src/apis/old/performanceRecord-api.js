@@ -1,5 +1,5 @@
 const performanceRecordService = require("../../services/old/performanceRecord-service");
-const PerformanceRecord = require("../../models/PerformanceRecord");
+const PerformanceRecord = require("../../models/old/PerformanceRecord");
 
 exports.addPerformanceRecord = async(req, res) => {
     const db = req.app.get('db');

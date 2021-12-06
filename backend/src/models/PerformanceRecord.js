@@ -1,11 +1,9 @@
+
 class PerformanceRecord{
-    constructor(sid, goal_id, goal_description, target_value, actual_value, year) {
-        this.sid = sid;
-        this.goal_id = goal_id;
-        this.goal_description = goal_description;
-        this.target_value = target_value;
-        this.actual_value = actual_value;
-        this.year = year;
+    constructor(salesman, orderEvaluation, socialPerformance) {
+        this.salesman = salesman;
+        this.orderEvaluation = orderEvaluation;
+        this.socialPerformance = socialPerformance;
     }
 }
 

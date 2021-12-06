@@ -13,6 +13,9 @@ const crypto = require('crypto');
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+
 // MongoDB connection details:
 const domain = 'localhost';
 const port = '27017';
@@ -23,6 +26,30 @@ const databaseName = 'intArch';
 app.use(express.json()); //adds support for json encoded bodies
 app.use(express.urlencoded({extended: true})); //adds support url encoded bodies
 app.use(upload.array()); //adds support multipart/form-data bodies
+
+const options = {
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "High Performance",
+            version: "1.0.0",
+            description: "High Performance API"
+        },
+        servers: [
+            {
+                url: "http://localhost:8088"
+            }
+        ]
+    },
+    apis: ["./src/routes/api-routes.js"]
+}
+  
+const specs = swaggerJsdoc(options);
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs, { explorer: true })
+);
 
 app.use(session({
     secret: crypto.randomBytes(32).toString('hex'),

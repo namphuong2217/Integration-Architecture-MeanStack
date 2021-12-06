@@ -26,32 +26,16 @@ const makeHeader = async() => {
 
 const header = makeHeader();
 
-const hrmCreate = async(url, body) => {
-    const res = await axios.post(url, body, await header)
-        .catch((error) => {
-            console.log(error);
-        })
-
-    return res.data;
-}
-
 exports.employeeRead = async(sid) => {
-    const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${sid}`;
+    const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/search?code=${sid}`;
     const res = await axios.get(url, await header)
         .catch((error) => {
             console.log(error);
         })
-    return res.data;
+    if(!res){return {"status" : "error"}}
+    return res.data.data[0];
 }
 
-exports.employeesRead = async() => {
-    const url = "https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/search";
-    const res = await axios.get(url, await header)
-        .catch((error) => {
-            console.log(error);
-        })
-    return res.data;
-}
 
 exports.salesManBonusWrite = async(sid) => {
     /*
