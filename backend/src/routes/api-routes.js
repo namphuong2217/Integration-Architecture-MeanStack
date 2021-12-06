@@ -362,7 +362,7 @@ router.post("/socialPerformance", socialPerformanceAPI.addSocialPerformance);
  *              type: string
  *            required: true
  *            description: The Salesman ID
-*          - in: path
+ *          - in: path
  *            name: year
  *            schema: 
  *              type: string
@@ -386,7 +386,7 @@ router.put("/socialPerformance/:sid/:year", socialPerformanceAPI.updateSocialPer
 
 /**
  * @swagger
- * /api/socialPerformance/{sid}:
+ * /api/socialPerformance/{sid}/{year}:
  *  delete:
  *      summary: Returns Salesman specified by SID
  *      tags: [Social Performance Record]
@@ -397,6 +397,12 @@ router.put("/socialPerformance/:sid/:year", socialPerformanceAPI.updateSocialPer
  *              type: string
  *            required: true
  *            description: The Salesman ID
+ *          - in: path
+ *            name: year
+ *            schema: 
+ *              type: string
+ *            required: true
+ *            description: The Year of Social Performance Record
  *      responses:
  *          200:
  *              description: Status
