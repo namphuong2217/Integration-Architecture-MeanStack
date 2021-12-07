@@ -33,7 +33,7 @@ const employeeRead = async(sid) => {
         .catch((error) => {
             console.log(error);
         })
-    if(!res){return {"status" : "error"}}
+    if(!res){return {"status" : "employee not found"}}
     return res.data.data[0];
 }
 
@@ -41,7 +41,6 @@ module.exports.employeeRead = employeeRead;
 
 exports.salesManBonusWrite = async(req, sid) => {
     const salesman = await employeeRead(sid);
-    console.log( await salesman["employeeId"]);
     const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${await salesman["employeeId"]}/bonussalary`;
     const qBody = qs.stringify(req.body);
     console.log(qBody);
@@ -51,23 +50,12 @@ exports.salesManBonusWrite = async(req, sid) => {
         })
 
     return res.data; //res.data;
-    /*
-    const urlI = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${sid}/bonussalary`;
-    return axios({
-        method: 'post',
-        url: urlI,
-        header
-        data: {
-            year: '2001',
-            value: '2001',
-        }
-    });
-
-     */
 }
 
 exports.salesManBonusRead = async(sid) => {
-    const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${sid}/bonussalary`;
+    const salesman = await employeeRead(sid);
+    if(salesman.status){return salesman;}
+    const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${await salesman["employeeId"]}/bonussalary`;
     const res = await axios.get(url, await header)
         .catch((error) => {
             console.log(error);
