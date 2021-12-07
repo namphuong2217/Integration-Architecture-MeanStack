@@ -41,7 +41,7 @@ exports.filterOrderEvaluationBySid = function(sid, evaluationRecords, accounts){
         let customerAccount = getCustomerByVcard(vcardCustomer, accounts);
         const orderEvaluation = new OrderEvaluation(order["name"], // todo product name
                                                         customerAccount["fullName"],
-                                                        mapRanking.mapRatingToString(customerAccount["accountRating"]), //todo = RATING???
+                                                        mapRanking.mapRatingToString(customerAccount["accountRating"]),
                                                         order["totalAmount"]
                                                     );
         listOrderEvaluation.push(orderEvaluation);

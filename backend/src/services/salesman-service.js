@@ -1,4 +1,5 @@
 const axios = require('axios');
+const qs = require("query-string");
 
 const getToken = () => {
     return axios({
@@ -8,7 +9,7 @@ const getToken = () => {
             client_id: 'api_oauth_id',
             client_secret: 'oauth_secret',
             grant_type: 'password',
-            username: 'demouser',
+            username: 'Wagner',
             password: '*Safb02da42Demo$'
         }
     });
@@ -26,7 +27,7 @@ const makeHeader = async() => {
 
 const header = makeHeader();
 
-exports.employeeRead = async(sid) => {
+const employeeRead = async(sid) => {
     const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/search?code=${sid}`;
     const res = await axios.get(url, await header)
         .catch((error) => {
@@ -36,17 +37,33 @@ exports.employeeRead = async(sid) => {
     return res.data.data[0];
 }
 
+module.exports.employeeRead = employeeRead;
 
-exports.salesManBonusWrite = async(sid) => {
-    /*
-    const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${sid}/bonussalary`;
-    const res = await axios.get(url, await header)
+exports.salesManBonusWrite = async(req, sid) => {
+    const salesman = await employeeRead(sid);
+    console.log( await salesman["employeeId"]);
+    const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${await salesman["employeeId"]}/bonussalary`;
+    const qBody = qs.stringify(req.body);
+    console.log(qBody);
+    const res = await axios.post(url, qBody, await header)
         .catch((error) => {
             console.log(error);
         })
 
+    return res.data; //res.data;
+    /*
+    const urlI = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${sid}/bonussalary`;
+    return axios({
+        method: 'post',
+        url: urlI,
+        header
+        data: {
+            year: '2001',
+            value: '2001',
+        }
+    });
+
      */
-    return "not yet implemented"; //res.data;
 }
 
 exports.salesManBonusRead = async(sid) => {
