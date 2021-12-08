@@ -1,12 +1,7 @@
 const axios = require('axios');
+const headerCRX = require("./auth/headerCRX")
 
-const header = {
-    'Content-Type': 'application/json',
-    auth: {
-        username: 'guest',
-        password: 'guest'
-    }
-}
+const header = headerCRX.header;
 
 exports.orderEvaluationsRead = async() => {
     const url = "https://sepp-crm.inf.h-brs.de/opencrx-rest-CRX/org.opencrx.kernel.contract1/provider/CRX/segment/Standard/salesOrder";
