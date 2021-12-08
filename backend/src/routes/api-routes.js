@@ -428,7 +428,7 @@ router.delete("/socialPerformance/:sid/:year", socialPerformanceAPI.deleteSocial
  *  name: Performance Record
  *  description: The Performance Record Managing API
  */
-const bonusCompCollectionController = require("../controllers/bonus-comp-collection-controller");
+const bonusCompCollectionApi = require("../apis/bonus-comp-collection-api");
 
 /**
  * @swagger
@@ -453,6 +453,6 @@ const bonusCompCollectionController = require("../controllers/bonus-comp-collect
  *                  items:
  *                      $ref: '#/components/schemas/Performance Record'
  */
-router.get("/bonusCompCollection/:sid", bonusCompCollectionController.getPerformanceRecord)
+router.get("/bonusCompCollection/:sid", bonusCompCollectionApi.getPerformanceRecord)
 
 module.exports = router;
