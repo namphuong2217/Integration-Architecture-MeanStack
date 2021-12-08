@@ -25,7 +25,7 @@ exports.getEmployeeObject = async function(sid) {
 
 
 exports.postEmployeeBonus = async function(req, res) {
-    const resp = await salesManService.salesManBonusWrite(req.params.sid)
+    const resp = await salesManService.salesManBonusWrite(req, req.params.sid)
         .catch((error) => {
             console.log(error);
         });

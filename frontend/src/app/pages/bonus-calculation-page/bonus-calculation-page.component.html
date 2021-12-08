@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="bonus-header">
+    Bonus Computation Sheet
+  </div>
+  <div class="salesman-container" *ngIf="salesman">
+    <p>Name: {{salesman.first_name}} {{salesman.last_name}}</p>
+    <p>EmployeeID: {{salesman.sid}}</p>
+    <p>Department: {{salesman.department}}</p>
+    <p>Year of Performance: NULL</p>
+  </div>
+
+  <app-orders-data-table class="dt-orders"></app-orders-data-table>
+</div>
