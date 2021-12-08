@@ -10,13 +10,13 @@ exports.getOrderEvaluations = async function(req, res) {
             console.log(error);
         });
 
-    //get accounts from OrangeHRM
+    //get accounts from OpenCRX
     const respAccounts = await orderEvaluationService.accountsRead()
         .catch((error) => {
             console.log(error);
         });
 
-    //get OrderEvaluations
+    //filter OrderEvaluations
     const filteredOrderEvaluations = orderEvaluationFilter.filterOrderEvaluationBySid(sid, respEvaluationRecords, respAccounts);
 
     return res.send(filteredOrderEvaluations);
@@ -36,8 +36,8 @@ exports.getOrderEvaluationsObject = async function(sid){
             console.log(error);
         });
 
-    //get OrderEvaluations
-    const filteredOrderEvaluations = orderEvaluationFilter.filterOrderEvaluationBySid(sid, respEvaluationRecords, respAccounts);
+    //filter OrderEvaluations
+    const filteredOrderEvaluations = await orderEvaluationFilter.filterOrderEvaluationBySid(sid, respEvaluationRecords, respAccounts);
 
     return filteredOrderEvaluations;
 }
