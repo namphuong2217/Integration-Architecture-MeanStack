@@ -1,7 +1,7 @@
 const OrderEvaluation = require("../../models/OrderEvaluation");
 const mapRanking = require("../mapping/mapping-ranking");
-const positionController = require("../../controllers/position-controller");
-const productController = require("../../controllers/product-controller");
+const positionController = require("../position-controller");
+const productController = require("../product-controller");
 
 getVcardBySid = function(sid, accounts) {
     return accounts.objects.filter(account => account["governmentId"] == sid)
