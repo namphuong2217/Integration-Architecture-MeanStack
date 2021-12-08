@@ -202,7 +202,7 @@ const orderEvaluationApi = require("../apis/order-evaluation-api")
  * @swagger
  * /api/orderEvaluation/{sid}:
  *  get:
- *      summary: Returns Salesman specified by SID
+ *      summary: Returns order evaluations of a salesman specified by SID
  *      tags: [Order]
  *      parameters:
  *          - in: path
@@ -400,7 +400,7 @@ router.delete("/socialPerformance/:sid/:year", socialPerformanceAPI.deleteSocial
 *@swagger
 *components:
 *   schemas: 
-*       Performance Record:
+*       Bonus Computation collection:
 *           type: object
 *           required:
 *               - salesman
@@ -425,8 +425,8 @@ router.delete("/socialPerformance/:sid/:year", socialPerformanceAPI.deleteSocial
 /**
  * @swagger
  * tags:
- *  name: Performance Record
- *  description: The Performance Record Managing API
+ *  name: Bonus Computation Collection
+ *  description: The Bonus Computation Collection Managing API
  */
 const bonusCompCollectionApi = require("../apis/bonus-comp-collection-api");
 
@@ -434,8 +434,8 @@ const bonusCompCollectionApi = require("../apis/bonus-comp-collection-api");
  * @swagger
  * /api/bonusCompCollection/{sid}:
  *  get:
- *      summary: Returns all Performance Records for SID
- *      tags: [Performance Record]
+ *      summary: Returns all necessary collections to compute the bonus for a given SID
+ *      tags: [Bonus Computation Collection]
  *      parameters:
  *          - in: path
  *            name: sid
@@ -445,13 +445,13 @@ const bonusCompCollectionApi = require("../apis/bonus-comp-collection-api");
  *            description: The Salesman ID
  *      responses:
  *          200:
- *              description: The Performance Record for SID
+ *              description: Collections to compute the bonus for a given SID
  *              contents:
  *                  application/json
  *              schema:
  *                  type: object
  *                  items:
- *                      $ref: '#/components/schemas/Performance Record'
+ *                      $ref: '#/components/schemas/Bonus Computation Collection'
  */
 router.get("/bonusCompCollection/:sid", bonusCompCollectionApi.getPerformanceRecord)
 

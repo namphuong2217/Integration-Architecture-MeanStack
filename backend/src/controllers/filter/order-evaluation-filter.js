@@ -50,7 +50,7 @@ exports.filterOrderEvaluationBySid = async function(sid, evaluationRecords, acco
             const productName = await productController.getProductName(position.productVcard)
             const orderEvaluation = new OrderEvaluation(productName,
                 customerAccount["fullName"],
-                mapRanking.mapRatingToString(customerAccount["accountRating"]),
+                mapRanking.mapRatingToString(customerAccount["accountRating"]), // @ todo check if == ranking
                 position.amount
             );
             listOrderEvaluation.push(orderEvaluation);
