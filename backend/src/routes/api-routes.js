@@ -428,11 +428,11 @@ router.delete("/socialPerformance/:sid/:year", socialPerformanceAPI.deleteSocial
  *  name: Performance Record
  *  description: The Performance Record Managing API
  */
-const performanceRecordController = require("../controllers/performance-record-controller");
+const bonusCompCollectionController = require("../controllers/bonus-comp-collection-controller");
 
 /**
  * @swagger
- * /api/performanceRecord/{sid}:
+ * /api/bonusCompCollection/{sid}:
  *  get:
  *      summary: Returns all Performance Records for SID
  *      tags: [Performance Record]
@@ -453,6 +453,6 @@ const performanceRecordController = require("../controllers/performance-record-c
  *                  items:
  *                      $ref: '#/components/schemas/Performance Record'
  */
-router.get("/performanceRecord/:sid", performanceRecordController.getPerformanceRecord)
+router.get("/bonusCompCollection/:sid", bonusCompCollectionController.getPerformanceRecord)
 
 module.exports = router;

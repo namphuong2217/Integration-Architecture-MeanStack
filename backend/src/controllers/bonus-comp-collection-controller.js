@@ -1,14 +1,15 @@
 const orderEvaluationController = require("../controllers/order-evaluation-controller");
+const salesmanController = require("../controllers/salesman-controller");
 const socialPerformanceApi = require("../apis/social-performance-api");
-const salesmanApi = require("../apis/salesman-api");
-const PerformanceRecord = require("../models/PerformanceRecord")
+
+const BonusCompCollection = require("../models/BonusCompCollection")
 
 exports.getPerformanceRecord = async function(req, res) {
     const sid = req.params.sid;
     const orderEvaluation = await orderEvaluationController.getOrderEvaluations(sid);
     const socialPerformance = await socialPerformanceApi.getSocialPerformanceObject(req, sid);
-    const salesman = await salesmanApi.getEmployeeObject(sid);
+    const salesman = await salesmanController.getEmployee(sid);
 
-    const performanceRecord = new PerformanceRecord(salesman, orderEvaluation, socialPerformance);
+    const performanceRecord = new BonusCompCollection(salesman, orderEvaluation, socialPerformance);
     return res.send(performanceRecord);
 }

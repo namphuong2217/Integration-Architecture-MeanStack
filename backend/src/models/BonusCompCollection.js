@@ -1,5 +1,5 @@
 
-class PerformanceRecord{
+class BonusCompCollection {
     constructor(salesman, orderEvaluation, socialPerformance) {
         this.salesman = salesman;
         this.orderEvaluation = orderEvaluation;
@@ -7,4 +7,4 @@ class PerformanceRecord{
     }
 }
 
-module.exports = PerformanceRecord;
+module.exports = BonusCompCollection;
