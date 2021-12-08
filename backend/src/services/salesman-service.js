@@ -49,7 +49,7 @@ exports.salesManBonusWrite = async(req, sid) => {
             console.log(error);
         })
 
-    return res.data; //res.data;
+    return res.data;
 }
 
 exports.salesManBonusRead = async(sid) => {

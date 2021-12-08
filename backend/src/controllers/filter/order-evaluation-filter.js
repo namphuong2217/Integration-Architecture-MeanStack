@@ -1,5 +1,5 @@
 const OrderEvaluation = require("../../models/OrderEvaluation");
-const mapRanking = require("../mapping/mapping-ranking");
+const mapRanking = require("../mapper/mapping-ranking");
 const positionController = require("../position-controller");
 const productController = require("../product-controller");
 

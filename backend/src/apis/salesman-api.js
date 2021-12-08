@@ -1,26 +1,10 @@
-const SalesMan = require("../models/SalesMan")
 const salesManService = require("../services/salesman-service");
+const salesManController = require("../controllers/salesman-controller")
 
 exports.getEmployee = async function(req, res) {
-    const resp = await salesManService.employeeRead(req.params.sid)
-        .catch((error) => {
-            console.log(error);
-        });
-    if(resp.status){
-        return res.send(resp)
-    };
-    const salesMan = new SalesMan(resp["code"], resp["firstName"], resp["lastName"], "Sales");
+    const sid = req.params.sid;
+    const salesMan = await salesManController.getEmployee(sid);
     return res.send(salesMan);
-}
-
-exports.getEmployeeObject = async function(sid) {
-    const resp = await salesManService.employeeRead(sid)
-        .catch((error) => {
-            console.log(error);
-        });
-    if(resp.status){return resp};
-    const salesMan = new SalesMan(resp["code"], resp["firstName"], resp["lastName"], "Sales");
-    return salesMan;
 }
 
 

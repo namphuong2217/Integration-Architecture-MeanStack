@@ -14,24 +14,6 @@ router.get('/login', authApi.isLoggedIn); //the function, which handles requests
 const userApi = require('../apis/user-api');
 router.get('/user', checkAuthorization(), userApi.getSelf);
 
-/*
-//salesman routes
-const salesManApiOld = require("../apis/old/salesman-api")
-router.post("/salesManOld", salesManApiOld.addSalesMan);
-router.get("/salesManOld/:sid", salesManApiOld.getSalesMan);
-router.get("/salesManOld", salesManApiOld.getAllSalesMan);
-router.delete("/salesManOld/:sid", salesManApiOld.deleteSalesMan);
-router.delete("/salesManOld", salesManApiOld.deleteAllSalesMan);
-router.put("/salesManOld/:sid", salesManApiOld.updateSalesMan);
-
-
-//performance record routes
-const performanceRecordApi = require("../apis/old/performanceRecord-api")
-router.post("/performanceRecord", performanceRecordApi.addPerformanceRecord);
-router.get("/performanceRecord/sid/:sid", performanceRecordApi.getPerformanceRecord);
-router.delete("/performanceRecord/sid/:sid/goalID/:goalID", performanceRecordApi.deletePerformanceRecord);
-router.put("/performanceRecord/sid/:sid/goalID/:goalID", performanceRecordApi.updatePerformanceRecord);
- */
 
 //SALESMAN
 /**
