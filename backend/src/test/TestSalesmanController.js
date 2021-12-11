@@ -76,22 +76,12 @@ describe("Test of salesman contoller", () => {
         describe("GET /api/salesman/90123",  () => {
             it("should return a salesman for a given id", async () => {
 
-
-                //sinon.stub(orangeHRMService.employeeRead, "arguments").withArgs(sinon.match.any).returns(resp);
-                /*
-               / sinon.stub(orangeHRMService, "employeeRead").withArgs(sinon.match.any).returns(new Promise(function(resolve, reject) {
-                    return resp;
-                }));
-
-
-                sinon.stub(orangeHRMService, "employeeRead").withArgs(sinon.match.any).resolves(resp);
-                sinon.stub(orangeHRMService, "employeeRead").withArgs(sinon.match.any).rejects("error"); //todo replace employeeRead
+                //Replacement of employeeRead
+                sinon.stub(orangeHRMService, "employeeRead").resolves(resp);
 
                 let employee = await salesmanController.getEmployee(90123);
 
                 console.log(employee)
-
-                 */
             });
         });
 
