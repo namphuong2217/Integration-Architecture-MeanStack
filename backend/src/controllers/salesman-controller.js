@@ -9,5 +9,6 @@ exports.getEmployee = async function(sid) {
         });
     if(resp.status){return resp};
     const salesMan = new SalesMan(resp["code"], resp["firstName"], resp["lastName"], "Sales");
+
     return salesMan;
 }
