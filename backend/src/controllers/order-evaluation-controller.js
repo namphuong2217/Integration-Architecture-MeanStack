@@ -9,12 +9,12 @@ exports.getOrderEvaluations = async function(sid){
             console.log(error);
         });
 
-    //get accounts from OrangeHRM
+    //get accounts from OpenCRX
     const respAccounts = await orderEvaluationService.accountsRead()
         .catch((error) => {
             console.log(error);
         });
-
+    console.log(respAccounts);
     //filter OrderEvaluations
     const filteredOrderEvaluations = await orderEvaluationFilter.filterOrderEvaluationBySid(sid, respEvaluationRecords, respAccounts);
 

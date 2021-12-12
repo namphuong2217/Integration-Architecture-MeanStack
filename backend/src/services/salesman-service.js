@@ -34,7 +34,6 @@ const employeeRead = async(sid) => {
             console.log(error);
         })
     if(!res){return {"status" : "employee not found"}}
-    console.log("SERVICE");
     return res.data.data[0];
 }
 

@@ -9,7 +9,6 @@ exports.orderEvaluationsRead = async() => {
         .catch((error) => {
             console.log(error);
         });
-
     return res.data;
 }
 
@@ -19,5 +18,6 @@ exports.accountsRead = async() => {
         .catch((error) => {
             console.log(error);
         });
+    console.log(res.data);
     return res.data;
 }
