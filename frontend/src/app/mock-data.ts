@@ -29,20 +29,16 @@ export const SALESMEN = [
 
 export const ORDERS_EVALUATION = [
   {
-    id: 1,
-    name: 'HooverGo',
+    nameProduct: 'HooverGo',
     client: 'Telekom AG',
-    client_ranking: 'excellent',
-    items: 20,
-    bonus: 300
+    clientRanking: 'excellent',
+    items: '20',
   },
   {
-    id: 2,
-    name: 'Hoover Clean',
+    nameProduct: 'Hoover Clean',
     client: 'Germania AG',
-    client_ranking: 'good',
-    items: 50,
-    bonus: 600
+    clientRanking: 'good',
+    items: '50',
   },
 ];
 

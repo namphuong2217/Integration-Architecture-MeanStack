@@ -88,7 +88,7 @@
           <td>{{salesman.id}}</td>
           <td>{{salesman.department}}</td>
           <td>{{salesman.year_of_performance}}</td>
-          <td class="primary" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="button.routerLink">{{button.title}}</a></td>
+          <td class="primary" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[button.routerLink, salesman.id]">{{button.title}}</a></td>
         </tr>
         </tbody>
       </table>
