@@ -1,21 +1,10 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {MatTable, MatTableDataSource} from '@angular/material/table';
-import {OrdersDataTableDataSource, OrdersDataTableItem} from '../../orders-data-table/orders-data-table-datasource';
 import {OrderEvaluation} from '../../models/OrderEvaluation';
 import {OrderService} from '../../services/order.service';
 import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-
-const EXAMPLE_DATA: OrderEvaluation[] = [
-  {
-    nameProduct: 'German1',
-    client: 'Germana GmbH',
-    clientRanking: 'good',
-    items: '2500.000000000'
-  }
-];
 
 @Component({
   selector: 'app-order-evaluation-dt',
@@ -48,10 +37,5 @@ export class OrderEvaluationDtComponent implements AfterViewInit {
       .subscribe(data => (this.data = data));
   }
 
-  // tslint:disable-next-line:typedef
-  // getAllOrdersEvaluation(){
-  //   this.orderService.getOrderEvaluation('90123')
-  //     .subscribe(orders => this.dataSource.data = orders as OrderEvaluation[]);
-  // }
 
 }

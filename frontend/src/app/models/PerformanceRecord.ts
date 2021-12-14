@@ -1,6 +1,4 @@
-export class PerformanceRecord{
-  constructor(
-    public target: number,
-    public actual: number,
-  ) {  }
+export interface PerformanceRecord{
+    target: number;
+    actual: number;
 }

@@ -23,6 +23,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { OrderEvaluationDtComponent } from './components/order-evaluation-dt/order-evaluation-dt.component';
+import { SocialPerformanceDtComponent } from './components/social-performance-dt/social-performance-dt.component';
+import { SocialPerformanceComponent } from './components/social-performance/social-performance.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { OrderEvaluationDtComponent } from './components/order-evaluation-dt/ord
     NotFoundPageComponent,
     DashboardPageComponent,
     BonusCalculationPageComponent,
-    OrderEvaluationDtComponent
+    OrderEvaluationDtComponent,
+    SocialPerformanceDtComponent,
+    SocialPerformanceComponent
   ],
   imports: [
     BrowserModule,
