@@ -1,15 +1,16 @@
 const OrderEvaluation = require("../../models/OrderEvaluation");
 const positionController = require("../position-controller");
 const productController = require("../product-controller");
+const bonusCalculationEnricher = require("./bonus-calculation-enricher");
 
-exports.transformOrderEvaluation = async function(sid, year, saleOrders, accounts){
+exports.transformOrderEvaluations = async function(sid, year, saleOrders, accounts){
 
-    const ordersOfSalesman = filterOrderEvaluationBySidYear(sid, year, saleOrders, accounts);
+    const ordersOfSalesman = filterSaleOrdersBySidYear(sid, year, saleOrders, accounts);
 
-    return await enrichOrderEvaluation(ordersOfSalesman, accounts);
+    return await enrichOrderEvaluations(ordersOfSalesman, accounts);
 }
 
-enrichOrderEvaluation = async function(ordersOfSalesman, accounts) {
+enrichOrderEvaluations = async function(ordersOfSalesman, accounts) {
     let listOrderEvaluation = [];
     for(const order of ordersOfSalesman){
         const vcardCustomer = getVcardCustomerByHref(order.customer["@href"]);
@@ -21,7 +22,8 @@ enrichOrderEvaluation = async function(ordersOfSalesman, accounts) {
             const orderEvaluation = new OrderEvaluation(productName,
                 customerAccount.fullName,
                 translateRatingToString(customerAccount.accountRating),
-                position.amount
+                position.amount,
+                bonusCalculationEnricher.getBonusForSale(productName, customerAccount.accountRating, position.amount)
             );
             listOrderEvaluation.push(orderEvaluation);
         }
@@ -29,7 +31,7 @@ enrichOrderEvaluation = async function(ordersOfSalesman, accounts) {
     return listOrderEvaluation;
 }
 
-filterOrderEvaluationBySidYear = function(sid, year, evaluationRecords, accounts){
+filterSaleOrdersBySidYear = function(sid, year, saleOrders, accounts){
     //Get Vcard of salesman
     let vcardSalesman =  getVcardBySid(sid, accounts);
     if(vcardSalesman.length !== 1){return []}
@@ -37,7 +39,7 @@ filterOrderEvaluationBySidYear = function(sid, year, evaluationRecords, accounts
 
     //Filter saleOrders of given salesman
     const href = `https://sepp-crm.inf.h-brs.de/opencrx-rest-CRX/org.opencrx.kernel.account1/provider/CRX/segment/Standard/account/${vcardSalesman}`;
-    return evaluationRecords.objects.filter(order => order.salesRep["@href"] == String(href) && getYearOfStringDate(order.activeOn) == String(year));
+    return saleOrders.objects.filter(order => order.salesRep["@href"] == String(href) && getYearOfStringDate(order.activeOn) == String(year));
 }
 
 translateRatingToString = function(rating){

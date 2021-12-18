@@ -24,21 +24,4 @@ exports.postEmployeeBonus = async function(req, res) {
         });
     return res.send(resp);
 }
-/*
 
-exports.postEmployeeBonus = async function(req, res) {
-    const resp = await salesManService.salesManBonusWrite(req, req.params.sid)
-        .catch((error) => {
-            console.log(error);
-        });
-    return res.send(resp);
-}
-
-exports.getEmployeeBonus = async function(req, res) {
-    const resp = await salesManService.salesManBonusRead(req.params.sid)
-        .catch((error) => {
-            console.log(error);
-        });
-    return res.send(resp);
-}
-*/

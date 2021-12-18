@@ -16,6 +16,6 @@ exports.getOrderEvaluations = async function(sid, year){
         });
 
     //transform read data to orderevaluation
-    return await orderEvaluationFilter.transformOrderEvaluation(sid, year, respEvaluationRecords, respAccounts);
+    return await orderEvaluationFilter.transformOrderEvaluations(sid, year, respEvaluationRecords, respAccounts);
 
 }
