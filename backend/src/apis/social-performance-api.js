@@ -6,7 +6,7 @@ const SocialPerformance = require("../models/SocialPerformance");
 exports.addSocialPerformance = async(req, res) => {
     const db = req.app.get('db');
     const body = req.body;
-    const socialPerformance = new SocialPerformance(body.sid, body.year, body.leadership_competence, body.openness, body.social_behaviour, body.attitude, body.comm_skills, body.integrity);
+    const socialPerformance = new SocialPerformance(body.sid, body.issuerID, body.year, body.leadership_competence, body.openness, body.social_behaviour, body.attitude, body.comm_skills, body.integrity);
     const spInCollection = socialPerformanceService.spInCollection(db, socialPerformance);
     if(await spInCollection){
         return res.send(JSON.stringify({status: "error: social performance already in collection"}));
