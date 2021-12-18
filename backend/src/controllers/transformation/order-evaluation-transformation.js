@@ -12,7 +12,7 @@ exports.transformOrderEvaluation = async function(sid, year, saleOrders, account
 enrichOrderEvaluation = async function(ordersOfSalesman, accounts) {
     let listOrderEvaluation = [];
     for(const order of ordersOfSalesman){
-        const vcardCustomer = getVcardCustomerByHref(order["customer"]["@href"]);
+        const vcardCustomer = getVcardCustomerByHref(order.customer["@href"]);
         const customerAccount = getCustomerByVcard(vcardCustomer, accounts);
         const vcardSalesOrder = await getVcardSalesOrderByHref(order["@href"]);
         const positions = await positionController.getPositionsForOrder(vcardSalesOrder);
@@ -37,7 +37,7 @@ filterOrderEvaluationBySidYear = function(sid, year, evaluationRecords, accounts
 
     //Filter saleOrders of given salesman
     const href = `https://sepp-crm.inf.h-brs.de/opencrx-rest-CRX/org.opencrx.kernel.account1/provider/CRX/segment/Standard/account/${vcardSalesman}`;
-    return evaluationRecords.objects.filter(order => order["salesRep"]["@href"] == href && getYearOfStringDate(order.activeOn) == year);
+    return evaluationRecords.objects.filter(order => order.salesRep["@href"] == String(href) && getYearOfStringDate(order.activeOn) == String(year));
 }
 
 translateRatingToString = function(rating){
@@ -61,8 +61,8 @@ translateRatingToString = function(rating){
  */
 
 getVcardBySid = function(sid, accounts) {
-    return accounts.objects.filter(account => account["governmentId"] == sid)
-        .map(account => mapVcardStringOnVcard(account["vcard"]));
+    return accounts.objects.filter(account => account.governmentId == String(sid))
+        .map(account => mapVcardStringOnVcard(account.vcard));
 }
 
 function mapVcardStringOnVcard(vcardString){
@@ -80,7 +80,7 @@ getVcardSalesOrderByHref = function(href){
 }
 
 getCustomerByVcard = function(vcard, accounts){
-    return accounts.objects.find(account => mapVcardStringOnVcard(account["vcard"]) == vcard);
+    return accounts.objects.find(account => mapVcardStringOnVcard(account.vcard) == String(vcard));
 }
 
 getYearOfStringDate = function(date){

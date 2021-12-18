@@ -5,7 +5,7 @@ exports.getProductName = async function(productId) {
         .catch((error) => {
             console.log(error);
         });
-    if(resp.status){return resp};
-    return resp["name"];
+    if(resp.status){return resp}
+    return resp.name;
 }
 

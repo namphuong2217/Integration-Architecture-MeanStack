@@ -10,7 +10,7 @@ exports.getEmployee = async function(sid) {
             console.log(error);
         });
     if(resp.status){return resp}
-    return new SalesMan(resp["code"], resp["firstName"], resp["lastName"], "Sales");
+    return new SalesMan(resp.code, resp.firstName, resp.lastName, resp.unit);
 }
 
 exports.getEmployeeBonus = async function(sid, year) {
