@@ -154,7 +154,7 @@ router.post("/salesman/:sid/bonus", salesManApi.postEmployeeBonus);
  *                  items:
  *                      $ref: '#/components/schemas/Bonus'
  */
-router.get("/salesman/:sid/bonus", salesManApi.getEmployeeBonus);
+router.get("/salesman/:sid/bonus/:year", salesManApi.getEmployeeBonus);
 
 //ORDER EVALUATION
 /**

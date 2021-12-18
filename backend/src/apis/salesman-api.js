@@ -7,6 +7,16 @@ exports.getEmployee = async function(req, res) {
     return res.send(salesMan);
 }
 
+exports.getEmployeeBonus = async function(req, res) {
+    const sid = req.params.sid;
+    const year = req.params.year;
+    const resp = await salesManController.getEmployeeBonus(sid, year)
+        .catch((error) => {
+            console.log(error);
+        });
+    return res.send(resp);
+}
+
 
 exports.postEmployeeBonus = async function(req, res) {
     const resp = await salesManService.salesManBonusWrite(req, req.params.sid)
@@ -15,7 +25,7 @@ exports.postEmployeeBonus = async function(req, res) {
         });
     return res.send(resp);
 }
-
+/*
 exports.getEmployeeBonus = async function(req, res) {
     const resp = await salesManService.salesManBonusRead(req.params.sid)
         .catch((error) => {
@@ -23,4 +33,4 @@ exports.getEmployeeBonus = async function(req, res) {
         });
     return res.send(resp);
 }
-
+*/

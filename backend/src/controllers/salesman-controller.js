@@ -1,5 +1,6 @@
 const salesManService = require("../services/salesman-service");
 const SalesMan = require("../models/SalesMan");
+const bonusFilter = require("./filter/bonus-filter");
 
 
 exports.getEmployee = async function(sid) {
@@ -7,8 +8,15 @@ exports.getEmployee = async function(sid) {
         .catch((error) => {
             console.log(error);
         });
-    if(resp.status){return resp};
-    const salesMan = new SalesMan(resp["code"], resp["firstName"], resp["lastName"], "Sales");
+    if(resp.status){return resp}
+    return new SalesMan(resp["code"], resp["firstName"], resp["lastName"], "Sales");
+}
 
-    return salesMan;
+exports.getEmployeeBonus = async function(sid, year) {
+    const resp = await salesManService.readEmployeeBonus(sid, year)
+        .catch((error) => {
+            console.log(error);
+        });
+    if(resp.status){return resp}
+    return bonusFilter.filterOrderEvaluationBySid(resp, year);
 }
