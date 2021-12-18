@@ -1,4 +1,3 @@
-const salesManService = require("../services/salesman-service");
 const salesManController = require("../controllers/salesman-controller")
 
 exports.getEmployee = async function(req, res) {
@@ -17,6 +16,15 @@ exports.getEmployeeBonus = async function(req, res) {
     return res.send(resp);
 }
 
+exports.postEmployeeBonus = async function(req, res) {
+    const sid = req.params.sid;
+    const resp = await salesManController.postEmployeeBonus(sid, req.body)
+        .catch((error) => {
+            console.log(error);
+        });
+    return res.send(resp);
+}
+/*
 
 exports.postEmployeeBonus = async function(req, res) {
     const resp = await salesManService.salesManBonusWrite(req, req.params.sid)
@@ -25,7 +33,7 @@ exports.postEmployeeBonus = async function(req, res) {
         });
     return res.send(resp);
 }
-/*
+
 exports.getEmployeeBonus = async function(req, res) {
     const resp = await salesManService.salesManBonusRead(req.params.sid)
         .catch((error) => {

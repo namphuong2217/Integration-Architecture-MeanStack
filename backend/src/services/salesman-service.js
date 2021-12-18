@@ -50,11 +50,10 @@ exports.readEmployeeBonus = async(sid) => {
     return res.data.data;
 }
 
-exports.salesManBonusWrite = async(req, sid) => {
+exports.writeEmployeeBonus = async(sid, bonus) => {
     const salesman = await employeeRead(sid);
     const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${await salesman["employeeId"]}/bonussalary`;
-    const qBody = qs.stringify(req.body);
-    console.log(qBody);
+    const qBody = qs.stringify(bonus);
     const res = await axios.post(url, qBody, await header)
         .catch((error) => {
             console.log(error);
