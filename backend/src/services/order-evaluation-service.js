@@ -18,6 +18,5 @@ exports.accountsRead = async() => {
         .catch((error) => {
             console.log(error);
         });
-    console.log(res.data);
     return res.data;
 }

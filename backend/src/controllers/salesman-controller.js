@@ -1,6 +1,6 @@
 const salesManService = require("../services/salesman-service");
 const SalesMan = require("../models/SalesMan");
-const bonusFilter = require("./filter/bonus-filter");
+const bonusFilter = require("./transformation/bonus-filter");
 const Bonus = require("../models/Bonus")
 
 

@@ -221,7 +221,7 @@ const orderEvaluationApi = require("../apis/order-evaluation-api")
  *                  items:
  *                      $ref: '#/components/schemas/Order'
  */
-router.get("/orderEvaluation/:sid", orderEvaluationApi.getOrderEvaluations);
+router.get("/orderEvaluation/:sid/:year", orderEvaluationApi.getOrderEvaluations);
 
 //Social Performance
 /**

@@ -1,7 +1,7 @@
 const orderEvaluationService = require("../services/order-evaluation-service");
-const orderEvaluationFilter = require("./filter/order-evaluation-filter");
+const orderEvaluationFilter = require("./transformation/order-evaluation-transformation");
 
-exports.getOrderEvaluations = async function(sid){
+exports.getOrderEvaluations = async function(sid, year){
 
     // get evaluation records from OpenCRX
     const respEvaluationRecords = await orderEvaluationService.orderEvaluationsRead()
@@ -14,9 +14,8 @@ exports.getOrderEvaluations = async function(sid){
         .catch((error) => {
             console.log(error);
         });
-    console.log(respAccounts);
-    //filter OrderEvaluations
-    const filteredOrderEvaluations = await orderEvaluationFilter.filterOrderEvaluationBySid(sid, respEvaluationRecords, respAccounts);
 
-    return filteredOrderEvaluations;
+    //transform read data to orderevaluation
+    return await orderEvaluationFilter.transformOrderEvaluation(sid, year, respEvaluationRecords, respAccounts);
+
 }
