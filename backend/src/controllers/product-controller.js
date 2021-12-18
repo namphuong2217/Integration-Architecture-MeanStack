@@ -1,7 +1,7 @@
 const productService = require("../services/product-service");
 
 exports.getProductName = async function(productId) {
-    const resp = await productService.productNameRead(productId)
+    const resp = await productService.readProductName(productId)
         .catch((error) => {
             console.log(error);
         });

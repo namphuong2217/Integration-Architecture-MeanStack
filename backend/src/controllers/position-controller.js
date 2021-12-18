@@ -3,7 +3,7 @@ const positionService = require("../services/position-service");
 
 
 exports.getPositionsForOrder = async function(salesOrderId) {
-    const resp = await positionService.positionRead(salesOrderId)
+    const resp = await positionService.readPosition(salesOrderId)
         .catch((error) => {
             console.log(error);
         });
