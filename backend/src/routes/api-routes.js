@@ -309,6 +309,8 @@ const socialPerformanceAPI = require("../apis/social-performance-api")
  */
 router.get("/socialPerformance/:sid", socialPerformanceAPI.getSocialPerformance);
 
+router.get("/socialPerformanceYearAvg/:sid/:year", socialPerformanceAPI.getYearAverage);
+
 /**
  * @swagger
  * /api/socialPerformance:

@@ -22,6 +22,14 @@ exports.getSocialPerformance = async(req, res) => {
     return res.send(JSON.stringify(socialPerformance));
 }
 
+exports.getYearAverage = async(req, res) => {
+    const db = req.app.get('db');
+    const sid = parseInt(req.params.sid);
+    const year = parseInt(req.params.year);
+    const socialPerformance = await socialPerformanceService.getYearAverage(db, sid, year);
+    return res.send(JSON.stringify(socialPerformance));
+}
+
 exports.getSocialPerformanceObject = async(req, sid) => { //todo auslagern in controller
     const db = req.app.get('db');
     const sidInt = parseInt(sid);
