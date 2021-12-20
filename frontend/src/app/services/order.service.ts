@@ -10,7 +10,7 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
-  getOrderEvaluation(id: string): Observable<OrderEvaluation[]>{
-    return this.http.get<OrderEvaluation[]>(`api/orderEvaluation/${id}`);
+  getOrderEvaluation(id: string, year: string): Observable<OrderEvaluation[]>{
+    return this.http.get<OrderEvaluation[]>(`api/orderEvaluation/${id}/${year}`);
   }
 }
