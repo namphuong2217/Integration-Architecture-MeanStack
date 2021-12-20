@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {SocialPerformance} from '../../models/SocialPerformance';
 import {SocialPerformanceService} from '../../services/social-performance.service';
@@ -9,14 +9,16 @@ import {SocialPerformanceService} from '../../services/social-performance.servic
   styleUrls: ['./social-performance-form.component.css']
 })
 export class SocialPerformanceFormComponent {
-  // name = new FormControl('');
+
+  // @Input() salesmanID = '90123';
+  salesmanID = '90123';
 
   constructor(private socialPerformanceService: SocialPerformanceService) {
 
   }
 
   socialPerformanceForm = new FormGroup({
-    sid: new FormControl(90123),
+    sid: new FormControl(Number(this.salesmanID)),
     year: new FormControl(''),
     leadership_competence: new FormGroup({
       target: new FormControl(''),

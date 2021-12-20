@@ -32,6 +32,8 @@
     <input id="openness_to_employee_actual" type="number" formControlName="actual">
   </div>
 
+  <hr>
+
   <div formGroupName="social_behaviour">
     <h2>Social Behavior to Employee</h2>
 
@@ -56,6 +58,8 @@
     <input id="attitude_actual" type="number" formControlName="actual">
   </div>
 
+  <hr>
+
   <div formGroupName="comm_skills">
     <h2>Communication Skills</h2>
 
@@ -79,6 +83,7 @@
     <input id="actual" type="number" formControlName="actual">
   </div>
 
+  <hr>
   <p>Complete the form to enable button.</p>
   <button type="submit" [disabled]="!socialPerformanceForm.valid">Submit</button>
 
