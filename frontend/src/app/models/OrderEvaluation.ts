@@ -1,0 +1,6 @@
+export interface OrderEvaluation{
+    nameProduct: string;
+    client: string;
+    clientRanking: string;
+    items: string;
+}

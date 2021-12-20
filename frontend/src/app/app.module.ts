@@ -19,10 +19,16 @@ import { ExamplePageComponent } from './pages/example-page/example-page.componen
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { BonusCalculationPageComponent } from './pages/bonus-calculation-page/bonus-calculation-page.component';
-import { OrdersDataTableComponent } from './orders-data-table/orders-data-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { OrderEvaluationDtComponent } from './components/order-evaluation-dt/order-evaluation-dt.component';
+import { SocialPerformanceDtComponent } from './components/social-performance-dt/social-performance-dt.component';
+import { SocialPerformanceComponent } from './components/social-performance/social-performance.component';
+import { EnterSocialPerformancePageComponent } from './pages/enter-social-performance-page/enter-social-performance-page.component';
+import { SocialPerformanceFormComponent } from './components/social-performance-form/social-performance-form.component';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule  } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,7 +41,11 @@ import { MatSortModule } from '@angular/material/sort';
     NotFoundPageComponent,
     DashboardPageComponent,
     BonusCalculationPageComponent,
-    OrdersDataTableComponent
+    OrderEvaluationDtComponent,
+    SocialPerformanceDtComponent,
+    SocialPerformanceComponent,
+    EnterSocialPerformancePageComponent,
+    SocialPerformanceFormComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +60,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

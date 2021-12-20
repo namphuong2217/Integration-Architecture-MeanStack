@@ -6,8 +6,24 @@
     <p>Name: {{salesman.first_name}} {{salesman.last_name}}</p>
     <p>EmployeeID: {{salesman.sid}}</p>
     <p>Department: {{salesman.department}}</p>
-    <p>Year of Performance: NULL</p>
+    <p>Year of Performance: {{yearOfPerformance}}</p>
   </div>
 
-  <app-orders-data-table class="dt-orders"></app-orders-data-table>
+  <app-order-evaluation-dt class="dt-orders"></app-order-evaluation-dt>
+  <app-social-performance class="dt-orders"></app-social-performance>
+
+  <div class="right">
+    <button mat-icon-button aria-label="Confirm" (click)="confirmBonus()" >
+      Confirm Bonus
+    </button>
+  </div>
+  <hr>
+  <hr>
+  <hr>
+  <hr>
+  <hr>
+  <hr>
+  <hr>
+  <hr>
 </div>
+
