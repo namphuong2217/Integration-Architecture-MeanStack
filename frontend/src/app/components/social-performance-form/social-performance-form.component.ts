@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {SocialPerformance} from '../../models/SocialPerformance';
-import {SocialPerformanceService} from "../../services/social-performance.service";
+import {SocialPerformanceService} from '../../services/social-performance.service';
 
 @Component({
   selector: 'app-social-performance-form',
@@ -22,25 +22,6 @@ export class SocialPerformanceFormComponent {
       target: new FormControl(''),
       actual: new FormControl(''),
     }),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     openness: new FormGroup({
       target: new FormControl(''),
       actual: new FormControl(''),
@@ -60,8 +41,7 @@ export class SocialPerformanceFormComponent {
     integrity: new FormGroup({
       target: new FormControl(''),
       actual: new FormControl(''),
-
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++`WY5EX DT34A2 1`~   )
+    }),
   });
 
   // tslint:disable-next-line:typedef
@@ -71,9 +51,6 @@ export class SocialPerformanceFormComponent {
     this.socialPerformanceService.postSocialPerformanceRecords(this.socialPerformanceForm.value);
   }
 
-  // updateName() {
-  //   this.name.setValue('Nancy');
-  // }
 }
 
 
