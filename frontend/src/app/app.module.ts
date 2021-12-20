@@ -25,6 +25,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { OrderEvaluationDtComponent } from './components/order-evaluation-dt/order-evaluation-dt.component';
 import { SocialPerformanceDtComponent } from './components/social-performance-dt/social-performance-dt.component';
 import { SocialPerformanceComponent } from './components/social-performance/social-performance.component';
+import { EnterSocialPerformancePageComponent } from './pages/enter-social-performance-page/enter-social-performance-page.component';
+import { SocialPerformanceFormComponent } from './components/social-performance-form/social-performance-form.component';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule  } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,9 @@ import { SocialPerformanceComponent } from './components/social-performance/soci
     BonusCalculationPageComponent,
     OrderEvaluationDtComponent,
     SocialPerformanceDtComponent,
-    SocialPerformanceComponent
+    SocialPerformanceComponent,
+    EnterSocialPerformancePageComponent,
+    SocialPerformanceFormComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +60,8 @@ import { SocialPerformanceComponent } from './components/social-performance/soci
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

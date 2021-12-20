@@ -14,4 +14,11 @@ export class SocialPerformanceService {
     console.log('run SocialPerformance Service');
     return this.http.get<SocialPerformance>(`/api/socialPerformance/${id}`);
   }
+
+  postSocialPerformanceRecords(object: object): void {
+    this.http.post('/api/socialPerformance/', object).subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error)
+    );
+  }
 }

@@ -16,6 +16,6 @@ export class SalesmanService {
 
   getSalesmen(): Observable<Salesman>{
     // const params = new HttpParams().set("keyword", id);
-    return this.http.get<Salesman>(`/api/salesman`);
+    return this.http.get<Salesman>(`/api/salesmen`);
   }
 }

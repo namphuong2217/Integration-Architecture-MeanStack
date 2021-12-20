@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SALESMEN } from "../../mock-data";
+import { SALESMEN } from '../../mock-data';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -8,8 +8,10 @@ import { SALESMEN } from "../../mock-data";
 })
 export class DashboardPageComponent implements OnInit {
 
+  // TODO: Get list of all senior salesmen from backend
   salesman = SALESMEN;
-  button = {title: 'Bonus Calculation', routerLink: 'bonus-calculation'};
+  buttonBonusCalculation = {title: 'Bonus Calculation', routerLink: 'bonus-calculation'};
+  buttonEnterSocialPerformance = {title: 'Rate Social Performance', routerLink: 'enter-social-performance'};
   constructor() { }
 
   ngOnInit(): void {
