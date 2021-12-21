@@ -9,7 +9,7 @@ exports.getBonusForSale = (productName, ranking, items) =>{
         case("HooverGo"):
             return (7-ranking)*items*5;
         default:
-            return (7-ranking)*items
+            return (7-ranking)*items;
     }
 }
 

@@ -453,6 +453,6 @@ const bonusCompCollectionApi = require("../apis/bonus-comp-collection-api");
  *                  items:
  *                      $ref: '#/components/schemas/Bonus Computation Collection'
  */
-router.get("/bonusCompCollection/:sid", bonusCompCollectionApi.getPerformanceRecord)
+router.get("/bonusCompCollection/:sid",checkAuthorization, bonusCompCollectionApi.getPerformanceRecord)
 
 module.exports = router;
