@@ -8,6 +8,7 @@ exports.getBonusCompCollection = async function(req, res) {
     return res.send(resp);
 }
 
+
 exports.postBonusCompCollection = async function(req, res){
     const body = req.body;
     const db = req.app.get('db');

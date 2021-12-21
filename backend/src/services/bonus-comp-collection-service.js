@@ -7,6 +7,7 @@ exports.readBonusCompCollection = async (sid, year, db) => {
     return res;
 }
 
+//todo overwritten or redundant
 exports.writeBonusCompCollection = async(bonusComputationCollection, db) => {
     return (await db.collection('bonusCompCollection').insertOne(bonusComputationCollection)).insertedId;
 }
