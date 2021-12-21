@@ -18,7 +18,7 @@ exports.getBonusForSocialPerformance = (performance, target, actual) =>{
     switch(performance){
         case("leadership_competence"):
             return target;
-        case("oppenness"):
+        case("openness"):
             return target;
         case("social_behaviour"):
             return target;
@@ -28,5 +28,7 @@ exports.getBonusForSocialPerformance = (performance, target, actual) =>{
             return target;
         case("integrity"):
             return target;
+        default:
+            return null;
     }
 }

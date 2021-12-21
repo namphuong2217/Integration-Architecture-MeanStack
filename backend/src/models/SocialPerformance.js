@@ -1,6 +1,6 @@
 class SocialPerformance{
     constructor(sid, year, leadership_competence, openness, social_behaviour, attitude, comm_skills, integrity) {
-        this.sid = sid;
+        this.sid =sid;
         this.year = year;
         this.leadership_competence = leadership_competence;
         this.openness = openness;
