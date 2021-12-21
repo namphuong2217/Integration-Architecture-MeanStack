@@ -1,7 +1,6 @@
 const OrderEvaluation = require("../../models/OrderEvaluation");
 const positionController = require("../position-controller");
 const productController = require("../product-controller");
-const bonusCalculationEnricher = require("./bonus-calculation-enricher");
 
 exports.transformOrderEvaluations = async function(sid, year, saleOrders, accounts){
 
@@ -21,7 +20,7 @@ enrichOrderEvaluations = async function(ordersOfSalesman, accounts) {
             const productName = await productController.getProductName(position.productVcard)
             const orderEvaluation = new OrderEvaluation(productName,
                 customerAccount.fullName,
-                translateRatingToString(customerAccount.accountRating),
+                customerAccount.accountRating,
                 position.amount//,
                 //bonusCalculationEnricher.getBonusForSale(productName, customerAccount.accountRating, position.amount)
             );
@@ -42,6 +41,7 @@ filterSaleOrdersBySidYear = function(sid, year, saleOrders, accounts){
     return saleOrders.objects.filter(order => order.salesRep["@href"] == String(href) && getYearOfStringDate(order.activeOn) == String(year));
 }
 
+//todo translator
 translateRatingToString = function(rating){
     switch(rating){
         case 1:

@@ -13,22 +13,28 @@ exports.getBonusForSale = (productName, ranking, items) =>{
     }
 }
 
-//todo Formel anpassen
+
 exports.getBonusForSocialPerformance = (performance, target, actual) =>{
+    const factorDiff = factorDiffTargAct(target, actual);
     switch(performance){
         case("leadership_competence"):
-            return target;
+            return factorDiff*target*5;
         case("openness"):
-            return target;
+            return factorDiff*target*5;
         case("social_behaviour"):
-            return target;
+            return factorDiff*target*10;
         case("attitude"):
-            return target;
+            return factorDiff*target*5;
         case("comm_skills"):
-            return target;
+            return factorDiff*target*8;
         case("integrity"):
-            return target;
+            return factorDiff*target*8;
         default:
             return null;
     }
+}
+
+const factorDiffTargAct = (target, actual) =>{
+    const diff = actual - target;
+    return 1.5 * Math.exp(diff*0.5);
 }

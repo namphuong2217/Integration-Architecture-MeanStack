@@ -455,4 +455,7 @@ const bonusCompCollectionApi = require("../apis/bonus-comp-collection-api");
  */
 router.get("/bonusCompCollection/:sid/:year", bonusCompCollectionApi.getBonusCompCollection)
 
+//todo beschriftung
+router.post("/bonusCompCollection", bonusCompCollectionApi.postBonusCompCollection)
+
 module.exports = router;

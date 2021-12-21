@@ -1,4 +1,5 @@
 const OrderEvaluation = require("./OrderEvaluation")
+const bonusCalcEnricher = require("../controllers/transformation/bonus-calculation-enricher")
 
 class OrderEvaluationEval extends OrderEvaluation{
     constructor(nameProduct, client, clientRanking, items, bonus, comment){
@@ -11,7 +12,7 @@ class OrderEvaluationEval extends OrderEvaluation{
         let listOrderEval = [];
         orderEvaluation.forEach(orderEval => {
             listOrderEval.push(new OrderEvaluationEval(orderEval.nameProduct, orderEval.client, orderEval.clientRanking,
-                orderEval.items, 200, ""));
+                orderEval.items, bonusCalcEnricher.getBonusForSale(orderEval.nameProduct, orderEval.clientRanking,orderEval.items), ""));
         });
         return listOrderEval;
     }
