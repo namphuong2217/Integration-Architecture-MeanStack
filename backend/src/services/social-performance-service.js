@@ -3,6 +3,12 @@ exports.get = (db, sid) => {
     return res;
 }
 
+exports.getBySidYear = async (sid, year, db) => {
+    const filter = { sid: sid, year: year };
+    let res = await db.collection('socialPerformanceCollection').findOne(filter);
+    return res;
+}
+
 exports.add = async (db, socialPerformance) => {
     return (await db.collection('socialPerformanceCollection').insertOne(socialPerformance)).insertedId; //return unique ID
 }
