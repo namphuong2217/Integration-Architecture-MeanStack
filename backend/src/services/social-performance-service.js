@@ -3,6 +3,8 @@ exports.get = (db, sid) => {
     return res;
 }
 
+
+
 exports.getYearAverage = async(db, sid, year) => {
     let res = await db.collection('socialPerformanceCollection').find({sid: sid, year: year}).toArray();
     if(await res.length === 0) return {status: "error", message: "user does not exist"};
