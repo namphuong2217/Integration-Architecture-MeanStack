@@ -22,10 +22,12 @@ exports.getBonusComputationCollection = async function(sid, year, db) {
     const salesman = await salesmanController.getEmployee(sid);
 
     // Enrich the given data with bonus and comment
-    const orderEvaluationEval = OrderEvaluationEval.fromOrderEvaluation(orderEvaluation);
-    const socialPerformanceEval = socialPerformance===null? null : new SocialPerformanceEval(socialPerformance);
+    const ergOrder = OrderEvaluationEval.fromOrderEvaluation(orderEvaluation);
+    const ergSocial = SocialPerformanceEval.fromSocialPerformance(socialPerformance);
 
-    return new BonusCompCollection(parseInt(salesman.sid), socialPerformance.year, salesman, orderEvaluationEval, socialPerformanceEval);
+
+    return new BonusCompCollection(parseInt(salesman.sid), parseInt(year), salesman, ergOrder.listOrderEval,
+                                    ergSocial.socialPerformance,false, false, ergOrder.bonusSum, ergSocial.bonusSum);
 }
 
 exports.postBonusComputationCollection = async function(body, db){
@@ -36,7 +38,8 @@ exports.postBonusComputationCollection = async function(body, db){
     })
     const socialPerformanceEval = new SocialPerformanceEval(body.socialPerformance);
     const salesMan = new SalesMan(parseInt(body.salesman.sid), body.salesman.first_name, body.salesman.last_name, body.salesman.department);
-    const bonusCompCollection = new BonusCompCollection(salesMan.sid, socialPerformanceEval.year, salesMan, listOrderEval, socialPerformanceEval, body.approvedByCEO, body.approvedByHR);
+    const bonusCompCollection = new BonusCompCollection(salesMan.sid, socialPerformanceEval.year, salesMan, listOrderEval,
+            socialPerformanceEval, body.approvedByCEO, body.approvedByHR, body.bonusOrder, body.bonusSocial, body.bonusTotal);
     return await bonusCompCollectionService.writeBonusCompCollection(bonusCompCollection, db);
 }
 

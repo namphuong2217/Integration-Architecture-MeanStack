@@ -10,11 +10,14 @@ class OrderEvaluationEval extends OrderEvaluation{
 
     static fromOrderEvaluation(orderEvaluation) {
         let listOrderEval = [];
+        let bonusSum = 0;
         orderEvaluation.forEach(orderEval => {
+            const bonus = bonusCalcEnricher.getBonusForSale(orderEval.nameProduct, orderEval.clientRanking,orderEval.items);
+            bonusSum += bonus;
             listOrderEval.push(new OrderEvaluationEval(orderEval.nameProduct, orderEval.client, orderEval.clientRanking,
-                orderEval.items, bonusCalcEnricher.getBonusForSale(orderEval.nameProduct, orderEval.clientRanking,orderEval.items), ""));
+                orderEval.items, bonus, ""));
         });
-        return listOrderEval;
+        return {listOrderEval: listOrderEval, bonusSum : bonusSum};
     }
 }
 
