@@ -5,6 +5,7 @@ import {Salesman} from "../../models/Salesman";
 import {SocialPerformanceService} from "../../services/social-performance.service";
 import {catchError} from "rxjs/operators";
 import {of as observableOf} from "rxjs";
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-bonus-calculation-page',
@@ -14,19 +15,23 @@ import {of as observableOf} from "rxjs";
 export class BonusCalculationPageComponent implements OnInit {
 
   salesman: Salesman;
+  currentSalesmanId: string;
   yearOfPerformance: number;
 
-  constructor(private salesmanService: SalesmanService, private socialPerformanceService: SocialPerformanceService) {
+  constructor(private salesmanService: SalesmanService, private socialPerformanceService: SocialPerformanceService
+            , private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.currentSalesmanId = this.route.snapshot.paramMap.get('id');
+
     this.getCurrentSalesman();
     this.getYearOfPerformance();
   }
 
   getCurrentSalesman(): void {
     console.log('run Salesman Service');
-    this.salesmanService.getSalesman('90123').subscribe(salesman => this.salesman = salesman);
+    this.salesmanService.getSalesman(this.currentSalesmanId.toString()).subscribe(salesman => this.salesman = salesman);
   }
 
   getYearOfPerformance(): void{

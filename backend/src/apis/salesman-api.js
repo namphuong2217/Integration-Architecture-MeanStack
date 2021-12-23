@@ -6,6 +6,11 @@ exports.getEmployee = async function(req, res) {
     return res.send(salesMan);
 }
 
+exports.getEmployees = async function(req, res) {
+    const salesMan = await salesManController.getEmployees();
+    return res.send(salesMan);
+}
+
 exports.getEmployeeBonus = async function(req, res) {
     const sid = req.params.sid;
     const year = req.params.year;

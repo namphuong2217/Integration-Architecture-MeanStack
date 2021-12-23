@@ -39,6 +39,16 @@ const employeeRead = async(sid) => {
 
 module.exports.employeeRead = employeeRead;
 
+exports.getSalesmen = async() => {
+    const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/search`;
+    const res = await axios.get(url, await header)
+        .catch((error) => {
+            console.log(error);
+        })
+    if(!res){return {"status" : "employee not found"}}
+    return res.data.data;
+}
+
 exports.readEmployeeBonus = async(sid) => {
     const salesman = await employeeRead(sid);
     if(salesman.status){return salesman;}

@@ -79,6 +79,8 @@ const salesManApi = require("../apis/salesman-api")
  */
 router.get("/salesman/:sid", salesManApi.getEmployee);
 
+router.get("/salesmen", salesManApi.getEmployees);
+
 /**
 *@swagger
 *components:

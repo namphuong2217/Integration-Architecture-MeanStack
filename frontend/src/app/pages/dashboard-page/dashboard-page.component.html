@@ -75,21 +75,21 @@
       <table>
         <thead>
         <tr>
-          <th>Salesman Name</th>
           <th>Employee ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
           <th>Department</th>
-          <th>Year of Performance</th>
           <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let salesman of salesman">
-          <td>{{salesman.name}}</td>
-          <td>{{salesman.id}}</td>
+        <tr *ngFor="let salesman of salesmen">
+          <td>{{salesman.sid}}</td>
+          <td>{{salesman.first_name}}</td>
+          <td>{{salesman.last_name}}</td>
           <td>{{salesman.department}}</td>
-          <td>{{salesman.year_of_performance}}</td>
-          <td class="primary" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[buttonBonusCalculation.routerLink, salesman.id]">{{buttonBonusCalculation.title}}</a></td>
-          <td class="primary" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[buttonEnterSocialPerformance.routerLink, salesman.id]">{{buttonEnterSocialPerformance.title}}</a></td>
+          <td class="primary" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[buttonBonusCalculation.routerLink, salesman.sid]">{{buttonBonusCalculation.title}}</a></td>
+          <td class="primary" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[buttonEnterSocialPerformance.routerLink, salesman.sid]">{{buttonEnterSocialPerformance.title}}</a></td>
         </tr>
         </tbody>
       </table>
