@@ -14,7 +14,7 @@ exports.getEmployee = async function(sid) {
 }
 
 exports.getEmployees = async function() {
-    const resp = await salesManService.getSalesmen()
+    const resp = await salesManService.employeesRead()
         .catch((error) => {
             console.log(error);
         });

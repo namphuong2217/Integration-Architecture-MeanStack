@@ -1,7 +1,6 @@
 const socialPerformanceService = require("../services/social-performance-service");
 const SocialPerformance = require("../models/SocialPerformance");
 
-//todo hinzufügen von wem der performance record erstellt wurde
 
 exports.addSocialPerformance = async(req, res) => {
     const db = req.app.get('db');
@@ -28,13 +27,6 @@ exports.getYearAverage = async(req, res) => {
     const year = parseInt(req.params.year);
     const socialPerformance = await socialPerformanceService.getYearAverage(db, sid, year);
     return res.send(JSON.stringify(socialPerformance));
-}
-
-exports.getSocialPerformanceObject = async(req, sid) => { //todo auslagern in controller
-    const db = req.app.get('db');
-    const sidInt = parseInt(sid);
-    const socialPerformance = await socialPerformanceService.get(db, sidInt);
-    return socialPerformance;
 }
 
 exports.deleteSocialPerformance = async(req, res) => {
