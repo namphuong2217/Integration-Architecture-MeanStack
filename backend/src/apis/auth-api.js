@@ -1,5 +1,6 @@
 const userService = require('../services/user-service')
 const authService = require('../services/auth-service');
+const salesManController = require("../controllers/salesman-controller");
 
 /**
  * endpoint, which handles login
@@ -41,4 +42,24 @@ exports.isLoggedIn = function (req, res){
     }else {
         res.send({loggedIn: false});
     }
+}
+
+exports.register = async function (req, res){
+    const db = req.app.get('db');//get database from express
+
+    if(await userService.get(db, req.body.username)){
+        return res.status(401).send({"error" : 'user alredy exists'});
+    }
+    const employee = await salesManController.getEmployee(req.body.username);
+    if(employee.status){
+        return res.status(401).send({"error" : 'ID does not exist'});
+    }
+    const User = require("../models/User");
+    const user = new User(employee.sid, employee.first_name, employee.last_name,
+                     employee.department, req.body.password, false);
+    userService.add(db, user).then(//mark session as authenticated
+        res.send('registration successful')
+    ).catch(_=>{
+        res.status(401).send('registration failed');
+    });
 }
