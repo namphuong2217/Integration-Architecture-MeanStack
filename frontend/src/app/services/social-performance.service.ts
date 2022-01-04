@@ -15,6 +15,7 @@ export class SocialPerformanceService {
     return this.http.get<SocialPerformance>(`/api/socialPerformance/${id}`);
   }
 
+  //todo no post
   postSocialPerformanceRecords(object: object): void {
     this.http.post('/api/socialPerformance/', object).subscribe(
       (response) => console.log(response),
