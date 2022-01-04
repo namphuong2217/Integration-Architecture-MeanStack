@@ -25,6 +25,7 @@ import { EnterSocialPerformancePageComponent } from './pages/enter-social-perfor
 import { ReactiveFormsModule  } from '@angular/forms';
 import { BonusComputationCollectionPageComponent } from './pages/bonus-computation-collection-page/bonus-computation-collection-page.component';
 import { SocialPerformanceFormComponent } from './components/social-performance-form/social-performance-form.component';
+import { YearSelectorComponent } from './components/year-selector/year-selector.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { SocialPerformanceFormComponent } from './components/social-performance-
     SocialPerformanceComponent,
     EnterSocialPerformancePageComponent,
     BonusComputationCollectionPageComponent,
-    SocialPerformanceFormComponent
+    SocialPerformanceFormComponent,
+    YearSelectorComponent
   ],
   imports: [
     BrowserModule,

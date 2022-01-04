@@ -1,12 +1,13 @@
 <div class="container">
   <div class="bonus-header">
-    Bonus Computation Sheet
+    <h1><b>Bonus Computation Sheet</b></h1>
   </div>
   <div class="salesman-container" *ngIf="bonusCompCollection">
     <p>Name: {{bonusCompCollection.salesman.first_name}} {{bonusCompCollection.salesman.last_name}}</p>
     <p>EmployeeID: {{bonusCompCollection.sid}}</p>
     <p>Department: {{bonusCompCollection.salesman.department}}</p>
-    <p>Year of Performance: {{bonusCompCollection.year}}</p>
+    <!--<p>Year of Performance: {{bonusCompCollection.year}}</p>-->
+    <p><app-year-selector [selectedYear]="bonusCompCollection.year.toString()" (yearSelectedEvent)="selectYear($event)"></app-year-selector></p>
   </div>
 
   <div *ngIf="bonusCompCollection">

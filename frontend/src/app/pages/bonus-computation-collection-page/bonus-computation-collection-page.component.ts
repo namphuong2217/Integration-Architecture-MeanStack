@@ -26,4 +26,9 @@ export class BonusComputationCollectionPageComponent implements OnInit {
     this.bonusCompCollectionService.getBonusComputationCollection(sid, year)
       .subscribe(bonusCompCollection => this.bonusCompCollection = bonusCompCollection);
   }
+
+  selectYear(newYear: string){
+    this.currentYear = newYear;
+    this.getBonusCompCollection(this.currentSalesmanId, newYear);
+  }
 }
