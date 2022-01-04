@@ -38,7 +38,7 @@ exports.postBonusComputationCollection = async function(body, db){
     })
     const socialPerformanceEval = new SocialPerformanceEval(body.socialPerformance);
     const salesMan = new SalesMan(parseInt(body.salesman.sid), body.salesman.first_name, body.salesman.last_name, body.salesman.department);
-    const bonusCompCollection = new BonusCompCollection(salesMan.sid, socialPerformanceEval.year, salesMan, listOrderEval,
+    const bonusCompCollection = new BonusCompCollection(salesMan.sid, body.year, salesMan, listOrderEval,
             socialPerformanceEval, body.approvedByCEO, body.approvedByHR, body.bonusOrder, body.bonusSocial, body.bonusTotal);
     return await bonusCompCollectionService.writeBonusCompCollection(bonusCompCollection, db);
 }

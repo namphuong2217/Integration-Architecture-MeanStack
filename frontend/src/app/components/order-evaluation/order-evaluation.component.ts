@@ -14,4 +14,9 @@ export class OrderEvaluationComponent{
 
   @Input()
   bonusCompCollection: BonusCompCollection = null;
+
+  updateComment(row, val) {
+    const index = this.bonusCompCollection.orderEvaluation.findIndex(el => el == row);
+    this.bonusCompCollection.orderEvaluation[index].comment = val;
+  }
 }

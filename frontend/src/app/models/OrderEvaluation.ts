@@ -3,4 +3,6 @@ export interface OrderEvaluation{
     client: string;
     clientRanking: string;
     items: string;
+    bonus: Number;
+    comment: string;
 }

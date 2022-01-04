@@ -32,7 +32,7 @@
 
   <ng-container matColumnDef="Comment">
     <th mat-header-cell *matHeaderCellDef>Comment</th>
-    <td mat-cell *matCellDef="let row"><textarea>{{row.comment}}</textarea></td>
+    <td mat-cell *matCellDef="let row"><textarea #t (input)="updateComment(row, t.value)">{{row.comment}}</textarea></td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

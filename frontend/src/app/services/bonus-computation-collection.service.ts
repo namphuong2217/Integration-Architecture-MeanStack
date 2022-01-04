@@ -14,4 +14,9 @@ export class BonusComputationCollectionService {
       return this.http.get<BonusCompCollection>(`/api/bonusCompCollection/${sid}/${year}`);
   }
 
+  postBonusComputationCollection(bonusCompCollection: BonusCompCollection): Observable<string>{
+    console.log(bonusCompCollection);
+    return this.http.post<string>(`/api/bonusCompCollection`, bonusCompCollection);
+  }
+
 }
