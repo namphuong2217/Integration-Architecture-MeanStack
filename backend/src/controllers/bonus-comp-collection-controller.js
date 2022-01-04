@@ -1,12 +1,12 @@
 const orderEvaluationController = require("../controllers/order-evaluation-controller");
-const salesmanController = require("../controllers/salesman-controller");
+const salesmanController = require("./employee-controller");
 const socialPerformanceController = require("../controllers/social-performance-controller");
 const bonusCompCollectionService = require("../services/bonus-comp-collection-service");
 
 const BonusCompCollection = require("../models/BonusCompCollection");
 const OrderEvaluationEval = require("../models/OrderEvaluationEval");
 const SocialPerformanceEval = require("../models/SocialPerformanceEval");
-const SalesMan = require("../models/SalesMan");
+const SalesMan = require("../models/Employee");
 
 exports.getBonusComputationCollection = async function(sid, year, db) {
 

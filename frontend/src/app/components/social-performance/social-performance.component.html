@@ -1,5 +1,5 @@
 <h1>B.) Social Performance Evaluation</h1>
-<table mat-table [dataSource]="data" class="full-width-table"
+<table mat-table [dataSource]="convertToArrayData(bonusCompCollection.socialPerformance)" class="full-width-table"
        matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
 
   <ng-container matColumnDef="Criteria">
@@ -15,6 +15,16 @@
   <ng-container matColumnDef="Actual Value">
     <th mat-header-cell *matHeaderCellDef>Actual Value</th>
     <td mat-cell *matCellDef="let element">{{element.actual}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Bonus">
+    <th mat-header-cell *matHeaderCellDef>Bonus</th>
+    <td mat-cell *matCellDef="let element">{{element.bonus}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Comment">
+    <th mat-header-cell *matHeaderCellDef>Comment</th>
+    <td mat-cell *matCellDef="let element">{{element.comment}}</td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

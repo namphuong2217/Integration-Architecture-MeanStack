@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrderEvaluationDtComponent } from './order-evaluation-dt.component';
+import { OrderEvaluationComponent } from './order-evaluation.component';
 
 describe('OrderEvaluationDtComponent', () => {
-  let component: OrderEvaluationDtComponent;
-  let fixture: ComponentFixture<OrderEvaluationDtComponent>;
+  let component: OrderEvaluationComponent;
+  let fixture: ComponentFixture<OrderEvaluationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OrderEvaluationDtComponent ]
+      declarations: [ OrderEvaluationComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OrderEvaluationDtComponent);
+    fixture = TestBed.createComponent(OrderEvaluationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

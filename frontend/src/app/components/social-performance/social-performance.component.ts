@@ -1,39 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import {SocialPerformanceService} from '../../services/social-performance.service';
-import {catchError} from 'rxjs/operators';
-import {of as observableOf} from 'rxjs';
+import {Component, Input} from '@angular/core';
 import {SocialPerformance} from '../../models/SocialPerformance';
-import {JsonObject} from '@angular/compiler-cli/ngcc/src/packages/entry_point';
+import {BonusCompCollection} from '../../models/BonusCompCollection';
 
 @Component({
   selector: 'app-social-performance',
   templateUrl: './social-performance.component.html',
   styleUrls: ['./social-performance.component.css']
 })
-export class SocialPerformanceComponent implements OnInit {
+export class SocialPerformanceComponent{
 
-  socialPerformanceRecords: SocialPerformance;
-  data: Array<any>;
-  displayedColumns: string[] = ['Criteria', 'Target Value', 'Actual Value'];
-  constructor(private socialPerformanceService: SocialPerformanceService) { }
+  displayedColumns: string[] = ['Criteria', 'Target Value', 'Actual Value', 'Bonus', 'Comment'];
 
-  ngOnInit(): void {
-    this.socialPerformanceService.getPerformanceRecords(
-      '90123'
-    ).pipe(catchError(() => observableOf(null)))
-      .subscribe( data => {
-        this.socialPerformanceRecords = data[0];
-        // console.log(this.socialPerformanceRecords);
-        // console.log(data[0]);
-        this.data = this.converToArrayData(this.socialPerformanceRecords);
-        console.log('Data after converting', this.data);
-      });
-  }
+  @Input()
+  bonusCompCollection: BonusCompCollection = null;
 
-  converToArrayData(socialPerformanceRecords: SocialPerformance): object[]{
+  constructor() { }
+
+  convertToArrayData(socialPerformanceRecords: SocialPerformance): object[] {
     const result = [];
-    let object = { name: 'Leadership Competence', target: socialPerformanceRecords.leadership_competence.target
-      , actual: socialPerformanceRecords.leadership_competence.actual};
+    const rowNames = ['Leadership Competence', 'Openess to Employee', 'Social Behavior to Employee', 'Attitude towards Client',
+      'Communication Skills', 'Integrity to Company'];
+    const fieldNames = ['leadership_competence', 'openness', 'social_behaviour', 'attitude', 'comm_skills', 'integrity'];
+    for (let i = 0; i < rowNames.length; i++) {
+      const field = socialPerformanceRecords[fieldNames[i]];
+      const object = {
+        name: rowNames[i], target: field.target
+        , actual: field.actual, bonus: field.bonus, comment: field.comment
+      };
+      result.push(object);
+    }
+    return result;
+  }
+    /*
+    const result = [];
+    let field = socialPerformanceRecords.leadership_competence;
+    let object = { name: 'Leadership Competence', target: field.target
+      , actual: field.actual, bonus: field.bonus, comment: field.comment};
     result.push(object);
     object = { name: 'Openess to Employee', target: socialPerformanceRecords.openness.target
       , actual: socialPerformanceRecords.openness.actual};
@@ -52,4 +54,6 @@ export class SocialPerformanceComponent implements OnInit {
     result.push(object);
     return result;
   }
+
+     */
 }

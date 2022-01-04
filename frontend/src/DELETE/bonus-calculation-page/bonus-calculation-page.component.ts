@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { SALESMAN } from "../../mock-data";
-import {SalesmanService} from "../../services/salesman.service";
-import {Salesman} from "../../models/Salesman";
-import {SocialPerformanceService} from "../../services/social-performance.service";
-import {catchError} from "rxjs/operators";
-import {of as observableOf} from "rxjs";
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import {SalesmanService} from '../../app/services/salesman.service';
+import {Salesman} from '../../app/models/Salesman';
+import {SocialPerformanceService} from '../../app/services/social-performance.service';
+import {catchError} from 'rxjs/operators';
+import {of as observableOf} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-bonus-calculation-page',
@@ -24,7 +23,6 @@ export class BonusCalculationPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentSalesmanId = this.route.snapshot.paramMap.get('id');
-
     this.getCurrentSalesman();
     this.getYearOfPerformance();
   }
@@ -48,17 +46,3 @@ export class BonusCalculationPageComponent implements OnInit {
     // TODO: Send confirm to server
   }
 }
-  // Vorlesung Code
-//   getEmployees(): void {
-//     this.employeeService.getEmployees()
-//       .subscribe( employees
-//         => this.employees = employees);
-//
-// }
-//
-//   getEmployees(): Observable<Employee[]> {
-//     return this.http.get<Employee[]>('/api/employee')
-//       .pipe( map (employees => employees ),
-//         filter ( employee => employee.age > 18 ),
-//         catchError( console.log(...) )
-//       ); }

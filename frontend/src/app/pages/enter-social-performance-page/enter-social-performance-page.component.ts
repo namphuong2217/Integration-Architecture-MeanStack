@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {catchError} from 'rxjs/operators';
-import {of as observableOf} from 'rxjs';
 import {SalesmanService} from '../../services/salesman.service';
 import {SocialPerformanceService} from '../../services/social-performance.service';
 import {Salesman} from '../../models/Salesman';

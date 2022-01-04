@@ -4,7 +4,7 @@ const bonusCalc = require("../controllers/transformation/bonus-calculation-enric
 
 class SocialPerformanceEval extends SocialPerformance{
     constructor(socialPerformance) {
-        super(socialPerformance.sid, socialPerformance.year, socialPerformance.leadership_competence, socialPerformance.openness,
+        super(socialPerformance.sid, socialPerformance.issuerID, socialPerformance.year, socialPerformance.leadership_competence, socialPerformance.openness,
             socialPerformance.social_behaviour, socialPerformance.attitude, socialPerformance.comm_skills,
             socialPerformance.integrity);
     }

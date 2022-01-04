@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import {SocialPerformance} from '../../models/SocialPerformance';
 import {SocialPerformanceService} from '../../services/social-performance.service';
 
 @Component({
@@ -54,5 +53,3 @@ export class SocialPerformanceFormComponent {
   }
 
 }
-
-

@@ -1,8 +1,8 @@
 const sinon = require("sinon");
 const chai = require("chai");
 let expect = chai.expect;
-const orangeHRMService = require("../services/salesman-service");
-const salesmanController = require("../controllers/salesman-controller");
+const orangeHRMService = require("../services/employee-service");
+const salesmanController = require("../controllers/employee-controller");
 const returnedSalesmanObj = require("./testFiles/returnOfSalesmanOHRM").returnObj;
 
 const sid = 90123;

@@ -1,5 +1,5 @@
-const salesManService = require("../services/salesman-service");
-const SalesMan = require("../models/SalesMan");
+const salesManService = require("../services/employee-service");
+const Employee = require("../models/Employee");
 const bonusFilter = require("./transformation/bonus-filter");
 const Bonus = require("../models/Bonus")
 
@@ -10,10 +10,10 @@ exports.getEmployee = async function(sid) {
             console.log(error);
         });
     if(resp.status){return resp}
-    return new SalesMan(resp.code, resp.firstName, resp.lastName, resp.unit);
+    return new Employee(resp.code, resp.firstName, resp.lastName, resp.unit);
 }
 
-exports.getEmployees = async function() {
+exports.getSalesmen = async function() {
     const resp = await salesManService.employeesRead()
         .catch((error) => {
             console.log(error);
@@ -22,8 +22,10 @@ exports.getEmployees = async function() {
 
     let listOfSalesmenFinal = [];
     for (const salesman of resp){
-        const salesmanFinal = new SalesMan(salesman.code, salesman.firstName, salesman.lastName, salesman.unit);
-        listOfSalesmenFinal.push(salesmanFinal);
+        if(salesman.unit == "Sales"){
+            const salesmanFinal = new Employee(salesman.code, salesman.firstName, salesman.lastName, salesman.unit);
+            listOfSalesmenFinal.push(salesmanFinal);
+        }
     }
     return listOfSalesmenFinal;
 }

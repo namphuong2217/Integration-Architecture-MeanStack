@@ -2,6 +2,7 @@ import {PerformanceRecord} from './PerformanceRecord';
 
 export interface SocialPerformance{
     sid: number;
+    issuerID: number;
     year: number;
     leadership_competence: PerformanceRecord;
     openness: PerformanceRecord;

@@ -1,4 +1,4 @@
-const salesManController = require("../controllers/salesman-controller")
+const salesManController = require("../controllers/employee-controller")
 
 exports.getEmployee = async function(req, res) {
     const sid = req.params.sid;
@@ -7,7 +7,7 @@ exports.getEmployee = async function(req, res) {
 }
 
 exports.getEmployees = async function(req, res) {
-    const salesMan = await salesManController.getEmployees();
+    const salesMan = await salesManController.getSalesmen();
     return res.send(salesMan);
 }
 

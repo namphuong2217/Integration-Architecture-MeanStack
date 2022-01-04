@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="bonus-header">
+    Bonus Computation Sheet
+  </div>
+  <div class="salesman-container" *ngIf="bonusCompCollection">
+    <p>Name: {{bonusCompCollection.salesman.first_name}} {{bonusCompCollection.salesman.last_name}}</p>
+    <p>EmployeeID: {{bonusCompCollection.sid}}</p>
+    <p>Department: {{bonusCompCollection.salesman.department}}</p>
+    <p>Year of Performance: {{bonusCompCollection.year}}</p>
+  </div>
+
+  <div *ngIf="bonusCompCollection">
+    <app-order-evaluation-dt [bonusCompCollection]="bonusCompCollection"></app-order-evaluation-dt>
+    <app-social-performance  [bonusCompCollection]="bonusCompCollection"></app-social-performance>
+  </div>
+
+
+  <div class="right">
+    <button mat-icon-button aria-label="Confirm"  >
+      Confirm Bonus
+    </button>
+  </div>
+
+</div>
+

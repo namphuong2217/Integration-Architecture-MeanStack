@@ -1,6 +1,6 @@
 const userService = require('../services/user-service')
 const authService = require('../services/auth-service');
-const salesManController = require("../controllers/salesman-controller");
+const salesManController = require("../controllers/employee-controller");
 
 /**
  * endpoint, which handles login
