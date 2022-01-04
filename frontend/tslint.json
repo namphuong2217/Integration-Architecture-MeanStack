@@ -1,4 +1,5 @@
 {
+  /*
   "extends": "tslint:recommended",
   "rulesDirectory": [
     "codelyzer"
@@ -149,4 +150,5 @@
       "kebab-case"
     ]
   }
+  */
 }

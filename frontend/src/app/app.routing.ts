@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {LoginPageComponent} from './pages/login-page/login-page.component';
-import {LandingPageComponent} from './pages/landing-page/landing-page.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import {NotFoundPageComponent} from './pages/not-found-page/not-found-page.component';
 import {DashboardPageComponent} from './pages/dashboard-page/dashboard-page.component';
@@ -26,7 +25,7 @@ const routes: Routes = [
   {path: 'dashboard', component: DashboardPageComponent, canActivate: [AuthGuardService]},
   {path: 'dashboard/bonus/:sid/:year', component: BonusComputationCollectionPageComponent, canActivate: [AuthGuardService]},
   {path: 'dashboard/enter-social-performance/:sid', component: EnterSocialPerformancePageComponent, canActivate: [AuthGuardService]},
-  {path: '', component: LandingPageComponent, canActivate: [AuthGuardService]},
+  {path: '', component: DashboardPageComponent, canActivate: [AuthGuardService]},
   {path: '**', component: NotFoundPageComponent} // these entries are matched from top to bottom => not found should be the last entry
 ];
 

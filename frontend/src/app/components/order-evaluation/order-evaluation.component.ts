@@ -1,6 +1,4 @@
-import { Component, Input, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
+import { Component, Input} from '@angular/core';
 import {BonusCompCollection} from '../../models/BonusCompCollection';
 
 @Component({
@@ -16,7 +14,4 @@ export class OrderEvaluationComponent{
 
   @Input()
   bonusCompCollection: BonusCompCollection = null;
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
 }

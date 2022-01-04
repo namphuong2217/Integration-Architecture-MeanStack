@@ -5,7 +5,6 @@ import { AppRouting } from './app.routing';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { LoginComponent } from './components/login/login.component';
-import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,7 +16,6 @@ import {MatIconModule} from '@angular/material/icon';
 import { MenuBarComponent } from './components/menu-bar/menu-bar.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
-import { BonusCalculationPageComponent } from '../DELETE/bonus-calculation-page/bonus-calculation-page.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -33,11 +31,9 @@ import { SocialPerformanceFormComponent } from './components/social-performance-
     AppComponent,
     LoginPageComponent,
     LoginComponent,
-    LandingPageComponent,
     MenuBarComponent,
     NotFoundPageComponent,
     DashboardPageComponent,
-    BonusCalculationPageComponent,
     OrderEvaluationComponent,
     SocialPerformanceComponent,
     EnterSocialPerformancePageComponent,

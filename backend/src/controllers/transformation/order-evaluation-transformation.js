@@ -21,7 +21,7 @@ enrichOrderEvaluations = async function(ordersOfSalesman, accounts) {
             const orderEvaluation = new OrderEvaluation(productName,
                 customerAccount.fullName,
                 customerAccount.accountRating,
-                position.amount//,
+                Number(position.amount).toFixed(0)//,
                 //bonusCalculationEnricher.getBonusForSale(productName, customerAccount.accountRating, position.amount)
             );
             listOrderEvaluation.push(orderEvaluation);
