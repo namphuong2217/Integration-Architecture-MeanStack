@@ -10,8 +10,8 @@ import {Salesman} from '../../models/Salesman';
 export class DashboardPageComponent implements OnInit {
 
   salesmen: Salesman[];
-  buttonBonusCalculation = {title: 'Bonus Calculation', routerLink: 'bonus'};
-  buttonEnterSocialPerformance = {title: 'Rate Social Performance', routerLink: 'enter-social-performance'};
+  buttonBonusCalculation = {title: 'Bonus Calculation', routerLink: '/bonus'};
+  buttonEnterSocialPerformance = {title: 'Rate Social Performance', routerLink: '/enter-social-performance'};
   constructor(private salesmanService: SalesmanService) { }
 
   ngOnInit(): void {
