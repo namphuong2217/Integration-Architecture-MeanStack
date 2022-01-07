@@ -90,6 +90,7 @@
           <td>{{salesman.first_name}}</td>
           <td>{{salesman.last_name}}</td>
           <td>{{salesman.department}}</td>
+          <!--ngIf="userRole=='Leader'"-->
           <td class="primary" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[buttonBonusCalculation.routerLink, salesman.sid, 2021]">{{buttonBonusCalculation.title}}</a></td>
           <td class="primary" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[buttonEnterSocialPerformance.routerLink, salesman.sid]">{{buttonEnterSocialPerformance.title}}</a></td>
         </tr>

@@ -9,6 +9,11 @@
     <!--<p>Year of Performance: {{bonusCompCollection.year}}</p>-->
     <p><app-year-selector [selectedYear]="bonusCompCollection.year.toString()" (yearSelectedEvent)="selectYear($event)"></app-year-selector></p>
   </div>
+  <div>
+    <h1>Status</h1>
+    <span class="dot" style="background-color: green">HR</span> <!-- todo-->
+    <span class="dot" style="background-color: red">CEO</span>
+  </div>
 
   <div *ngIf="bonusCompCollection">
     <app-order-evaluation-dt [bonusCompCollection]="bonusCompCollection"></app-order-evaluation-dt>

@@ -47,14 +47,17 @@ exports.isLoggedIn = function (req, res){
 exports.register = async function (req, res){
     const db = req.app.get('db');//get database from express
 
+    //USER EXISTS IN DB
     if(await userService.get(db, req.body.username)){
         return res.status(401).send({"error" : 'user alredy exists'});
     }
     const employee = await salesManController.getEmployee(req.body.username);
+    // USER IS NOT IN COMPANY
     if(employee.status){
         return res.status(401).send({"error" : 'ID does not exist'});
     }
     const User = require("../models/User");
+    //REGISTER
     const user = new User(employee.sid, employee.first_name, employee.last_name,
                      employee.department, req.body.password, false);
     userService.add(db, user).then(//mark session as authenticated

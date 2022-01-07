@@ -10,7 +10,7 @@ import {SocialPerformanceService} from '../../services/social-performance.servic
 export class SocialPerformanceFormComponent {
 
   // @Input() salesmanID = '90123';
-  salesmanID = '90123';
+  salesmanID = '90123'; // todo not hard coded
 
   constructor(private socialPerformanceService: SocialPerformanceService) {
 
@@ -48,7 +48,9 @@ export class SocialPerformanceFormComponent {
   // tslint:disable-next-line:typedef
   onSubmit() {
     // TODO: Use EventEmitter with form value
-    console.warn(this.socialPerformanceForm.value);
+    console.log(this.socialPerformanceForm.value);
+    let form = this.socialPerformanceForm.value;
+    form.issuerID = 1000; // todo not hard coded
     this.socialPerformanceService.postSocialPerformanceRecords(this.socialPerformanceForm.value);
   }
 
