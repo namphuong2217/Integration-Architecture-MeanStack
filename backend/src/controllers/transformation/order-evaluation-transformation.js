@@ -28,6 +28,7 @@ enrichOrderEvaluations = async function(ordersOfSalesman, accounts) {
         }
     }
     return listOrderEvaluation;
+
 }
 
 filterSaleOrdersBySidYear = function(sid, year, saleOrders, accounts){
@@ -41,21 +42,6 @@ filterSaleOrdersBySidYear = function(sid, year, saleOrders, accounts){
     return saleOrders.objects.filter(order => order.salesRep["@href"] == String(href) && getYearOfStringDate(order.activeOn) == String(year));
 }
 
-//todo translator
-translateRatingToString = function(rating){
-    switch(rating){
-        case 1:
-            return "excellent";
-        case 2:
-            return "very good";
-        case 3:
-            return "good";
-        case 4:
-            return "okay";
-        case 5:
-            return "satisfacotry";
-    }
-}
 
 
 /**
