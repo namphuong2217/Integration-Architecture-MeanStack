@@ -8,41 +8,44 @@ const OrderEvaluationEval = require("../models/OrderEvaluationEval");
 const SocialPerformanceEval = require("../models/SocialPerformanceEval");
 const SalesMan = require("../models/Employee");
 
-const {hasRoleHR, hasRoleCEO} = require("../Globals");
+const {hasRoleHR, hasRoleCEO, hasRoleSales} = require("../Globals");
 
-exports.getBonusComputationCollection = async function(sid, year, db) {
+exports.getBonusComputationCollection = async function(sid, year, db, user) {
 
-    // If the collection is already in database
-    const bonusCompCollection = await bonusCompCollectionService.readBonusCompCollection(sid, year, db);
-    if(bonusCompCollection){
-        return bonusCompCollection;
+    if(hasRoleCEO(user) || hasRoleHR(user) || (hasRoleSales(user) && user.username == sid)){
+        // If the collection is already in database
+        const bonusCompCollection = await bonusCompCollectionService.readBonusCompCollection(sid, year, db);
+        if(bonusCompCollection){
+            return bonusCompCollection;
+        }
+
+        // Collect data from different controllers
+        const orderEvaluation = await orderEvaluationController.getOrderEvaluations(sid, year);
+        const socialPerformance = await socialPerformanceController.getSocialPerformance(sid, year, db);
+        const salesman = await salesmanController.getEmployee(sid);
+
+        // Enrich the given data with bonus and comment
+        const ergOrder = OrderEvaluationEval.fromOrderEvaluation(orderEvaluation);
+        const ergSocial = SocialPerformanceEval.createfromSocialPerformanceforBonusCompColl(socialPerformance);
+
+
+        return new BonusCompCollection(parseInt(salesman.sid), parseInt(year), salesman, ergOrder.listOrderEval,
+            ergSocial.socialPerformance,false, false, ergOrder.bonusSum, ergSocial.bonusSum);
     }
-
-    // Collect data from different controllers
-    const orderEvaluation = await orderEvaluationController.getOrderEvaluations(sid, year);
-    const socialPerformance = await socialPerformanceController.getSocialPerformance(sid, year, db);
-    const salesman = await salesmanController.getEmployee(sid);
-
-    // Enrich the given data with bonus and comment
-    const ergOrder = OrderEvaluationEval.fromOrderEvaluation(orderEvaluation);
-    const ergSocial = SocialPerformanceEval.fromSocialPerformance(socialPerformance);
-
-
-    return new BonusCompCollection(parseInt(salesman.sid), parseInt(year), salesman, ergOrder.listOrderEval,
-                                    ergSocial.socialPerformance,false, false, ergOrder.bonusSum, ergSocial.bonusSum);
 }
 
 exports.postBonusComputationCollection = async function(body, db, user){
 
     const bonusCompCollectionDB = await bonusCompCollectionService.readBonusCompCollection(body.sid, body.year, db);
+
     //if not in database, save data in DB
     if(!bonusCompCollectionDB && (hasRoleHR(user) || hasRoleCEO(user))){
         let listOrderEval = [];
         body.orderEvaluation.forEach(orderEval => {
             listOrderEval.push(new OrderEvaluationEval(orderEval.nameProduct, orderEval.client, orderEval.clientRanking,
-                orderEval.items, orderEval.bonus, orderEval.comment))
+                orderEval.items, orderEval.bonus, hasRoleCEO(user) ? orderEval.comment : ""))
         })
-        const socialPerformanceEval = new SocialPerformanceEval(body.socialPerformance);
+        const socialPerformanceEval = new SocialPerformanceEval(body.socialPerformance, hasRoleCEO(user));
         const salesMan = new SalesMan(parseInt(body.salesman.sid), body.salesman.first_name, body.salesman.last_name, body.salesman.department);
         const bonusCompCollection = new BonusCompCollection(salesMan.sid, body.year, salesMan, listOrderEval,
             socialPerformanceEval, hasRoleCEO(user), hasRoleHR(user), body.bonusOrder, body.bonusSocial, body.bonusTotal);
@@ -50,18 +53,19 @@ exports.postBonusComputationCollection = async function(body, db, user){
     }
 
     // if already in database, update data in DB
-    // if already approved
+    // if user already approved
     if((bonusCompCollectionDB.approvedByHR && hasRoleHR(user)) ||
         (bonusCompCollectionDB.approvedByCEO && hasRoleCEO(user)) ){
         return JSON.stringify({status: "error", message: `collection is already approved`});
     }
-    //HR
+    //approve of HR
     if(hasRoleHR(user)){
         return await bonusCompCollectionService.updateBonusCompCollection(body.sid, body.year, {"approvedByHR" : true}, db);
     }
-    //CEO
+    //approve of CEO
     else if(hasRoleCEO(user)){
-        return await bonusCompCollectionService.updateBonusCompCollection(body.sid, body.year, createCEOupdate(bonusCompCollectionDB, body), db);
+        const ceoUpdate = createCEOupdate(bonusCompCollectionDB, body);
+        return await bonusCompCollectionService.updateBonusCompCollection(body.sid, body.year, ceoUpdate, db);
     }
 
     //Post Bonus on OrangeHRM
@@ -76,17 +80,17 @@ exports.postBonusComputationCollection = async function(body, db, user){
 
 const createCEOupdate = function (bonusCompCollectionDB, bonusCompCollectionUpdate){
     const updatedCEO = {"approvedByCEO" : true};
-    const updateSocial = createCommentUpdateSocialPerformance(bonusCompCollectionDB.socialPerformance, bonusCompCollectionDB.socialPerformance);
-    const updateOrder = createCommentUpdateOrderEvaluation(bonusCompCollectionDB.orderEvaluation, bonusCompCollectionDB.orderEvaluation);
+    const updateSocial = createCommentUpdateSocialPerformance(bonusCompCollectionDB.socialPerformance, bonusCompCollectionUpdate.socialPerformance);
+    const updateOrder = createCommentUpdateOrderEvaluation(bonusCompCollectionDB.orderEvaluation, bonusCompCollectionUpdate.orderEvaluation);
     if(updateOrder && updateSocial){
-        return {updatedCEO, updateSocial, updateOrder};
+        return {...updatedCEO, ...updateSocial, ...updateOrder};
     }
-    if(updateOrder){ return {updatedCEO, updateOrder};}
-    if(updateSocial){ return {updatedCEO, updateSocial};}
+    if(updateOrder){ return {...updatedCEO, ...updateOrder};}
+    if(updateSocial){ return {...updatedCEO, ...updateSocial};}
 }
 
 const createCommentUpdateSocialPerformance = function(socialPerformanceDB, socialPerformanceUpdate){
-    if(socialPerformanceDB){
+    if(socialPerformanceDB.sid){
         return {
                 "socialPerformance.leadership_competence.comment" : socialPerformanceUpdate.leadership_competence.comment,
                 "socialPerformance.openness.comment" : socialPerformanceUpdate.openness.comment,
@@ -101,7 +105,7 @@ const createCommentUpdateSocialPerformance = function(socialPerformanceDB, socia
 const createCommentUpdateOrderEvaluation = function(orderEvaluationDB, orderEvaluationUpdate){
     if(orderEvaluationDB.length){
         let orderEvalComment ={};
-        for(const [i, val] of orderEvaluationDB){
+        for(let i = 0; i< orderEvaluationDB.length; ++i){
             orderEvalComment[`orderEvaluation.${i}.comment`] = orderEvaluationUpdate[i].comment;
         }
         return orderEvalComment;
