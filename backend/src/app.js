@@ -92,3 +92,7 @@ async function initDb(db){
         console.log('created admin user with password: '+adminPassword);
     }
 }
+
+exports.getDb = async function (){
+    return app.get('db');
+}
