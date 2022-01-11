@@ -59,19 +59,17 @@ exports.postBonusComputationCollection = async function(body, db, user){
         return JSON.stringify({status: "error", message: `collection is already approved`});
     }
     //approve of HR
-    if(hasRoleHR(user)){
+    else if(hasRoleHR(user)){
+        await salesmanController.postEmployeeBonus(body.sid, body.year, body.bonusTotal); // post bonus on OHRM
         return await bonusCompCollectionService.updateBonusCompCollection(body.sid, body.year, {"approvedByHR" : true}, db);
     }
     //approve of CEO
     else if(hasRoleCEO(user)){
+        await salesmanController.postEmployeeBonus(body.sid, body.year, body.bonusTotal); // post bonus on OHRM
         const ceoUpdate = createCEOupdate(bonusCompCollectionDB, body);
         return await bonusCompCollectionService.updateBonusCompCollection(body.sid, body.year, ceoUpdate, db);
     }
 
-    //Post Bonus on OrangeHRM
-    if(body.approvedByCEO && body.approvedByHR){
-        await salesmanController.postEmployeeBonus(body.sid, body.year, body.bonusTotal);
-    }
 }
 
 

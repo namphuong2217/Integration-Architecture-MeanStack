@@ -7,7 +7,7 @@ class SocialPerformanceEval extends SocialPerformance{
         super(socialPerformance.sid, socialPerformance.issuerID, socialPerformance.year, socialPerformance.leadership_competence, socialPerformance.openness,
             socialPerformance.social_behaviour, socialPerformance.attitude, socialPerformance.comm_skills,
             socialPerformance.integrity);
-        if(!commentsOfCEO){
+        if(!commentsOfCEO && socialPerformance.leadership_competence){
             this.comm_skills.comment = "";
             this.leadership_competence.comment="";
             this.attitude.comment="";

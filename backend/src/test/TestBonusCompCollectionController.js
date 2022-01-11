@@ -48,7 +48,7 @@ const bonusCompCollection = {
         }
     ],
     socialPerformance: {
-        sid: 90123,
+        sid: 1234,
         year: 2021,
         leadership_competence: {
             target: "4.00",
