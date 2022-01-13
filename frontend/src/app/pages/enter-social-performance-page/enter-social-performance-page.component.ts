@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {SalesmanService} from '../../services/salesman.service';
 import {SocialPerformanceService} from '../../services/social-performance.service';
 import {Salesman} from '../../models/Salesman';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-enter-social-performance-page',
@@ -11,15 +13,19 @@ import {Salesman} from '../../models/Salesman';
 export class EnterSocialPerformancePageComponent implements OnInit {
 
   salesman: Salesman;
-  constructor(private salesmanService: SalesmanService, private socialPerformanceService: SocialPerformanceService) { }
+  currentSalesmanId: string;
+  // currentYearOfPerformance = new FormControl([], Validators.required);
+  constructor(private salesmanService: SalesmanService, private socialPerformanceService: SocialPerformanceService
+    , private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.currentSalesmanId = this.route.snapshot.paramMap.get('sid');
     this.getCurrentSalesman();
   }
 
   getCurrentSalesman(): void {
     console.log('run Salesman Service');
-    this.salesmanService.getSalesman('90123').subscribe(salesman => this.salesman = salesman);
+    this.salesmanService.getSalesman(this.currentSalesmanId.toString()).subscribe(salesman => this.salesman = salesman);
   }
 
 }

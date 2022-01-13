@@ -1,12 +1,18 @@
 <div class="container">
-  <div class="bonus-header">
-    Rating Social Performance
-  </div>
-  <div class="salesman-container" *ngIf="salesman">
-    <p>Name: {{salesman.first_name}} {{salesman.last_name}}</p>
-    <p>EmployeeID: {{salesman.sid}}</p>
-    <p>Department: {{salesman.department}}</p>
+  <h1>Rating Social Performance</h1>
+  <div class = "card" *ngIf="salesman">
+    <div class="card-content">
+      <p>Name: {{salesman.first_name}} {{salesman.last_name}}</p>
+      <p>EmployeeID: {{salesman.sid}}</p>
+      <p>Department: {{salesman.department}}</p>
+<!--      <mat-form-field appearance="fill">-->
+<!--        <mat-label>Year *</mat-label>-->
+<!--        <input matInput type="number" placeholder="2022" [formControl]="currentYearOfPerformance">-->
+<!--      </mat-form-field>-->
+      <br/>
+    </div>
+    <br>
   </div>
 <!--  <app-social-performance-form [salesmanID]="salesman.sid"></app-social-performance-form>-->
-  <app-social-performance-form></app-social-performance-form>
+  <app-social-performance-form *ngIf="salesman" [currentSalesmanId]="salesman.sid"></app-social-performance-form>
 </div>

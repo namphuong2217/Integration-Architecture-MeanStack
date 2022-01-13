@@ -1,88 +1,142 @@
 <form [formGroup]="socialPerformanceForm" (ngSubmit)="onSubmit()">
 
-  <label for="year">Year: </label>
-  <input id="year" type="number" min="1990" max="2050" formControlName="year">
+  <mat-form-field appearance="fill">
+    <mat-label>Year *</mat-label>
+    <input matInput type="number" placeholder="2022" [formControl]="year">
+  </mat-form-field>
 
-  <hr>
+  <br/>
 
   <div formGroupName="leadership_competence">
-    <h2>Leadership Competence</h2>
+    <mat-form-field appearance="fill" color="red">
+      <mat-label>Leadership Competence *</mat-label>
+      <input matInput disabled>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Target *</mat-label>
+      <input matInput type="number" placeholder="5" [formControl]="leadershipCompetenceTarget">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Actual *</mat-label>
+      <input matInput type="number" placeholder="5" [formControl]="leadershipCompetenceActual">
+    </mat-form-field>
 
-    <label for="leadership_competence_target">Target: </label>
-    <input id="leadership_competence_target" type="number" min="1" max="4" formControlName="target">
-    <br>
-    <br>
-    <label for="leadership_competence_actual">Actual: </label>
-    <input id="leadership_competence_actual" type="number" formControlName="actual">
+    <mat-form-field appearance="fill">
+      <mat-label>Comment</mat-label>
+      <input matInput type="text" placeholder="No comments" [formControl]="leadershipComment">
+    </mat-form-field>
   </div>
-
-  <hr>
 
   <div formGroupName="openness">
-    <h2>Openness to Employee</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Openness to Employees *</mat-label>
+      <input matInput disabled>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Target *</mat-label>
+      <input matInput type="number" placeholder="5" [formControl]="opennessTarget">
+    </mat-form-field>
 
-    <label for="openness_to_employee_target">Target: </label>
-    <input id="openness_to_employee_target" type="number" formControlName="target">
-    <br>
-    <br>
-    <label for="openness_to_employee_actual">Actual: </label>
-    <input id="openness_to_employee_actual" type="number" formControlName="actual">
+    <mat-form-field appearance="fill">
+      <mat-label>Actual *</mat-label>
+      <input matInput type="number" placeholder="5" [formControl]="opennessActual">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Comment</mat-label>
+      <input matInput type="text" placeholder="No comments" [formControl]="opennessComment">
+    </mat-form-field>
   </div>
-
-  <hr>
 
   <div formGroupName="social_behaviour">
-    <h2>Social Behavior to Employee</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Social Behavior *</mat-label>
+      <input matInput disabled>
+    </mat-form-field>
 
-    <label for="social_behavior_target">Target: </label>
-    <input id="social_behavior_target" type="number" formControlName="target">
-    <br>
-    <br>
-    <label for="social_behavior_actual">Actual: </label>
-    <input id="social_behavior_actual" type="number" formControlName="actual">
+    <mat-form-field appearance="fill">
+      <mat-label>Target *</mat-label>
+      <input matInput type="number" placeholder="5" [formControl]="socialBehaviourTarget">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Actual *</mat-label>
+      <input matInput type="number" placeholder="5" [formControl]="socialBehaviourActual">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Comment</mat-label>
+      <input matInput type="text" placeholder="No comments" [formControl]="socialBehaviourComment">
+    </mat-form-field>
   </div>
-
-  <hr>
 
   <div formGroupName="attitude">
-    <h2>Attitude towards Client</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Attitude towards Client *</mat-label>
+      <input matInput disabled>
+    </mat-form-field>
 
-    <label for="attitude_target">Target: </label>
-    <input id="attitude_target" type="number" formControlName="target">
-    <br>
-    <br>
-    <label for="attitude_actual">Actual: </label>
-    <input id="attitude_actual" type="number" formControlName="actual">
+    <mat-form-field appearance="fill">
+      <mat-label>Target *</mat-label>
+      <input matInput type="number" placeholder="5" [formControl]="attitudeTarget">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Actual *</mat-label>
+      <input matInput type="number" placeholder="5" [formControl]="attitudeActual">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Comment</mat-label>
+      <input matInput type="text" placeholder="No comments" [formControl]="attitudeComment">
+    </mat-form-field>
   </div>
-
-  <hr>
 
   <div formGroupName="comm_skills">
-    <h2>Communication Skills</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Communication Skills *</mat-label>
+      <input matInput disabled>
+    </mat-form-field>
 
-    <label for="comm_skills_target">Target: </label>
-    <input id="comm_skills_target" type="number" formControlName="target">
-    <br>
-    <br>
-    <label for="comm_skills_actual">Actual: </label>
-    <input id="comm_skills_actual" type="number" formControlName="actual">
+    <mat-form-field appearance="fill">
+      <mat-label>Target *</mat-label>
+      <input matInput type="number" placeholder="5" [formControl]="communicationSkillsTarget">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Actual *</mat-label>
+      <input matInput type="number" placeholder="5" [formControl]="communicationSkillsActual">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Comment</mat-label>
+      <input matInput type="text" placeholder="No comments" [formControl]="communicationSkillsComment">
+    </mat-form-field>
   </div>
-
-  <hr>
 
   <div formGroupName="integrity">
-    <h2>Integrity to Company</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Integrity to Company *</mat-label>
+      <input matInput disabled>
+    </mat-form-field>
 
-    <label for="target">Target: </label>
-    <input id="target" type="number" formControlName="target">
-    <br>
-    <label for="actual">Actual: </label>
-    <input id="actual" type="number" formControlName="actual">
+    <mat-form-field appearance="fill">
+      <mat-label>Target *</mat-label>
+      <input matInput type="number" placeholder="5" [formControl]="integrityTarget">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Actual *</mat-label>
+      <input matInput type="number" placeholder="5" [formControl]="integrityActual">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Comment</mat-label>
+      <input matInput type="text" placeholder="No comments" [formControl]="integrityComment">
+    </mat-form-field>
   </div>
 
-  <hr>
-  <p>Complete the form to enable button.</p>
-  <button type="submit" [disabled]="!socialPerformanceForm.valid">Submit</button>
-
+  <br/>
+  <mat-card-actions>
+    <button (click)="onSubmit()" mat-raised-button color="primary">Save</button>
+  </mat-card-actions>
 </form>
 

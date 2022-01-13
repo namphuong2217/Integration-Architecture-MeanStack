@@ -26,6 +26,8 @@ import { ReactiveFormsModule  } from '@angular/forms';
 import { BonusComputationCollectionPageComponent } from './pages/bonus-computation-collection-page/bonus-computation-collection-page.component';
 import { SocialPerformanceFormComponent } from './components/social-performance-form/social-performance-form.component';
 import { YearSelectorComponent } from './components/year-selector/year-selector.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { YearSelectorComponent } from './components/year-selector/year-selector.
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
