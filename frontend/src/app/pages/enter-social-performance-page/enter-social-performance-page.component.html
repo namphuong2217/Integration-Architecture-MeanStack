@@ -1,5 +1,5 @@
-<div class="container" *ngIf="currentSalesman&&salesmen&&user">
-  <h1>Social Performance</h1>
+<div class="container" *ngIf="currentSalesman&&salesmen&&user&&permissionToSeeForm()">
+  <div [innerHTML]="getHeader()"></div>
   <div class="salesman-container" >
     <p><app-year-selector [props]="createPropsYearSalesman()" (selectedEvent)="selectYearAndEmployee($event)"></app-year-selector></p>
   </div>

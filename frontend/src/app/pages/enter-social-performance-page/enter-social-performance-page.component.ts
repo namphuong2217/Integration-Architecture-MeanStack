@@ -5,6 +5,7 @@ import { ActivatedRoute} from '@angular/router';
 import {User} from "../../models/User";
 import {UserService} from "../../services/user.service";
 import {Salesman} from "../../models/Salesman";
+import {Permissions} from "../../Global";
 
 @Component({
   selector: 'app-enter-social-performance-page',
@@ -12,6 +13,9 @@ import {Salesman} from "../../models/Salesman";
   styleUrls: ['./enter-social-performance-page.component.css']
 })
 export class EnterSocialPerformancePageComponent implements OnInit {
+
+  header = {titleValues: 'Enter values for social performance',
+    titleTargets: 'Enter targets for social performance'};
 
   user: User;
   currentSalesman: Salesman;
@@ -43,8 +47,30 @@ export class EnterSocialPerformancePageComponent implements OnInit {
     }
   }
 
+  permissionToSeeForm() : boolean{
+    return Permissions.hasUserPermission(this.user, 'writeTargetSocialPerformance') ||
+      Permissions.hasUserPermission(this.user, 'writeValueSocialPerformance');
+  }
+
   saveForm(socialPerformanceForm){
     console.log(socialPerformanceForm);
+    if(Permissions.hasUserPermission(this.user, 'writeTargetSocialPerformance')){
+      // todo write target values in backend
+    }else if(Permissions.hasUserPermission(this.user, 'writeValueSocialPerformance')){
+      // todo write social performance in backend
+    }
+
+  }
+
+  getHeader() {
+    let header ="";
+    if(Permissions.hasUserPermission(this.user, 'writeTargetSocialPerformance')){
+      header = this.header.titleTargets;
+    }
+    else if(Permissions.hasUserPermission(this.user, 'writeValueSocialPerformance')){
+      header = this.header.titleValues;
+    }
+    return `<h1>${header}</h1>`
   }
 
 

@@ -5,9 +5,9 @@ export class Permissions {
   static hr: string = "HR";
   static ceo: string = "Leader";
 
-  static permissionSales : string[] = ['viewOwnBonusCalc', 'socialPerformanceEval'];
+  static permissionSales : string[] = ['viewOwnBonusCalc', 'socialPerformanceEval', 'writeTarget', 'writeValueSocialPerformance'];
   static permissionHR : string[] = ['allBonusCalc', 'confirm'];
-  static permissionCEO : string[] = ['allBonusCalc', 'socialPerformanceTarget', 'confirm', 'writeComments'];
+  static permissionCEO : string[] = ['allBonusCalc', 'socialPerformanceTarget', 'confirm', 'writeComments', 'writeTargetSocialPerformance'];
 
   static hasUserPermission(user : User, action : string){
     if(user.role == Permissions.sales){
