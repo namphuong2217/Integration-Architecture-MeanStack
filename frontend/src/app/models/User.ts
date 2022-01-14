@@ -11,4 +11,5 @@ export class User{
     public role: string,
     public isAdmin:boolean
   ) {  }
+
 }
