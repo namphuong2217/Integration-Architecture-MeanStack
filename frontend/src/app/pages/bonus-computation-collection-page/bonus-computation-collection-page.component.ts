@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {BonusCompCollection} from '../../models/BonusCompCollection';
 import {ActivatedRoute} from '@angular/router';
 import {BonusComputationCollectionService} from '../../services/bonus-computation-collection.service';
+import {Salesman} from "../../models/Salesman";
+import {SalesmanService} from "../../services/salesman.service";
 
 @Component({
   selector: 'app-bonus-computation-collection',
@@ -10,30 +12,41 @@ import {BonusComputationCollectionService} from '../../services/bonus-computatio
 })
 export class BonusComputationCollectionPageComponent implements OnInit {
 
-  currentSalesmanId: string;
+  currentSalesman: Salesman;
   currentYear: string;
   bonusCompCollection: BonusCompCollection;
+  salesmen: Salesman[];
 
-  constructor(private bonusCompCollectionService: BonusComputationCollectionService, private route: ActivatedRoute) {}
+  constructor(private bonusCompCollectionService: BonusComputationCollectionService, private salesmanService: SalesmanService,
+  private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.currentSalesmanId = this.route.snapshot.paramMap.get('sid');
     this.currentYear = this.route.snapshot.paramMap.get('year');
-    this.getBonusCompCollection(this.currentSalesmanId, this.currentYear);
+    this.setBonusCompCollectionAndSalesman(this.route.snapshot.paramMap.get('sid'), this.currentYear);
+    this.salesmanService.getSalesmen().subscribe( salesmen => this.salesmen = salesmen);
   }
 
-  getBonusCompCollection(sid: string, year: string): void {
+  setBonusCompCollectionAndSalesman(sid: string, year: string): void {
     this.bonusCompCollectionService.getBonusComputationCollection(sid, year)
-      .subscribe(bonusCompCollection => this.bonusCompCollection = bonusCompCollection);
+      .subscribe(bonusCompCollection => {this.bonusCompCollection = bonusCompCollection;
+        this.currentSalesman = this.bonusCompCollection.salesman;});
   }
 
-  selectYear(newYear: string){
-    this.currentYear = newYear;
-    this.getBonusCompCollection(this.currentSalesmanId, newYear);
+  selectYear(data){
+    this.currentYear = data.year;
+    this.setBonusCompCollectionAndSalesman(data.sid, data.year);
   }
 
   confirmBonusCompCollection(): void{
     this.bonusCompCollectionService.postBonusComputationCollection(this.bonusCompCollection)
     .subscribe(response => alert(`Bonus confirmed! (id: ${response})`));
+  }
+
+  createProps(){
+    return{
+      selectedSalesman : this.currentSalesman,
+      selectedYear : this.currentYear,
+      salesmen : this.salesmen
+    }
   }
 }

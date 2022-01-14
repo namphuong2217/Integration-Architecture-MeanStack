@@ -1,12 +1,5 @@
 <form [formGroup]="socialPerformanceForm" (ngSubmit)="onSubmit()">
 
-  <mat-form-field appearance="fill">
-    <mat-label>Year *</mat-label>
-    <input matInput type="number" placeholder="2022" [formControl]="year">
-  </mat-form-field>
-
-  <br/>
-
   <div formGroupName="leadership_competence">
     <mat-form-field appearance="fill" color="red">
       <mat-label>Leadership Competence *</mat-label>
@@ -21,10 +14,6 @@
       <input matInput type="number" placeholder="5" [formControl]="leadershipCompetenceActual">
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Comment</mat-label>
-      <input matInput type="text" placeholder="No comments" [formControl]="leadershipComment">
-    </mat-form-field>
   </div>
 
   <div formGroupName="openness">
@@ -42,10 +31,6 @@
       <input matInput type="number" placeholder="5" [formControl]="opennessActual">
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Comment</mat-label>
-      <input matInput type="text" placeholder="No comments" [formControl]="opennessComment">
-    </mat-form-field>
   </div>
 
   <div formGroupName="social_behaviour">
@@ -63,10 +48,6 @@
       <input matInput type="number" placeholder="5" [formControl]="socialBehaviourActual">
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Comment</mat-label>
-      <input matInput type="text" placeholder="No comments" [formControl]="socialBehaviourComment">
-    </mat-form-field>
   </div>
 
   <div formGroupName="attitude">
@@ -84,10 +65,6 @@
       <input matInput type="number" placeholder="5" [formControl]="attitudeActual">
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Comment</mat-label>
-      <input matInput type="text" placeholder="No comments" [formControl]="attitudeComment">
-    </mat-form-field>
   </div>
 
   <div formGroupName="comm_skills">
@@ -106,10 +83,6 @@
       <input matInput type="number" placeholder="5" [formControl]="communicationSkillsActual">
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Comment</mat-label>
-      <input matInput type="text" placeholder="No comments" [formControl]="communicationSkillsComment">
-    </mat-form-field>
   </div>
 
   <div formGroupName="integrity">
@@ -128,10 +101,6 @@
       <input matInput type="number" placeholder="5" [formControl]="integrityActual">
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Comment</mat-label>
-      <input matInput type="text" placeholder="No comments" [formControl]="integrityComment">
-    </mat-form-field>
   </div>
 
   <br/>

@@ -1,0 +1,27 @@
+
+<mat-list>
+  <mat-list-item>Name: {{props.selectedSalesman.first_name}} {{props.selectedSalesman.last_name}}</mat-list-item>
+  <mat-list-item>Department: {{props.selectedSalesman.department}}</mat-list-item>
+</mat-list>
+
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label for="sid-select">SID: </mat-label>
+    <mat-select name="sid" id="sid-select" #s (selectionChange)="selectYearOrEmployee(s.value, props.selectedYear)" [value]="props.selectedSalesman.sid">
+      <mat-option *ngFor="let salesman of props.salesmen" [value]="salesman.sid" >
+        {{salesman.sid}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div>
+  <mat-form-field appearance="fill" >
+    <mat-label for="year-select">Year: </mat-label>
+    <mat-select name="years" id="year-select" #t (selectionChange)="selectYearOrEmployee(props.selectedSalesman.sid, t.value)" [value]="years[0]">
+      <mat-option *ngFor="let year of years" [value]="year" >
+        {{year}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+

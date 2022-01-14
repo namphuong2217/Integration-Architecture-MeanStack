@@ -1,14 +1,11 @@
 <div class="container">
-  <h1>Rating Social Performance</h1>
+  <h1>Social Performance</h1>
   <div class = "card" *ngIf="salesman">
     <div class="card-content">
-      <p>Name: {{salesman.first_name}} {{salesman.last_name}}</p>
+      <mat-label>Name: {{salesman.first_name}} {{salesman.last_name}}</mat-label>
       <p>EmployeeID: {{salesman.sid}}</p>
       <p>Department: {{salesman.department}}</p>
-<!--      <mat-form-field appearance="fill">-->
-<!--        <mat-label>Year *</mat-label>-->
-<!--        <input matInput type="number" placeholder="2022" [formControl]="currentYearOfPerformance">-->
-<!--      </mat-form-field>-->
+      <empl></empl>
       <br/>
     </div>
     <br>

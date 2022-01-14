@@ -17,3 +17,5 @@ export class Role {
     return user.role == Role.sales;
   }
 }
+
+export const years : string[] = ['2021', '2020', '2019', '2018', '2017'];

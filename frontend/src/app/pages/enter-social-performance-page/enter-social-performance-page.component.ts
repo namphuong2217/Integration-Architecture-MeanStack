@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {SalesmanService} from '../../services/salesman.service';
 import {SocialPerformanceService} from '../../services/social-performance.service';
-import {Salesman} from '../../models/Salesman';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import {FormControl, Validators} from "@angular/forms";
+import {User} from "../../models/User";
+import {UserService} from "../../services/user.service";
+import {Salesman} from "../../models/Salesman";
 
 @Component({
   selector: 'app-enter-social-performance-page',
@@ -12,20 +13,22 @@ import {FormControl, Validators} from "@angular/forms";
 })
 export class EnterSocialPerformancePageComponent implements OnInit {
 
+  user: User;
   salesman: Salesman;
-  currentSalesmanId: string;
-  // currentYearOfPerformance = new FormControl([], Validators.required);
-  constructor(private salesmanService: SalesmanService, private socialPerformanceService: SocialPerformanceService
-    , private route: ActivatedRoute) { }
+  salesmen: Salesman[]
+  year: string
+
+  constructor(private userService : UserService, private socialPerformanceService: SocialPerformanceService
+    , private salesmanService : SalesmanService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.currentSalesmanId = this.route.snapshot.paramMap.get('sid');
-    this.getCurrentSalesman();
+    this.userService.getOwnUser().subscribe(user => this.user = user);
+    this.salesmanService.getSalesman(this.route.snapshot.paramMap.get('sid')).subscribe(salesman => this.salesman = salesman);
+    this.salesmanService.getSalesmen().subscribe(salesmen => this.salesmen = salesmen);
+    this.year = this.route.snapshot.paramMap.get('year');
   }
 
-  getCurrentSalesman(): void {
-    console.log('run Salesman Service');
-    this.salesmanService.getSalesman(this.currentSalesmanId.toString()).subscribe(salesman => this.salesman = salesman);
-  }
+
+
 
 }

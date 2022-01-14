@@ -18,27 +18,21 @@ export class SocialPerformanceFormComponent implements OnInit {
 
   leadershipCompetenceTarget = new FormControl('');
   leadershipCompetenceActual = new FormControl('');
-  leadershipComment = new FormControl('');
 
   opennessTarget = new FormControl('');
   opennessActual = new FormControl('');
-  opennessComment = new FormControl('');
 
   socialBehaviourTarget = new FormControl('');
   socialBehaviourActual = new FormControl('');
-  socialBehaviourComment = new FormControl('');
 
   attitudeTarget = new FormControl('');
   attitudeActual = new FormControl('');
-  attitudeComment = new FormControl('');
 
   communicationSkillsTarget = new FormControl('');
   communicationSkillsActual = new FormControl('');
-  communicationSkillsComment = new FormControl('');
 
   integrityTarget = new FormControl('');
   integrityActual = new FormControl('');
-  integrityComment = new FormControl('');
 
   constructor(private socialPerformanceService: SocialPerformanceService, fb: FormBuilder, private route: ActivatedRoute) {
     this.socialPerformanceForm = fb.group({
@@ -47,32 +41,26 @@ export class SocialPerformanceFormComponent implements OnInit {
       leadership_competence: new FormGroup({
         target: this.leadershipCompetenceTarget,
         actual: this.leadershipCompetenceActual,
-        comment: this.leadershipComment,
       }),
       openness: new FormGroup({
         target: this.opennessTarget,
         actual: this.opennessActual,
-        comment: this.opennessComment,
       }),
       social_behaviour: new FormGroup({
         target: this.socialBehaviourTarget,
         actual: this.socialBehaviourActual,
-        comment: this.socialBehaviourComment,
       }),
       attitude: new FormGroup({
         target: this.attitudeTarget,
         actual: this.attitudeActual,
-        comment: this.attitudeComment,
       }),
       comm_skills: new FormGroup({
         target: this.communicationSkillsTarget,
         actual: this.communicationSkillsActual,
-        comment: this.communicationSkillsComment,
       }),
       integrity: new FormGroup({
         target: this.integrityTarget,
         actual: this.integrityActual,
-        comment: this.integrityComment,
       }),
     });
   }
