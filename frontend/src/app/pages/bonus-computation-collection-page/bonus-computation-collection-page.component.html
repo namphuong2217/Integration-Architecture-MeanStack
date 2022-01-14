@@ -1,9 +1,9 @@
-<div class="container" *ngIf="bonusCompCollection">
+<div class="container" *ngIf="bonusCompCollection && user" >
   <div class="bonus-header">
     <h1><b>Bonus Computation Sheet</b></h1>
   </div>
   <div class="salesman-container" >
-    <p><app-year-selector [props]="createProps()" (selectedEvent)="selectYear($event)"></app-year-selector></p>
+    <p><app-year-selector [props]="createPropsYearSalesman()" (selectedEvent)="selectYear($event)"></app-year-selector></p>
   </div>
   <div *ngIf="permissionToViewFields()">
     <h1>Status</h1>
@@ -14,8 +14,8 @@
   </div>
 
   <div *ngIf="permissionToViewFields()">
-    <app-order-evaluation-dt [bonusCompCollection]="bonusCompCollection"></app-order-evaluation-dt>
-    <app-social-performance  [bonusCompCollection]="bonusCompCollection"></app-social-performance>
+    <app-order-evaluation-dt [props]="createPropsOrderEval()"></app-order-evaluation-dt>
+    <app-social-performance  [props]="createPropsSocialPerformance()"></app-social-performance>
   </div>
 
 

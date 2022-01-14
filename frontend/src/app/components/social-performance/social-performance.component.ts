@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core';
 import {SocialPerformance} from '../../models/SocialPerformance';
-import {BonusCompCollection} from '../../models/BonusCompCollection';
 
 @Component({
   selector: 'app-social-performance',
@@ -14,7 +13,11 @@ export class SocialPerformanceComponent{
   displayedColumns: string[] = ['Criteria', 'Target Value', 'Actual Value', 'Bonus', 'Comment'];
 
   @Input()
-  bonusCompCollection: BonusCompCollection = null;
+  props: {permissionWriteComments : boolean,
+      bonusSocial : number,
+      bonusTotal : number,
+      socialPerformance : SocialPerformance
+  };
 
   convertToArrayData(socialPerformanceRecords: SocialPerformance): object[] {
     const result = [];

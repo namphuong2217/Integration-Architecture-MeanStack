@@ -1,5 +1,5 @@
 import { Component, Input} from '@angular/core';
-import {BonusCompCollection} from '../../models/BonusCompCollection';
+import {OrderEvaluation} from "../../models/OrderEvaluation";
 
 @Component({
   selector: 'app-order-evaluation-dt',
@@ -13,12 +13,18 @@ export class OrderEvaluationComponent{
   displayedColumns: string[] = ['Name of Product', 'Client', 'Client Ranking', 'Items', 'Bonus', 'Comment'];
 
   @Input()
-  bonusCompCollection: BonusCompCollection = null;
-
-  updateComment(row, val) {
-    const index = this.bonusCompCollection.orderEvaluation.findIndex(el => el == row);
-    this.bonusCompCollection.orderEvaluation[index].comment = val;
+  props : {
+    permissionWriteComments : boolean,
+    bonusOrder : number,
+    orderEvaluations : OrderEvaluation[]
   }
 
-  //permissionToWriteComment()
+  updateComment(row, val) {
+    const index = this.props.orderEvaluations.findIndex(el => el == row);
+    this.props.orderEvaluations[index].comment = val;
+  }
+
+  permissionToWriteComment() : boolean {
+    return this.props.permissionWriteComments;
+  }
 }

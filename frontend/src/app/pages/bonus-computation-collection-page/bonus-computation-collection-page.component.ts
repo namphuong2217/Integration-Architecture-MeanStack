@@ -49,13 +49,28 @@ export class BonusComputationCollectionPageComponent implements OnInit {
     .subscribe(response => alert(`Bonus confirmed! (id: ${response})`));
   }
 
-  createProps(){
+  createPropsYearSalesman(){
     return{
       user : this.user,
       page : 'bonusCompCollection',
       selectedSalesman : this.currentSalesman,
       selectedYear : this.currentYear,
       salesmen : this.salesmen
+    }
+  }
+  createPropsOrderEval(){
+    return{
+      permissionWriteComments : Permissions.hasUserPermission(this.user, 'writeComments'),
+      bonusOrder : this.bonusCompCollection.bonusOrder,
+      orderEvaluations : this.bonusCompCollection.orderEvaluation
+    };
+  }
+  createPropsSocialPerformance(){
+    return{
+      permissionWriteComments : Permissions.hasUserPermission(this.user, 'writeComments'),
+      bonusSocial : this.bonusCompCollection.bonusSocial,
+      bonusTotal : this.bonusCompCollection.bonusTotal,
+      socialPerformance : this.bonusCompCollection.socialPerformance
     }
   }
 
