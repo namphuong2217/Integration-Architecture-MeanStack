@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {SalesmanService} from '../../services/salesman.service';
 import {Salesman} from '../../models/Salesman';
 import {UserService} from "../../services/user.service";
-import {Role} from "../../Global";
+import {Permissions} from "../../Global";
 import {User} from "../../models/User";
 
 @Component({
@@ -26,15 +26,17 @@ export class DashboardPageComponent implements OnInit {
   }
 
   showBonusCalculation(sid : string): boolean {
-    return Role.hasRoleHR(this.user) || Role.hasRoleCEO(this.user) || (Role.hasRoleSales(this.user) && sid == this.user.username);
+    return Permissions.hasUserPermission(this.user, 'allBonusCalc') ||
+      (Permissions.hasUserPermission(this.user, 'ownBonusCalc') && sid == this.user.username);
   }
 
   showSocialPerformance() : boolean{
-    return Role.hasRoleCEO(this.user) || Role.hasRoleSales(this.user);
+    return Permissions.hasUserPermission(this.user, 'socialPerformanceEval') ||
+          Permissions.hasUserPermission(this.user, 'socialPerformanceTarget');
   }
 
   getButtonName() : string{
-    if(Role.hasRoleCEO(this.user)){return this.buttonEnterSocialPerformance.titleCEO}
+    if(Permissions.hasUserPermission(this.user, 'socialPerformanceTarget')){return this.buttonEnterSocialPerformance.titleCEO}
     return this.buttonEnterSocialPerformance.titleSales;
   }
 

@@ -1,20 +1,24 @@
 import {User} from "./models/User";
 
-export class Role {
+export class Permissions {
   static sales: string = "Sales";
   static hr: string = "HR";
-  static ceo: string = "Leader"
+  static ceo: string = "Leader";
 
-  static hasRoleHR(user : User): boolean {
-    return user.role == Role.hr;
-  }
+  static permissionSales : string[] = ['ownBonusCalc', 'socialPerformanceEval'];
+  static permissionHR : string[] = ['allBonusCalc'];
+  static permissionCEO : string[] = ['allBonusCalc', 'socialPerformanceTarget'];
 
-  static hasRoleCEO(user : User): boolean {
-    return user.role == Role.ceo;
-  }
-
-  static hasRoleSales(user : User): boolean {
-    return user.role == Role.sales;
+  static hasUserPermission(user : User, action : string){
+    if(user.role == Permissions.sales){
+      return this.permissionSales.includes(action);
+    }
+    else if(user.role == Permissions.hr){
+      return this.permissionHR.includes(action);
+    }
+    else if(user.role == Permissions.ceo){
+      return this.permissionCEO.includes(action);
+    }
   }
 }
 
