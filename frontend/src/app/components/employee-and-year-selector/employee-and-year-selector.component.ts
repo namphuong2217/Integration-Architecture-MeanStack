@@ -35,6 +35,10 @@ export class EmployeeAndYearSelectorComponent {
       }
       return true;
     }
+    else if(this.props.page == 'socialPerformance'){
+      return true
+    }
+    return false;
   }
 
 }

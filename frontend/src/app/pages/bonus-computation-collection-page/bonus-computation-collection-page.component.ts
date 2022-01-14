@@ -16,7 +16,6 @@ import {Permissions} from "../../Global";
 export class BonusComputationCollectionPageComponent implements OnInit {
 
   user: User;
-
   currentSalesman: Salesman;
   currentYear: string;
   bonusCompCollection: BonusCompCollection;
@@ -38,7 +37,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
         this.currentSalesman = this.bonusCompCollection.salesman;});
   }
 
-  selectYear(data){
+  selectYearAndEmployee(data){
     this.currentYear = data.year;
     this.setBonusCompCollectionAndSalesman(data.sid, data.year);
   }

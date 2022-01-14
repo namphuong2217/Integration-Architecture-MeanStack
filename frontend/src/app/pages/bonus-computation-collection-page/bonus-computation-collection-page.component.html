@@ -3,7 +3,7 @@
     <h1><b>Bonus Computation Sheet</b></h1>
   </div>
   <div class="salesman-container" >
-    <p><app-year-selector [props]="createPropsYearSalesman()" (selectedEvent)="selectYear($event)"></app-year-selector></p>
+    <p><app-year-selector [props]="createPropsYearSalesman()" (selectedEvent)="selectYearAndEmployee($event)"></app-year-selector></p>
   </div>
   <div *ngIf="permissionToViewFields()">
     <h1>Status</h1>

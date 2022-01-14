@@ -1,15 +1,7 @@
-<div class="container">
+<div class="container" *ngIf="currentSalesman&&salesmen&&user">
   <h1>Social Performance</h1>
-  <div class = "card" *ngIf="salesman">
-    <div class="card-content">
-      <mat-label>Name: {{salesman.first_name}} {{salesman.last_name}}</mat-label>
-      <p>EmployeeID: {{salesman.sid}}</p>
-      <p>Department: {{salesman.department}}</p>
-      <empl></empl>
-      <br/>
-    </div>
-    <br>
+  <div class="salesman-container" >
+    <p><app-year-selector [props]="createPropsYearSalesman()" (selectedEvent)="selectYearAndEmployee($event)"></app-year-selector></p>
   </div>
-<!--  <app-social-performance-form [salesmanID]="salesman.sid"></app-social-performance-form>-->
-  <app-social-performance-form *ngIf="salesman" [currentSalesmanId]="salesman.sid"></app-social-performance-form>
+  <app-social-performance-form (clickEvent)="saveForm($event)"></app-social-performance-form>
 </div>

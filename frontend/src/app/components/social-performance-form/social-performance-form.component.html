@@ -1,111 +1,71 @@
-<form [formGroup]="socialPerformanceForm" (ngSubmit)="onSubmit()">
-
-  <div formGroupName="leadership_competence">
-    <mat-form-field appearance="fill" color="red">
-      <mat-label>Leadership Competence *</mat-label>
-      <input matInput disabled>
-    </mat-form-field>
+<form [formGroup]="socialPerformanceForm">
+  <div formGroupName="leadershipCompetence">
     <mat-form-field appearance="fill">
-      <mat-label>Target *</mat-label>
-      <input matInput type="number" placeholder="5" [formControl]="leadershipCompetenceTarget">
+      <mat-label >Leadership </mat-label>
+      <mat-select  [value]="ratings[0]" [formControl]="leadershipCompetenceValue">
+        <mat-option *ngFor="let el of ratings" [value]="el" >
+          {{el}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Actual *</mat-label>
-      <input matInput type="number" placeholder="5" [formControl]="leadershipCompetenceActual">
-    </mat-form-field>
-
   </div>
 
   <div formGroupName="openness">
     <mat-form-field appearance="fill">
-      <mat-label>Openness to Employees *</mat-label>
-      <input matInput disabled>
+      <mat-label >Openness </mat-label>
+      <mat-select  [value]="ratings[0]" [formControl]="opennessValue">
+        <mat-option *ngFor="let el of ratings" [value]="el" >
+          {{el}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Target *</mat-label>
-      <input matInput type="number" placeholder="5" [formControl]="opennessTarget">
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Actual *</mat-label>
-      <input matInput type="number" placeholder="5" [formControl]="opennessActual">
-    </mat-form-field>
-
   </div>
 
-  <div formGroupName="social_behaviour">
+  <div formGroupName="socialBehaviour">
     <mat-form-field appearance="fill">
-      <mat-label>Social Behavior *</mat-label>
-      <input matInput disabled>
+      <mat-label >Social behaviour </mat-label>
+      <mat-select  [value]="ratings[0]" [formControl]="socialBehaviourValue">
+        <mat-option *ngFor="let el of ratings" [value]="el" >
+          {{el}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Target *</mat-label>
-      <input matInput type="number" placeholder="5" [formControl]="socialBehaviourTarget">
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Actual *</mat-label>
-      <input matInput type="number" placeholder="5" [formControl]="socialBehaviourActual">
-    </mat-form-field>
-
   </div>
 
   <div formGroupName="attitude">
     <mat-form-field appearance="fill">
-      <mat-label>Attitude towards Client *</mat-label>
-      <input matInput disabled>
+      <mat-label >Attitude </mat-label>
+      <mat-select  [value]="ratings[0]" [formControl]="attitudeValue">
+        <mat-option *ngFor="let el of ratings" [value]="el" >
+          {{el}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Target *</mat-label>
-      <input matInput type="number" placeholder="5" [formControl]="attitudeTarget">
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Actual *</mat-label>
-      <input matInput type="number" placeholder="5" [formControl]="attitudeActual">
-    </mat-form-field>
-
   </div>
 
-  <div formGroupName="comm_skills">
+  <div formGroupName="communicationSkills">
     <mat-form-field appearance="fill">
-      <mat-label>Communication Skills *</mat-label>
-      <input matInput disabled>
+      <mat-label >Communication Skills </mat-label>
+      <mat-select  [value]="ratings[0]" [formControl]="communicationSkillsValue">
+        <mat-option *ngFor="let el of ratings" [value]="el" >
+          {{el}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Target *</mat-label>
-      <input matInput type="number" placeholder="5" [formControl]="communicationSkillsTarget">
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Actual *</mat-label>
-      <input matInput type="number" placeholder="5" [formControl]="communicationSkillsActual">
-    </mat-form-field>
-
   </div>
 
   <div formGroupName="integrity">
     <mat-form-field appearance="fill">
-      <mat-label>Integrity to Company *</mat-label>
-      <input matInput disabled>
+      <mat-label >Integrity </mat-label>
+      <mat-select [value]="ratings[0]" [formControl]="integrityValue">
+        <mat-option *ngFor="let el of ratings" [value]="el" >
+          {{el}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Target *</mat-label>
-      <input matInput type="number" placeholder="5" [formControl]="integrityTarget">
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Actual *</mat-label>
-      <input matInput type="number" placeholder="5" [formControl]="integrityActual">
-    </mat-form-field>
-
   </div>
-
   <br/>
-  <mat-card-actions>
-    <button (click)="onSubmit()" mat-raised-button color="primary">Save</button>
-  </mat-card-actions>
 </form>
 
+
+<button mat-raised-button color="primary" (click)="saveForm()">Save</button>
