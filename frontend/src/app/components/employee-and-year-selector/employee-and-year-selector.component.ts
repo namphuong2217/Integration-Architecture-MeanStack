@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {years} from "../../Global";
+import {Permissions, years} from "../../Global";
 import {Salesman} from "../../models/Salesman";
+import {User} from "../../models/User";
 
 @Component({
   selector: 'app-year-selector',
@@ -10,7 +11,9 @@ import {Salesman} from "../../models/Salesman";
 export class EmployeeAndYearSelectorComponent {
   years: string[] = years;
 
-  @Input() props : {selectedSalesman : Salesman,
+  @Input() props : {user : User,
+                    page : string,
+                    selectedSalesman : Salesman,
                     selectedYear : string,
                     salesmen: Salesman[]};
 
@@ -18,6 +21,20 @@ export class EmployeeAndYearSelectorComponent {
 
   selectYearOrEmployee(sid:string, year:string){
     this.selectedEvent.emit({sid,year});
+  }
+
+  permissionToChooseSid() : boolean{
+    if(this.props.page == 'bonusCompCollection'){
+      if(! Permissions.hasUserPermission(this.props.user, 'allBonusCalc')){
+        console.log()
+        if(this.props.user.username != this.props.selectedSalesman.sid){ //make sure that redirected
+          this.selectYearOrEmployee(this.props.user.username, years[0]);
+          return false;
+        }
+        else return false;
+      }
+      return true;
+    }
   }
 
 }

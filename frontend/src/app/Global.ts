@@ -5,7 +5,7 @@ export class Permissions {
   static hr: string = "HR";
   static ceo: string = "Leader";
 
-  static permissionSales : string[] = ['ownBonusCalc', 'socialPerformanceEval'];
+  static permissionSales : string[] = ['viewOwnBonusCalc', 'socialPerformanceEval'];
   static permissionHR : string[] = ['allBonusCalc'];
   static permissionCEO : string[] = ['allBonusCalc', 'socialPerformanceTarget'];
 

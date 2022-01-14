@@ -1,17 +1,19 @@
-<div class="container">
+<div class="container" *ngIf="bonusCompCollection">
   <div class="bonus-header">
     <h1><b>Bonus Computation Sheet</b></h1>
   </div>
-  <div class="salesman-container" *ngIf="bonusCompCollection">
+  <div class="salesman-container" >
     <p><app-year-selector [props]="createProps()" (selectedEvent)="selectYear($event)"></app-year-selector></p>
   </div>
   <div>
     <h1>Status</h1>
-    <span class="dot" style="background-color: green">HR</span> <!-- todo-->
-    <span class="dot" style="background-color: red">CEO</span>
+    <div class="dot" [ngClass]="{'approved' : bonusCompCollection.approvedByHR, 'notApproved' : !bonusCompCollection.approvedByHR}">HR</div>
+    <br>
+    <div class="dot" [ngClass]="{'approved' : bonusCompCollection.approvedByCEO, 'notApproved' : !bonusCompCollection.approvedByHR}">CEO</div>
+    <br>
   </div>
 
-  <div *ngIf="bonusCompCollection">
+  <div>
     <app-order-evaluation-dt [bonusCompCollection]="bonusCompCollection"></app-order-evaluation-dt>
     <app-social-performance  [bonusCompCollection]="bonusCompCollection"></app-social-performance>
   </div>

@@ -4,7 +4,7 @@
   <mat-list-item>Department: {{props.selectedSalesman.department}}</mat-list-item>
 </mat-list>
 
-<div>
+<div *ngIf="permissionToChooseSid(); else oneSid">
   <mat-form-field appearance="fill">
     <mat-label for="sid-select">SID: </mat-label>
     <mat-select name="sid" id="sid-select" #s (selectionChange)="selectYearOrEmployee(s.value, props.selectedYear)" [value]="props.selectedSalesman.sid">
@@ -14,6 +14,11 @@
     </mat-select>
   </mat-form-field>
 </div>
+<ng-template #oneSid>
+  <mat-list>
+    <mat-list-item>Name: {{props.selectedSalesman.sid}}</mat-list-item>
+  </mat-list>
+</ng-template>
 <div>
   <mat-form-field appearance="fill" >
     <mat-label for="year-select">Year: </mat-label>

@@ -5,7 +5,13 @@
   height: 50px;
   width: 50px;
   border-radius: 50%;
-  /*display: inline-block;*/
+  background-color: black;
+}
 
-  /*vertical-align-: middle;*/
+.approved{
+  background-color: lawngreen;
+}
+
+.notApproved{
+  background-color: red;
 }
