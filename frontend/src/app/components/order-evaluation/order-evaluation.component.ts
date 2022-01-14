@@ -19,4 +19,6 @@ export class OrderEvaluationComponent{
     const index = this.bonusCompCollection.orderEvaluation.findIndex(el => el == row);
     this.bonusCompCollection.orderEvaluation[index].comment = val;
   }
+
+  //permissionToWriteComment()
 }

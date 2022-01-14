@@ -6,6 +6,7 @@ import {Salesman} from "../../models/Salesman";
 import {SalesmanService} from "../../services/salesman.service";
 import {UserService} from "../../services/user.service";
 import {User} from "../../models/User";
+import {Permissions} from "../../Global";
 
 @Component({
   selector: 'app-bonus-computation-collection',
@@ -56,5 +57,19 @@ export class BonusComputationCollectionPageComponent implements OnInit {
       selectedYear : this.currentYear,
       salesmen : this.salesmen
     }
+  }
+
+  permissionToViewFields(){
+    if(Permissions.hasUserPermission(this.user, 'allBonusCalc')){
+      return true;
+    }
+    if(Permissions.hasUserPermission(this.user, 'viewOwnBonusCalc')){
+      return this.user.username == this.currentSalesman.sid;
+    }
+    return false;
+  }
+
+  permissionToConfirm(){
+    return Permissions.hasUserPermission(this.user, 'confirm');
   }
 }

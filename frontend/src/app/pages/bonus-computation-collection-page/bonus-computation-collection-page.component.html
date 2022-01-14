@@ -5,21 +5,21 @@
   <div class="salesman-container" >
     <p><app-year-selector [props]="createProps()" (selectedEvent)="selectYear($event)"></app-year-selector></p>
   </div>
-  <div>
+  <div *ngIf="permissionToViewFields()">
     <h1>Status</h1>
     <div class="dot" [ngClass]="{'approved' : bonusCompCollection.approvedByHR, 'notApproved' : !bonusCompCollection.approvedByHR}">HR</div>
     <br>
-    <div class="dot" [ngClass]="{'approved' : bonusCompCollection.approvedByCEO, 'notApproved' : !bonusCompCollection.approvedByHR}">CEO</div>
+    <div class="dot" [ngClass]="{'approved' : bonusCompCollection.approvedByCEO, 'notApproved' : !bonusCompCollection.approvedByCEO}">CEO</div>
     <br>
   </div>
 
-  <div>
+  <div *ngIf="permissionToViewFields()">
     <app-order-evaluation-dt [bonusCompCollection]="bonusCompCollection"></app-order-evaluation-dt>
     <app-social-performance  [bonusCompCollection]="bonusCompCollection"></app-social-performance>
   </div>
 
 
-  <div class="right">
+  <div class="right" *ngIf="permissionToViewFields() && permissionToConfirm()">
     <h1>C.) Confirm Bonus</h1>
     <button (click)="confirmBonusCompCollection()">
       Confirm Bonus
