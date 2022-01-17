@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
   }
 
   performRegistration() {
-    this.authService.login(this.credentials).subscribe(
+    this.authService.register(this.credentials).subscribe(
       (response) => {
         if (response.status === 200) {
           //if response status is 200, assume login was successful
