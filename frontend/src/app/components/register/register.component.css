@@ -1,0 +1,26 @@
+:host {
+  /* :host selects the DOM element of the current component */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-card {
+  width: 100%;
+  max-width: 300px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+span.error {
+  color: red;
+}
+
+button.register {
+  float: right;
+}

@@ -13,7 +13,6 @@ export class LoginPageComponent {
   message: string;
 
   switchView = () => {
-    alert('hi');
     this.showLogin = !this.showLogin;
   };
 
