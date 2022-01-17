@@ -1,5 +1,0 @@
-
-<label for="year-select">Year: </label>
-<select name="years" id="year-select" #s (change)="selectYear(s.value)">
-  <option  *ngFor="let year of years" [selected]="selectedYear == year"> {{year}}</option>
-</select>

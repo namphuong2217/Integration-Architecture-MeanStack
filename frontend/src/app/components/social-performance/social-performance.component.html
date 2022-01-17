@@ -1,5 +1,5 @@
 <h1>B.) Social Performance Evaluation</h1>
-<table mat-table [dataSource]="convertToArrayData(bonusCompCollection.socialPerformance)" class="full-width-table"
+<table mat-table [dataSource]="convertToArrayData(props.socialPerformance)" class="full-width-table"
        matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
 
   <ng-container matColumnDef="Criteria">
@@ -22,9 +22,15 @@
     <td mat-cell *matCellDef="let element">{{element.bonus}}</td>
   </ng-container>
 
-  <ng-container matColumnDef="Comment">
+  <ng-container matColumnDef="Comment" >
     <th mat-header-cell *matHeaderCellDef>Comment</th>
-    <td mat-cell *matCellDef="let element"><textarea >{{element.comment}}</textarea></td> <!--{{element.comment}}-->
+    <td mat-cell *matCellDef="let element">
+      <ng-container *ngIf="props.permissionWriteComments else cellCom">
+        <textarea>{{element.comment}}</textarea>
+      </ng-container>
+      <ng-template #cellCom>{{element.comment}}</ng-template>
+    </td>
+
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -34,5 +40,5 @@
 <mat-paginator [length]="6" [pageIndex]="0"
                [pageSize]="6"></mat-paginator>
 
-<h3>Total Bonus Social Performance Evaluation: {{bonusCompCollection.bonusSocial.toFixed(2)}} €</h3>
-<h3><b>Total Bonus: {{bonusCompCollection.bonusTotal.toFixed(2)}} €</b></h3>
+<h3>Total Bonus Social Performance Evaluation: {{props.bonusSocial.toFixed(2)}} €</h3>
+<h3><b>Total Bonus: {{props.bonusTotal.toFixed(2)}} €</b></h3>

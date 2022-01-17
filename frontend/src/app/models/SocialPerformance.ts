@@ -10,4 +10,5 @@ export interface SocialPerformance{
     attitude: PerformanceRecord;
     comm_skills: PerformanceRecord;
     integrity: PerformanceRecord;
+    constructor(sid : number)
 }

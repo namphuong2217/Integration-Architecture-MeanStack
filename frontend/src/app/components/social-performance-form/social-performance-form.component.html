@@ -1,88 +1,71 @@
-<form [formGroup]="socialPerformanceForm" (ngSubmit)="onSubmit()">
-
-  <label for="year">Year: </label>
-  <input id="year" type="number" min="1990" max="2050" formControlName="year">
-
-  <hr>
-
-  <div formGroupName="leadership_competence">
-    <h2>Leadership Competence</h2>
-
-    <label for="leadership_competence_target">Target: </label>
-    <input id="leadership_competence_target" type="number" min="1" max="4" formControlName="target">
-    <br>
-    <br>
-    <label for="leadership_competence_actual">Actual: </label>
-    <input id="leadership_competence_actual" type="number" formControlName="actual">
+<form [formGroup]="socialPerformanceForm">
+  <div formGroupName="leadershipCompetence">
+    <mat-form-field appearance="fill">
+      <mat-label >Leadership </mat-label>
+      <mat-select  [value]="ratings[0]" [formControl]="leadershipCompetenceValue">
+        <mat-option *ngFor="let el of ratings" [value]="el" >
+          {{el}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
-
-  <hr>
 
   <div formGroupName="openness">
-    <h2>Openness to Employee</h2>
-
-    <label for="openness_to_employee_target">Target: </label>
-    <input id="openness_to_employee_target" type="number" formControlName="target">
-    <br>
-    <br>
-    <label for="openness_to_employee_actual">Actual: </label>
-    <input id="openness_to_employee_actual" type="number" formControlName="actual">
+    <mat-form-field appearance="fill">
+      <mat-label >Openness </mat-label>
+      <mat-select  [value]="ratings[0]" [formControl]="opennessValue">
+        <mat-option *ngFor="let el of ratings" [value]="el" >
+          {{el}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
-  <hr>
-
-  <div formGroupName="social_behaviour">
-    <h2>Social Behavior to Employee</h2>
-
-    <label for="social_behavior_target">Target: </label>
-    <input id="social_behavior_target" type="number" formControlName="target">
-    <br>
-    <br>
-    <label for="social_behavior_actual">Actual: </label>
-    <input id="social_behavior_actual" type="number" formControlName="actual">
+  <div formGroupName="socialBehaviour">
+    <mat-form-field appearance="fill">
+      <mat-label >Social behaviour </mat-label>
+      <mat-select  [value]="ratings[0]" [formControl]="socialBehaviourValue">
+        <mat-option *ngFor="let el of ratings" [value]="el" >
+          {{el}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
-
-  <hr>
 
   <div formGroupName="attitude">
-    <h2>Attitude towards Client</h2>
-
-    <label for="attitude_target">Target: </label>
-    <input id="attitude_target" type="number" formControlName="target">
-    <br>
-    <br>
-    <label for="attitude_actual">Actual: </label>
-    <input id="attitude_actual" type="number" formControlName="actual">
+    <mat-form-field appearance="fill">
+      <mat-label >Attitude </mat-label>
+      <mat-select  [value]="ratings[0]" [formControl]="attitudeValue">
+        <mat-option *ngFor="let el of ratings" [value]="el" >
+          {{el}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
-  <hr>
-
-  <div formGroupName="comm_skills">
-    <h2>Communication Skills</h2>
-
-    <label for="comm_skills_target">Target: </label>
-    <input id="comm_skills_target" type="number" formControlName="target">
-    <br>
-    <br>
-    <label for="comm_skills_actual">Actual: </label>
-    <input id="comm_skills_actual" type="number" formControlName="actual">
+  <div formGroupName="communicationSkills">
+    <mat-form-field appearance="fill">
+      <mat-label >Communication Skills </mat-label>
+      <mat-select  [value]="ratings[0]" [formControl]="communicationSkillsValue">
+        <mat-option *ngFor="let el of ratings" [value]="el" >
+          {{el}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
-
-  <hr>
 
   <div formGroupName="integrity">
-    <h2>Integrity to Company</h2>
-
-    <label for="target">Target: </label>
-    <input id="target" type="number" formControlName="target">
-    <br>
-    <label for="actual">Actual: </label>
-    <input id="actual" type="number" formControlName="actual">
+    <mat-form-field appearance="fill">
+      <mat-label >Integrity </mat-label>
+      <mat-select [value]="ratings[0]" [formControl]="integrityValue">
+        <mat-option *ngFor="let el of ratings" [value]="el" >
+          {{el}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
-
-  <hr>
-  <p>Complete the form to enable button.</p>
-  <button type="submit" [disabled]="!socialPerformanceForm.valid">Submit</button>
-
+  <br/>
 </form>
 
+
+<button mat-raised-button color="primary" (click)="saveForm()">Save</button>

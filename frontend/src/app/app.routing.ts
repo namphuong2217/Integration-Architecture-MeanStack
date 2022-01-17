@@ -24,7 +24,7 @@ const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
   {path: 'dashboard', component: DashboardPageComponent, canActivate: [AuthGuardService]},
   {path: 'bonus/:sid/:year', component: BonusComputationCollectionPageComponent, canActivate: [AuthGuardService]},
-  {path: 'enter-social-performance/:sid', component: EnterSocialPerformancePageComponent, canActivate: [AuthGuardService]},
+  {path: 'enter-social-performance/:sid/:year', component: EnterSocialPerformancePageComponent, canActivate: [AuthGuardService]},
   {path: '', component: DashboardPageComponent, canActivate: [AuthGuardService]},
   {path: '**', component: NotFoundPageComponent} // these entries are matched from top to bottom => not found should be the last entry
 ];
