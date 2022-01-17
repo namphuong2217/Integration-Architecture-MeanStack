@@ -1,2 +1,4 @@
-<app-login></app-login>
-<app-register></app-register>
+<app-login *ngIf="showLogin; else registerForm" [switchView]="switchView"></app-login>
+<ng-template #registerForm>
+    <app-register></app-register>
+</ng-template>

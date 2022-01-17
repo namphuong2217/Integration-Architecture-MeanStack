@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 /**
  * This page wraps the login-component
@@ -6,10 +6,18 @@ import {Component} from '@angular/core';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css']
+  styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent {
+  showLogin: boolean;
+  message: string;
 
-  constructor() { }
+  switchView = () => {
+    alert('hi');
+    this.showLogin = !this.showLogin;
+  };
 
+  constructor() {
+    this.showLogin = true;
+  }
 }
