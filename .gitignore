@@ -43,5 +43,7 @@
 /frontend/typings
 
 # System Files
+.DS_Store
+/backend/.DS_Store
 /frontend/.DS_Store
 /frontend/Thumbs.db
