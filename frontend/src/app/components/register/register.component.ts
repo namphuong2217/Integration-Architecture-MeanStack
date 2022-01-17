@@ -15,6 +15,8 @@ export class RegisterComponent implements OnInit {
 
   registrationError: string;
 
+  pwRepeat: string;
+
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
@@ -30,6 +32,11 @@ export class RegisterComponent implements OnInit {
   }
 
   performRegistration() {
+    if (this.pwRepeat !== this.credentials.password) {
+      this.registrationError = 'Passwords do not match';
+      this.pwRepeat = '';
+      return;
+    }
     this.authService.register(this.credentials).subscribe(
       (response) => {
         if (response.status === 200) {
@@ -38,10 +45,13 @@ export class RegisterComponent implements OnInit {
           this.enterApplication();
         } else {
           this.registrationError = response.body;
+          this.resetCredentials();
         }
       },
       (error) => {
         this.registrationError = error.error;
+        this.resetCredentials();
+        this.pwRepeat = '';
       }
     );
   }
