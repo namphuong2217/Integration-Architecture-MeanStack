@@ -3,13 +3,22 @@ const bonusCalc = require("../controllers/transformation/bonus-calculation-enric
 
 
 class SocialPerformanceEval extends SocialPerformance{
-    constructor(socialPerformance) {
+    constructor(socialPerformance, commentsOfCEO) {
         super(socialPerformance.sid, socialPerformance.issuerID, socialPerformance.year, socialPerformance.leadership_competence, socialPerformance.openness,
             socialPerformance.social_behaviour, socialPerformance.attitude, socialPerformance.comm_skills,
             socialPerformance.integrity);
+        if(!commentsOfCEO && socialPerformance.leadership_competence){
+            this.comm_skills.comment = "";
+            this.leadership_competence.comment="";
+            this.attitude.comment="";
+            this.integrity.comment="";
+            this.social_behaviour.comment="";
+            this.openness.comment="";
+        }
     }
 
-    static fromSocialPerformance(socialPerformance){
+
+    static createfromSocialPerformanceforBonusCompColl(socialPerformance){
         const addedBonus = addBonusAndCommentToSocialPerformance(socialPerformance);
         socialPerformance = new SocialPerformanceEval(addedBonus.socialPerformance);
         return {socialPerformance: socialPerformance, bonusSum: addedBonus.bonusSum}

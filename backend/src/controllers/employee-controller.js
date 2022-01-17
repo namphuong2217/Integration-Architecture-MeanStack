@@ -39,11 +39,11 @@ exports.getEmployeeBonus = async function(sid, year) {
     return bonusFilter.filterOrderEvaluationBySid(resp, year);
 }
 //bonus is updated if the value already exists
-exports.postEmployeeBonus = async function(sid, body) {
-    if(!body.value || !body.year){
+exports.postEmployeeBonus = async function(sid, year, bonusOHRM) {
+    if(!sid || !year){
         return {status : "error"}
     }
-    const bonus = new Bonus(body.year, body.value);
+    const bonus = new Bonus(year, bonusOHRM);
     const resp = await salesManService.writeEmployeeBonus(sid, bonus)
         .catch((error) => {
             console.log(error);

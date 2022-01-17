@@ -8,13 +8,14 @@ const salesManController = require("../controllers/employee-controller");
  * @param res express response
  * @return {Promise<void>}
  */
-exports.login = function (req, res){
+exports.login = function (req, res) {
+    console.log("here");
     const db = req.app.get('db');//get database from express
 
-    userService.verify(db, req.body).then(user=> { //verify credentials via user-service
+    userService.verify(db, req.body).then(user => { //verify credentials via user-service
         authService.authenticate(req.session, user); //mark session as authenticated
         res.send('login successful');
-    }).catch(_=>{
+    }).catch(_ => {
         res.status(401).send('login failed');
     })
 }
@@ -25,7 +26,7 @@ exports.login = function (req, res){
  * @param res express response
  * @return {Promise<void>}
  */
-exports.logout = function (req, res){
+exports.logout = function (req, res) {
     authService.deAuthenticate(req.session); //destroy session
     res.send('logout successful');
 }
@@ -36,33 +37,38 @@ exports.logout = function (req, res){
  * @param res express response
  * @return {Promise<void>}
  */
-exports.isLoggedIn = function (req, res){
-    if(authService.isAuthenticated(req.session)){ //check via auth-service
-        res.send({loggedIn: true});
-    }else {
-        res.send({loggedIn: false});
+exports.isLoggedIn = function (req, res) {
+    if (authService.isAuthenticated(req.session)) { //check via auth-service
+        res.send({ loggedIn: true });
+    } else {
+        res.send({ loggedIn: false });
     }
 }
 
-exports.register = async function (req, res){
+exports.register = async function (req, res) {
     const db = req.app.get('db');//get database from express
 
+    const username = req.body.username;
+    const password = req.body.password;
+
     //USER EXISTS IN DB
-    if(await userService.get(db, req.body.username)){
-        return res.status(401).send({"error" : 'user alredy exists'});
+    if (await userService.get(db, username)) {
+        return res.status(401).send({ "error": 'user alredy exists' });
     }
-    const employee = await salesManController.getEmployee(req.body.username);
+    const employee = await salesManController.getEmployee(username);
     // USER IS NOT IN COMPANY
-    if(employee.status){
-        return res.status(401).send({"error" : 'ID does not exist'});
+    if (employee.status) {
+        return res.status(401).send({ "error": 'ID does not exist' });
     }
     const User = require("../models/User");
     //REGISTER
     const user = new User(employee.sid, employee.first_name, employee.last_name,
-                     employee.department, req.body.password, false);
-    userService.add(db, user).then(//mark session as authenticated
-        res.send('registration successful')
-    ).catch(_=>{
-        res.status(401).send('registration failed');
-    });
+        employee.department, password, false);
+    userService.add(db, user)
+        .then(authService.authenticate(req.session, user))
+        .then(//mark session as authenticated
+            res.send('registration successful')
+        ).catch(_ => {
+            res.status(401).send('registration failed');
+        });
 }
