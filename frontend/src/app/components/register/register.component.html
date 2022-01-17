@@ -8,6 +8,10 @@
     <mat-label>password</mat-label>
     <input type="password" (keydown.enter)="performRegistration()" [(ngModel)]="credentials.password" name="password2" matInput> <!-- (keydown.enter) specifies an event-handler for pressing the enter key, while this input is focussed -->
   </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>repeat password</mat-label>
+    <input type="password" (keydown.enter)="performRegistration()" [(ngModel)]="pwRepeat" name="password2" matInput> <!-- (keydown.enter) specifies an event-handler for pressing the enter key, while this input is focussed -->
+  </mat-form-field>
   <span class="error" *ngIf="registrationError">{{registrationError}}</span>
   <button class="register" (click)="performRegistration()" mat-raised-button color="primary">Register</button> <!-- (click) creates a one-way output-binding, which is invoked by click events  -->
 </mat-card>

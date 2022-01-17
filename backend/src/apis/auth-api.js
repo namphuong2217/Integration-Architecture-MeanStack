@@ -53,7 +53,7 @@ exports.register = async function (req, res) {
 
     //USER EXISTS IN DB
     if (await userService.get(db, username)) {
-        return res.status(401).send({ "error": 'user alredy exists' });
+        return res.status(401).send('user alredy exists');
     }
     const employee = await salesManController.getEmployee(username);
     // USER IS NOT IN COMPANY
