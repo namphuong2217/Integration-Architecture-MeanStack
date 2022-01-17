@@ -1,3 +1,4 @@
-<mat-card>
-  <app-login></app-login>
-</mat-card>
+<app-login *ngIf="showLogin; else registerForm" [switchView]="switchView"></app-login>
+<ng-template #registerForm>
+    <app-register [switchView]="switchView"></app-register>
+</ng-template>
