@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {checkAuthorization} = require('../middlewares/auth-middleware');
+const { checkAuthorization } = require('../middlewares/auth-middleware');
 
 /*
     In this file is the routing for the REST-endpoints under /api managed
@@ -8,7 +8,7 @@ const {checkAuthorization} = require('../middlewares/auth-middleware');
 
 const authApi = require('../apis/auth-api'); //api-endpoints are loaded from separate files
 router.post('/login', authApi.login); //the function decides which request type should be accepted
-router.delete('/login', checkAuthorization(),authApi.logout); //middlewares can be defined in parameters
+router.delete('/login', checkAuthorization(), authApi.logout); //middlewares can be defined in parameters
 router.get('/login', authApi.isLoggedIn); //the function, which handles requests is specified as the last parameter
 
 router.post("/register", authApi.register);
@@ -338,7 +338,7 @@ router.get("/socialPerformanceYearAvg/:sid/:year", socialPerformanceAPI.getYearA
 router.post("/socialPerformance", socialPerformanceAPI.addSocialPerformance);
 
 /**
- * @swagger
+ * 
  * /api/socialPerformance/{sid}/{year}:
  *  put:
  *      summary: Updates a performance Record in DB
@@ -370,7 +370,7 @@ router.post("/socialPerformance", socialPerformanceAPI.addSocialPerformance);
  *              schema:
  *                  type: object
  */
-router.put("/socialPerformance/:sid/:year", socialPerformanceAPI.updateSocialPerformance);
+//router.put("/socialPerformance/:sid/:year", socialPerformanceAPI.updateSocialPerformance);
 
 /**
  * @swagger
