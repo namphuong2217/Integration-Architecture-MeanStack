@@ -8,7 +8,7 @@ exports.addSocialPerformance = async (req, res) => {
     console.log(req.body);
     const db = req.app.get('db');
     const body = req.body;
-    if (body.sid === user.sid) {
+    if (body.sid === user.username) {
         res.status(401).send("you cant rate yourself");
         return;
     }
