@@ -8,7 +8,8 @@ exports.addSocialPerformance = async (req, res) => {
     const socialPerformance = new SocialPerformance(body.sid, body.issuerID, body.year, body.leadership_competence, body.openness, body.social_behaviour, body.attitude, body.comm_skills, body.integrity);
     const spInCollection = socialPerformanceService.spInCollection(db, socialPerformance);
     if (await spInCollection) {
-        return res.send(JSON.stringify({ status: "error: social performance already in collection" }));
+        res.status(500).send("social performance already in collection");
+        return;
     }
     const id = await socialPerformanceService.add(db, socialPerformance);
     return res.send(id ? JSON.stringify({ status: "success" }) : JSON.stringify({ status: "error" }));
