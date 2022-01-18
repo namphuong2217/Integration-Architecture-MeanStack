@@ -4,7 +4,7 @@
   "author": "Luca Ringhausen <luca.ringhausen@h-brs.de>",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
+    "start": "ng serve -o --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
