@@ -8,6 +8,10 @@ exports.addSocialPerformance = async (req, res) => {
     console.log(req.body);
     const db = req.app.get('db');
     const body = req.body;
+    if (body.sid === user.sid) {
+        res.status(401).send("you cant rate yourself");
+        return;
+    }
     const socialPerformance = new SocialPerformance(body.sid, user.username, year, body.leadership_competence, body.openness, body.social_behaviour, body.attitude, body.comm_skills, body.integrity);
     const spInCollection = socialPerformanceService.spInCollection(db, socialPerformance);
     if (await spInCollection) {
