@@ -9,7 +9,6 @@ const salesManController = require("../controllers/employee-controller");
  * @return {Promise<void>}
  */
 exports.login = function (req, res) {
-    console.log("here");
     const db = req.app.get('db');//get database from express
 
     userService.verify(db, req.body).then(user => { //verify credentials via user-service

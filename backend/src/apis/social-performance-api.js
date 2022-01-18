@@ -2,26 +2,26 @@ const socialPerformanceService = require("../services/social-performance-service
 const SocialPerformance = require("../models/SocialPerformance");
 
 
-exports.addSocialPerformance = async(req, res) => {
+exports.addSocialPerformance = async (req, res) => {
     const db = req.app.get('db');
     const body = req.body;
     const socialPerformance = new SocialPerformance(body.sid, body.issuerID, body.year, body.leadership_competence, body.openness, body.social_behaviour, body.attitude, body.comm_skills, body.integrity);
     const spInCollection = socialPerformanceService.spInCollection(db, socialPerformance);
-    if(await spInCollection){
-        return res.send(JSON.stringify({status: "error: social performance already in collection"}));
+    if (await spInCollection) {
+        return res.send(JSON.stringify({ status: "error: social performance already in collection" }));
     }
     const id = await socialPerformanceService.add(db, socialPerformance);
-    return res.send(id ? JSON.stringify({status: "success"}) : JSON.stringify({status: "error"}));
+    return res.send(id ? JSON.stringify({ status: "success" }) : JSON.stringify({ status: "error" }));
 }
 
-exports.getSocialPerformance = async(req, res) => {
+exports.getSocialPerformance = async (req, res) => {
     const db = req.app.get('db');
     const sid = parseInt(req.params.sid);
     const socialPerformance = await socialPerformanceService.get(db, sid);
     return res.send(JSON.stringify(socialPerformance));
 }
 
-exports.getYearAverage = async(req, res) => {
+exports.getYearAverage = async (req, res) => {
     const db = req.app.get('db');
     const sid = parseInt(req.params.sid);
     const year = parseInt(req.params.year);
@@ -29,7 +29,7 @@ exports.getYearAverage = async(req, res) => {
     return res.send(JSON.stringify(socialPerformance));
 }
 
-exports.deleteSocialPerformance = async(req, res) => {
+exports.deleteSocialPerformance = async (req, res) => {
     const db = req.app.get('db');
     const sid = parseInt(req.params.sid);
     const year = parseInt(req.params.year);
@@ -37,7 +37,7 @@ exports.deleteSocialPerformance = async(req, res) => {
     return res.send(await result);
 }
 
-exports.updateSocialPerformance = async(req, res) => {
+exports.updateSocialPerformance = async (req, res) => {
     const db = req.app.get('db');
     const sid = parseInt(req.params.sid);
     const year = parseInt(req.params.year);
