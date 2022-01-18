@@ -3,9 +3,12 @@ const SocialPerformance = require("../models/SocialPerformance");
 
 
 exports.addSocialPerformance = async (req, res) => {
+    const user = req.session.user;
+    const year = new Date().getFullYear();
+    console.log(req.body);
     const db = req.app.get('db');
     const body = req.body;
-    const socialPerformance = new SocialPerformance(body.sid, body.issuerID, body.year, body.leadership_competence, body.openness, body.social_behaviour, body.attitude, body.comm_skills, body.integrity);
+    const socialPerformance = new SocialPerformance(body.sid, user.username, year, body.leadership_competence, body.openness, body.social_behaviour, body.attitude, body.comm_skills, body.integrity);
     const spInCollection = socialPerformanceService.spInCollection(db, socialPerformance);
     if (await spInCollection) {
         res.status(500).send("social performance already in collection");

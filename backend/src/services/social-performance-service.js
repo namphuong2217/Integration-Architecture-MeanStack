@@ -55,7 +55,7 @@ exports.update = async (db, sid, year, socialPerformance) => {
 
 exports.spInCollection = async (db, socialPerformance) => {
     let spCollection = db.collection('socialPerformanceCollection');
-    const filter = { sid: socialPerformance.sid, year: socialPerformance.year };
+    const filter = { sid: socialPerformance.sid, year: socialPerformance.year, issuerID: socialPerformance.issuerID };
     const res = spCollection.findOne(filter);
     if (await res) return true;
     return false;
