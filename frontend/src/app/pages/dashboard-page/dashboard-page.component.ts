@@ -13,6 +13,7 @@ import { User } from '../../models/User';
 export class DashboardPageComponent implements OnInit {
   salesmen: Salesman[];
   salesmenCount: number;
+  year: string;
   user: User;
   buttonBonusCalculation = { title: 'Bonus Calculation', routerLink: '/bonus' };
   buttonEnterSocialPerformance = {
@@ -31,6 +32,7 @@ export class DashboardPageComponent implements OnInit {
       this.salesmen = salesmen;
       this.salesmenCount = salesmen.length;
     });
+    this.year = new Date().getFullYear().toString();
   }
 
   showBonusCalculation(sid: string): boolean {
