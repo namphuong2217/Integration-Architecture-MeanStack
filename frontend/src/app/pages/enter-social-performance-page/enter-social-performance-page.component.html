@@ -3,6 +3,6 @@
   <div class="salesman-container" >
     <p><app-year-selector [props]="createPropsYearSalesman()" (selectedEvent)="selectYearAndEmployee($event)"></app-year-selector></p>
   </div>
-  <app-social-performance-form (clickEvent)="saveForm($event)"></app-social-performance-form>
+  <app-social-performance-form (clickEvent)="saveForm($event)" [propSid]="this.currentSalesman.sid"></app-social-performance-form>
   <span class="error" *ngIf="postError">{{postError}}</span>
 </div>

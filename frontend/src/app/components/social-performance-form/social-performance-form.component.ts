@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SocialPerformanceService } from '../../services/social-performance.service';
 import { ratings } from '../../Global';
@@ -10,6 +10,7 @@ import { ratings } from '../../Global';
 })
 export class SocialPerformanceFormComponent {
   @Output() clickEvent = new EventEmitter<FormGroup>();
+  @Input() propSid: string;
   socialPerformanceForm: FormGroup;
 
   leadershipCompetenceValue = new FormControl('');
@@ -35,6 +36,7 @@ export class SocialPerformanceFormComponent {
   }
 
   saveForm() {
+    this.socialPerformanceForm.addControl('sid', new FormControl(this.propSid));
     this.clickEvent.emit(this.socialPerformanceForm.value);
   }
 }
