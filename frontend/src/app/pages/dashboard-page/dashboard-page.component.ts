@@ -43,10 +43,18 @@ export class DashboardPageComponent implements OnInit {
     );
   }
 
-  showSocialPerformance(): boolean {
+  showSocialPerformance(sid: string): boolean {
+    const hasPermissionToEval = Permissions.hasUserPermission(
+      this.user,
+      'socialPerformanceEval'
+    );
+    const hasPermissionToSetTarget = Permissions.hasUserPermission(
+      this.user,
+      'socialPerformanceTarget'
+    );
     return (
-      Permissions.hasUserPermission(this.user, 'socialPerformanceEval') ||
-      Permissions.hasUserPermission(this.user, 'socialPerformanceTarget')
+      (hasPermissionToEval || hasPermissionToSetTarget) &&
+      this.user.username !== sid
     );
   }
 
