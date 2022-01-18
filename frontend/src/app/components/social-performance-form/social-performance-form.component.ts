@@ -1,15 +1,14 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {SocialPerformanceService} from '../../services/social-performance.service';
-import {ratings} from "../../Global";
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { SocialPerformanceService } from '../../services/social-performance.service';
+import { ratings } from '../../Global';
 
 @Component({
   selector: 'app-social-performance-form',
   templateUrl: './social-performance-form.component.html',
-  styleUrls: ['./social-performance-form.component.css']
+  styleUrls: ['./social-performance-form.component.css'],
 })
-export class SocialPerformanceFormComponent{
-
+export class SocialPerformanceFormComponent {
   @Output() clickEvent = new EventEmitter<FormGroup>();
   socialPerformanceForm: FormGroup;
 
@@ -19,27 +18,30 @@ export class SocialPerformanceFormComponent{
   attitudeValue = new FormControl('');
   communicationSkillsValue = new FormControl('');
   integrityValue = new FormControl('');
-  ratings : string[] = ratings;
+  ratings: string[] = ratings;
 
-  constructor(private socialPerformanceService: SocialPerformanceService, fb: FormBuilder) {
+  constructor(
+    private socialPerformanceService: SocialPerformanceService,
+    fb: FormBuilder
+  ) {
     this.socialPerformanceForm = fb.group({
       leadershipCompetence: new FormGroup({
-        value: this.leadershipCompetenceValue
+        value: this.leadershipCompetenceValue,
       }),
       openness: new FormGroup({
-        value: this.opennessValue
+        value: this.opennessValue,
       }),
       socialBehaviour: new FormGroup({
-        value: this.socialBehaviourValue
+        value: this.socialBehaviourValue,
       }),
       attitude: new FormGroup({
-        value: this.attitudeValue
+        value: this.attitudeValue,
       }),
-      communicationSkills : new FormGroup({
-        value: this.communicationSkillsValue
+      communicationSkills: new FormGroup({
+        value: this.communicationSkillsValue,
       }),
       integrity: new FormGroup({
-        value: this.integrityValue
+        value: this.integrityValue,
       }),
     });
   }
