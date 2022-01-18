@@ -3,10 +3,11 @@
  * @param session current session
  * @param {User} user information about the current user
  */
-exports.authenticate = function (session, user){
+exports.authenticate = function (session, user) {
     session.authenticated = true;
-    delete user.password;
-    session.user = user;
+    const userClone = Object.assign({}, user);
+    delete userClone.password;
+    session.user = userClone;
 }
 
 /**
@@ -14,7 +15,7 @@ exports.authenticate = function (session, user){
  * @param session current session
  * @return {boolean} true if user is authenticated
  */
-exports.isAuthenticated = function (session){
+exports.isAuthenticated = function (session) {
     return session.authenticated ? true : false;
 }
 
@@ -22,7 +23,7 @@ exports.isAuthenticated = function (session){
  * resets session to a 'non authenticated' state
  * @param session current session
  */
-exports.deAuthenticate = function (session){
+exports.deAuthenticate = function (session) {
     session.authenticated = false;
     session.user = undefined;
     session.destroy();
