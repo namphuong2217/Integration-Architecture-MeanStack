@@ -90,8 +90,8 @@
           <td>{{salesman.first_name}}</td>
           <td>{{salesman.last_name}}</td>
           <td>{{salesman.department}}</td>
-          <td class="primary" *ngIf="showSocialPerformance()" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[buttonEnterSocialPerformance.routerLink, salesman.sid, 2021]">{{getButtonName()}}</a></td>
-          <td class="primary" *ngIf="showBonusCalculation(salesman.sid)" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[buttonBonusCalculation.routerLink, salesman.sid, 2021]">{{buttonBonusCalculation.title}}</a></td>
+          <td class="primary" *ngIf="showSocialPerformance(salesman.sid)" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[buttonEnterSocialPerformance.routerLink, salesman.sid, this.year]">{{getButtonName()}}</a></td>
+          <td class="primary" *ngIf="showBonusCalculation(salesman.sid)" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[buttonBonusCalculation.routerLink, salesman.sid, this.year]">{{buttonBonusCalculation.title}}</a></td>
         </tr>
         </tbody>
       </table>

@@ -13,6 +13,7 @@ import { User } from '../../models/User';
 export class DashboardPageComponent implements OnInit {
   salesmen: Salesman[];
   salesmenCount: number;
+  year: string;
   user: User;
   buttonBonusCalculation = { title: 'Bonus Calculation', routerLink: '/bonus' };
   buttonEnterSocialPerformance = {
@@ -31,6 +32,7 @@ export class DashboardPageComponent implements OnInit {
       this.salesmen = salesmen;
       this.salesmenCount = salesmen.length;
     });
+    this.year = new Date().getFullYear().toString();
   }
 
   showBonusCalculation(sid: string): boolean {
@@ -41,10 +43,18 @@ export class DashboardPageComponent implements OnInit {
     );
   }
 
-  showSocialPerformance(): boolean {
+  showSocialPerformance(sid: string): boolean {
+    const hasPermissionToEval = Permissions.hasUserPermission(
+      this.user,
+      'socialPerformanceEval'
+    );
+    const hasPermissionToSetTarget = Permissions.hasUserPermission(
+      this.user,
+      'socialPerformanceTarget'
+    );
     return (
-      Permissions.hasUserPermission(this.user, 'socialPerformanceEval') ||
-      Permissions.hasUserPermission(this.user, 'socialPerformanceTarget')
+      (hasPermissionToEval || hasPermissionToSetTarget) &&
+      this.user.username !== sid
     );
   }
 

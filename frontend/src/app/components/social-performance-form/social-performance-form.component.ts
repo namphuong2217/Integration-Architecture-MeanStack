@@ -25,24 +25,12 @@ export class SocialPerformanceFormComponent {
     fb: FormBuilder
   ) {
     this.socialPerformanceForm = fb.group({
-      leadershipCompetence: new FormGroup({
-        value: this.leadershipCompetenceValue,
-      }),
-      openness: new FormGroup({
-        value: this.opennessValue,
-      }),
-      socialBehaviour: new FormGroup({
-        value: this.socialBehaviourValue,
-      }),
-      attitude: new FormGroup({
-        value: this.attitudeValue,
-      }),
-      communicationSkills: new FormGroup({
-        value: this.communicationSkillsValue,
-      }),
-      integrity: new FormGroup({
-        value: this.integrityValue,
-      }),
+      leadershipCompetence: this.leadershipCompetenceValue,
+      openness: this.opennessValue,
+      socialBehaviour: this.socialBehaviourValue,
+      attitude: this.attitudeValue,
+      communicationSkills: this.communicationSkillsValue,
+      integrity: this.integrityValue,
     });
   }
 
