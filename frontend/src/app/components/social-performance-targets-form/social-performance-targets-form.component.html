@@ -1,1 +1,74 @@
-<p>social-performance-targets-form works!</p>
+<h1>Please define the performance target values before you continue</h1>
+
+<form [formGroup]="socialPerformanceForm">
+    <div formGroupName="leadershipCompetence">
+      <mat-form-field appearance="fill">
+        <mat-label >Leadership </mat-label>
+        <mat-select  [value]="ratings[0]" [formControl]="leadershipCompetenceValue">
+          <mat-option *ngFor="let el of ratings" [value]="el" >
+            {{el}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  
+    <div formGroupName="openness">
+      <mat-form-field appearance="fill">
+        <mat-label >Openness </mat-label>
+        <mat-select  [value]="ratings[0]" [formControl]="opennessValue">
+          <mat-option *ngFor="let el of ratings" [value]="el" >
+            {{el}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  
+    <div formGroupName="socialBehaviour">
+      <mat-form-field appearance="fill">
+        <mat-label >Social behaviour </mat-label>
+        <mat-select  [value]="ratings[0]" [formControl]="socialBehaviourValue">
+          <mat-option *ngFor="let el of ratings" [value]="el" >
+            {{el}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  
+    <div formGroupName="attitude">
+      <mat-form-field appearance="fill">
+        <mat-label >Attitude </mat-label>
+        <mat-select  [value]="ratings[0]" [formControl]="attitudeValue">
+          <mat-option *ngFor="let el of ratings" [value]="el" >
+            {{el}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  
+    <div formGroupName="communicationSkills">
+      <mat-form-field appearance="fill">
+        <mat-label >Communication Skills </mat-label>
+        <mat-select  [value]="ratings[0]" [formControl]="communicationSkillsValue">
+          <mat-option *ngFor="let el of ratings" [value]="el" >
+            {{el}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  
+    <div formGroupName="integrity">
+      <mat-form-field appearance="fill">
+        <mat-label >Integrity </mat-label>
+        <mat-select [value]="ratings[0]" [formControl]="integrityValue">
+          <mat-option *ngFor="let el of ratings" [value]="el" >
+            {{el}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <br/>
+  </form>
+  
+  
+  <button mat-raised-button color="primary" (click)="saveForm()">Save</button>
+  

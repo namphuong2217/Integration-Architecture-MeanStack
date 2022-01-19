@@ -7,10 +7,22 @@
   border-radius: 50%;
 }
 
-.approved{
+.approved {
   background-color: lawngreen;
 }
 
-.notApproved{
+.notApproved {
   background-color: red;
+}
+
+.error {
+  margin: 1rem;
+  color: red;
+  font-weight: bold;
+}
+
+.success {
+  margin: 1rem;
+  color: blue;
+  font-weight: bold;
 }

@@ -7,6 +7,9 @@ import { SalesmanService } from '../../services/salesman.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/User';
 import { Permissions } from '../../Global';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { SocialPerformanceTargetService } from 'src/app/services/social-performance-target.service';
 
 @Component({
   selector: 'app-bonus-computation-collection',
@@ -19,15 +22,21 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   currentYear: string;
   bonusCompCollection: BonusCompCollection;
   salesmen: Salesman[];
+  successMessage: string;
+  postError: string;
 
   constructor(
     private bonusCompCollectionService: BonusComputationCollectionService,
+    private socialPerformanceTargetService: SocialPerformanceTargetService,
     private salesmanService: SalesmanService,
     private userService: UserService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.salesmanService
+      .getSalesman(this.route.snapshot.paramMap.get('sid'))
+      .subscribe((salesman) => (this.currentSalesman = salesman));
     this.currentYear = this.route.snapshot.paramMap.get('year');
     this.setBonusCompCollectionAndSalesman(
       this.route.snapshot.paramMap.get('sid'),
@@ -37,6 +46,24 @@ export class BonusComputationCollectionPageComponent implements OnInit {
     this.salesmanService
       .getSalesmen()
       .subscribe((salesmen) => (this.salesmen = salesmen));
+  }
+
+  setPostError = (msg: string) => {
+    this.successMessage = '';
+    this.postError = msg;
+  };
+
+  handleSuccess = () => {
+    this.postError = '';
+    this.successMessage = 'Success';
+  };
+
+  saveTargets(socialPerformanceForm) {
+    this.socialPerformanceTargetService.postSocialPerformanceTargets(
+      socialPerformanceForm,
+      this.setPostError,
+      this.handleSuccess
+    );
   }
 
   setBonusCompCollectionAndSalesman(sid: string, year: string): void {

@@ -12,7 +12,7 @@ exports.add = async (db, body, user) => {
     for (const [key, value] of Object.entries(body)) {
         if (!value) return { status: 500, msg: `${key}: Value is missing!` };
     }
-    if ((await db.collection('socialPerformanceTargetCollection').insertOne(socialPerformance)).insertedId) {
+    if ((await db.collection('socialPerformanceTargetCollection').insertOne(socialPerformanceTargets)).insertedId) {
         return { status: 200, msg: "success" };
     }
 }

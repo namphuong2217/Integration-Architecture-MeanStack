@@ -81,23 +81,11 @@ export class EnterSocialPerformancePageComponent implements OnInit {
   };
 
   saveForm(socialPerformanceForm) {
-    if (
-      Permissions.hasUserPermission(this.user, 'writeTargetSocialPerformance')
-    ) {
-      this.socialPerformanceService.postSocialPerformanceRecords(
-        socialPerformanceForm,
-        this.setPostError,
-        this.handleSuccess
-      );
-    } else if (
-      Permissions.hasUserPermission(this.user, 'writeValueSocialPerformance')
-    ) {
-      this.socialPerformanceService.postSocialPerformanceRecords(
-        socialPerformanceForm,
-        this.setPostError,
-        this.handleSuccess
-      );
-    }
+    this.socialPerformanceService.postSocialPerformanceRecords(
+      socialPerformanceForm,
+      this.setPostError,
+      this.handleSuccess
+    );
   }
 
   getHeader() {

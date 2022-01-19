@@ -1,7 +1,8 @@
 <ng-template #targetForm>
-  <app-social-performance-targets-form>
-    
+  <app-social-performance-targets-form [propSid]="currentSalesman.sid" (clickEvent)="saveTargets($event)">
   </app-social-performance-targets-form>
+  <span class="error" *ngIf="postError">{{postError}}</span>
+  <span class="success" *ngIf="successMessage">{{successMessage}}</span>
 </ng-template>
 
 <div class="container" *ngIf="(bonusCompCollection && user); else targetForm" >
