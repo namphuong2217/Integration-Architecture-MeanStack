@@ -23,6 +23,7 @@ export class EnterSocialPerformancePageComponent implements OnInit {
   currentYear: string;
   salesmen: Salesman[];
   postError: string;
+  successMessage: string;
 
   constructor(
     private userService: UserService,
@@ -70,11 +71,13 @@ export class EnterSocialPerformancePageComponent implements OnInit {
   }
 
   setPostError = (msg: string) => {
+    this.successMessage = '';
     this.postError = msg;
   };
 
   handleSuccess = () => {
-    alert('Sucess!');
+    this.postError = '';
+    this.successMessage = 'Success';
   };
 
   saveForm(socialPerformanceForm) {

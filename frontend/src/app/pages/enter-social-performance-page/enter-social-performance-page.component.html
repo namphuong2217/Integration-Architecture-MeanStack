@@ -5,4 +5,5 @@
   </div>
   <app-social-performance-form (clickEvent)="saveForm($event)" [propSid]="this.currentSalesman.sid"></app-social-performance-form>
   <span class="error" *ngIf="postError">{{postError}}</span>
+  <span class="success" *ngIf="successMessage">{{successMessage}}</span>
 </div>

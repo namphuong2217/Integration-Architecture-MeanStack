@@ -3,3 +3,9 @@
   color: red;
   font-weight: bold;
 }
+
+.success {
+  margin: 1rem;
+  color: blue;
+  font-weight: bold;
+}
