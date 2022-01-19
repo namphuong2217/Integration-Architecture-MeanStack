@@ -1,25 +1,11 @@
 const socialPerformanceService = require("../services/social-performance-service");
-const SocialPerformance = require("../models/SocialPerformance");
-
 
 exports.addSocialPerformance = async (req, res) => {
-    const user = req.session.user;
-    const issuerID = user.username;
-    const year = new Date().getFullYear();
     const db = req.app.get('db');
     const body = req.body;
-    if (body.sid === user.username) {
-        res.status(401).send("you cant rate yourself");
-        return;
-    }
-    const socialPerformance = new SocialPerformance(body.sid, issuerID, year, body.leadershipCompetence, body.openness, body.socialBehaviour, body.attitude, body.communicationSkills, body.integrity);
-    const spInCollection = socialPerformanceService.spInCollection(db, socialPerformance);
-    if (await spInCollection) {
-        res.status(500).send("social performance already in collection");
-        return;
-    }
-    const id = await socialPerformanceService.add(db, socialPerformance, user);
-    return res.send(id ? JSON.stringify({ status: "success" }) : JSON.stringify({ status: "error" }));
+    const user = req.session.user;
+    const result = await socialPerformanceService.add(db, body, user);
+    return res.status(result.status).send(result.msg);
 }
 
 exports.getSocialPerformance = async (req, res) => {

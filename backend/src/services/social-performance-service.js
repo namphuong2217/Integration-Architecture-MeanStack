@@ -1,6 +1,16 @@
+const SocialPerformance = require("../models/SocialPerformance");
+
 exports.get = (db, sid) => {
     let res = db.collection('socialPerformanceCollection').find({ sid: sid }).toArray();
     return res;
+}
+
+const spInCollection = async (db, socialPerformance) => {
+    let spCollection = db.collection('socialPerformanceCollection');
+    const filter = { sid: socialPerformance.sid, year: socialPerformance.year, issuerID: socialPerformance.issuerID };
+    const res = spCollection.findOne(filter);
+    if (await res) return true;
+    return false;
 }
 
 exports.getYearAverage = async (db, sid, year) => {
@@ -30,8 +40,20 @@ exports.getYearAverage = async (db, sid, year) => {
     return avg;
 }
 
-exports.add = async (db, socialPerformance, user) => {
-    return (await db.collection('socialPerformanceCollection').insertOne(socialPerformance)).insertedId; //return unique ID
+exports.add = async (db, body, user) => {
+    const issuerID = user.username;
+    const year = new Date().getFullYear();
+    if (body.sid === user.username) {
+        return { status: 401, msg: "you cant rate yourself" };
+    }
+    const socialPerformance = new SocialPerformance(body.sid, issuerID, year, body.leadershipCompetence, body.openness, body.socialBehaviour, body.attitude, body.communicationSkills, body.integrity);
+    const spIsInCollection = spInCollection(db, socialPerformance);
+    if (await spIsInCollection) {
+        return { status: 500, msg: "social performance already in collection" };
+    }
+    if ((await db.collection('socialPerformanceCollection').insertOne(socialPerformance)).insertedId) {
+        return { status: 200, msg: "success" };
+    }
 }
 
 exports.delete = async (db, sid, year) => {
@@ -51,12 +73,4 @@ exports.update = async (db, sid, year, socialPerformance) => {
     const updateDocument = { $set: socialPerformance };
     await spCollection.updateOne(filter, updateDocument);
     return JSON.stringify({ status: "updated" });
-}
-
-exports.spInCollection = async (db, socialPerformance) => {
-    let spCollection = db.collection('socialPerformanceCollection');
-    const filter = { sid: socialPerformance.sid, year: socialPerformance.year, issuerID: socialPerformance.issuerID };
-    const res = spCollection.findOne(filter);
-    if (await res) return true;
-    return false;
 }
