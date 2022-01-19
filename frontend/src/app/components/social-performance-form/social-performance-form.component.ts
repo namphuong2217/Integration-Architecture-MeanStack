@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { SocialPerformanceService } from '../../services/social-performance.service';
 import { ratings } from '../../Global';
 
 @Component({
@@ -21,10 +20,7 @@ export class SocialPerformanceFormComponent {
   integrityValue = new FormControl('');
   ratings: string[] = ratings;
 
-  constructor(
-    private socialPerformanceService: SocialPerformanceService,
-    fb: FormBuilder
-  ) {
+  constructor(fb: FormBuilder) {
     this.socialPerformanceForm = fb.group({
       leadershipCompetence: this.leadershipCompetenceValue,
       openness: this.opennessValue,
