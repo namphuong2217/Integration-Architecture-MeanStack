@@ -47,3 +47,4 @@
 /backend/.DS_Store
 /frontend/.DS_Store
 /frontend/Thumbs.db
+backend/target/npmlist.json
