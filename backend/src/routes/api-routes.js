@@ -466,6 +466,6 @@ router.post("/bonusCompCollection", bonusCompCollectionApi.postBonusCompCollecti
 
 const socialPerformanceTargetAPI = require("../apis/social-performance-targets-api")
 router.get("/socialPerformanceTargets/:sid/:year", socialPerformanceTargetAPI.get);
-router.post("/socialPerformanceTargets/:sid/:year", socialPerformanceTargetAPI.add);
+router.post("/socialPerformanceTargets/", socialPerformanceTargetAPI.add);
 
 module.exports = router;
