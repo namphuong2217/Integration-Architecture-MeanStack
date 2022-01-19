@@ -25,17 +25,15 @@ exports.getYearAverage = async (db, sid, year) => {
 
     res.forEach(record => {
         for (const [key, value] of Object.entries(record)) {
-            if (key === "_id" || key === "sid" || key === "year") continue;
-            if (!avg[key]) avg[key] = { target: 0, actual: 0 };
-            avg[key].target += value.target / recordCount;
-            avg[key].actual += value.actual / recordCount;
+            if (key === "_id" || key === "sid" || key === "year" || key === "issuerID") continue;
+            if (!avg[key]) avg[key] = 0;
+            avg[key] += value.toString() / recordCount;
         }
     });
 
     for (const [key, value] of Object.entries(avg)) {
-        if (key === "sid" || key === "year") continue;
-        value.target = value.target.toFixed(2);
-        value.actual = value.actual.toFixed(2);
+        if (key === "_id" || key === "sid" || key === "year" || key === "issuerID") continue;
+        avg[key] = value.toFixed(2);
     }
 
     return avg;
