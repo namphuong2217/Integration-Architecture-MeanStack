@@ -50,7 +50,7 @@ exports.add = async (db, body, user) => {
         return { status: 500, msg: "social performance already in collection" };
     }
     for (const [key, value] of Object.entries(body)) {
-        if (!value) return { status: 500, msg: "social performance rating is empty" };
+        if (!value) return { status: 500, msg: `${key}: Value is missing!` };
     }
     if ((await db.collection('socialPerformanceCollection').insertOne(socialPerformance)).insertedId) {
         return { status: 200, msg: "success" };
