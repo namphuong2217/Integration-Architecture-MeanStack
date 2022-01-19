@@ -17,8 +17,6 @@ export class DashboardPageComponent implements OnInit {
   user: User;
   buttonBonusCalculation = { title: 'Bonus Calculation', routerLink: '/bonus' };
   buttonEnterSocialPerformance = {
-    titleSales: 'Rate Social Performance',
-    titleCEO: 'Set target of Social Performance',
     routerLink: '/enter-social-performance',
   };
   constructor(
@@ -48,20 +46,6 @@ export class DashboardPageComponent implements OnInit {
       this.user,
       'socialPerformanceEval'
     );
-    const hasPermissionToSetTarget = Permissions.hasUserPermission(
-      this.user,
-      'socialPerformanceTarget'
-    );
-    return (
-      (hasPermissionToEval || hasPermissionToSetTarget) &&
-      this.user.username !== sid
-    );
-  }
-
-  getButtonName(): string {
-    if (Permissions.hasUserPermission(this.user, 'socialPerformanceTarget')) {
-      return this.buttonEnterSocialPerformance.titleCEO;
-    }
-    return this.buttonEnterSocialPerformance.titleSales;
+    return hasPermissionToEval && this.user.username !== sid;
   }
 }
