@@ -30,7 +30,7 @@ exports.getYearAverage = async (db, sid, year) => {
     return avg;
 }
 
-exports.add = async (db, socialPerformance) => {
+exports.add = async (db, socialPerformance, user) => {
     return (await db.collection('socialPerformanceCollection').insertOne(socialPerformance)).insertedId; //return unique ID
 }
 
