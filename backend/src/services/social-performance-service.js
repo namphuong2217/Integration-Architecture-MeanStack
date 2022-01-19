@@ -14,6 +14,7 @@ const spInCollection = async (db, socialPerformance) => {
 }
 
 exports.getYearAverage = async (db, sid, year) => {
+    sid = sid.toString();
     let res = await db.collection('socialPerformanceCollection').find({ sid: sid, year: year }).toArray();
     if (await res.length === 0) return { status: "error", message: "user does not exist" };
     let avg = {};
