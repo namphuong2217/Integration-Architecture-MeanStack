@@ -43,13 +43,14 @@ exports.getYearAverage = async (db, sid, year) => {
 exports.add = async (db, body, user) => {
     const issuerID = user.username;
     const year = new Date().getFullYear();
-    if (body.sid === user.username) {
-        return { status: 401, msg: "you cant rate yourself" };
-    }
+    if (body.sid === user.username) return { status: 401, msg: "you cant rate yourself" };
     const socialPerformance = new SocialPerformance(body.sid, issuerID, year, body.leadershipCompetence, body.openness, body.socialBehaviour, body.attitude, body.communicationSkills, body.integrity);
     const spIsInCollection = spInCollection(db, socialPerformance);
     if (await spIsInCollection) {
         return { status: 500, msg: "social performance already in collection" };
+    }
+    for (const [key, value] of Object.entries(body)) {
+        if (!value) return { status: 500, msg: "social performance rating is empty" };
     }
     if ((await db.collection('socialPerformanceCollection').insertOne(socialPerformance)).insertedId) {
         return { status: 200, msg: "success" };
