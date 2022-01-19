@@ -30,6 +30,7 @@ import { EmployeeAndYearSelectorComponent } from './components/employee-and-year
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
+import { SocialPerformanceTargetsFormComponent } from './components/social-performance-targets-form/social-performance-targets-form.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { MatListModule } from '@angular/material/list';
     SocialPerformanceFormComponent,
     EmployeeAndYearSelectorComponent,
     RegisterComponent,
+    SocialPerformanceTargetsFormComponent,
   ],
   imports: [
     BrowserModule,
