@@ -10,10 +10,11 @@ class BonusCompCollection {
         this.approvedByHR = approvedByHR;
         this.bonusSocial = bonusSocial;
         this.bonusOrder = bonusOrder;
-        this.bonusTotal = bonusOrder + bonusSocial;
+        this.bonusSocialTotal = bonusSocial.reduce((x,y) => x+y, 0);
+        this.bonusOrderTotal = bonusOrder.reduce((x,y) => x+y, 0);
+        this.bonusTotal = this.bonusOrderTotal + this.bonusSocialTotal;
         this.targets = targets;
         this.comments = comments;
     }
 }
-
 module.exports = BonusCompCollection;

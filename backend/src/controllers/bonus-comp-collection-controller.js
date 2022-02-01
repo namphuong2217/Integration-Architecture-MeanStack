@@ -5,8 +5,11 @@ const bonusCompCollectionService = require("../services/bonus-comp-collection-se
 const BonusCompCollection = require("../models/BonusCompCollection");
 const SalesMan = require("../models/Employee");
 
+const socialPerformanceTargetService = require("../services/social-performance-target-service");
+
 const {hasRoleHR, hasRoleCEO, hasRoleSales} = require("../Globals");
 const socialPerformanceService = require("../services/social-performance-service");
+const bonusCalcEnricher = require("./transformation/bonus-calculation-enricher");
 
 exports.getBonusComputationCollection = async function(sid, year, db) {
     year=parseInt(year);
@@ -21,8 +24,18 @@ exports.getBonusComputationCollection = async function(sid, year, db) {
     const socialPerformance = await socialPerformanceService.getYearAverage(db, sid, year);
     const salesman = await salesmanController.getEmployee(sid);
 
-    const bonusOrder = 0;
-    const bonusSocial = 0;
+    const bonusOrder=[];
+    orderEvaluation.forEach(orderEval => {
+        bonusOrder.push(bonusCalcEnricher.getBonusForSale(orderEval.nameProduct, orderEval.clientRanking, orderEval.items));
+    });
+
+    const target = await socialPerformanceTargetService.get(db, sid, year);
+    const bonusSocial=[];
+    if(target.status === 200){
+        Object.keys(socialPerformance).filter(key => key != "sid" && key !="year").forEach(socialKey =>{
+            bonusSocial.push(bonusCalcEnricher.getBonusForSocialPerformance(socialKey, target.payload[socialKey], socialPerformance[socialKey]));
+        });
+    }
 
     return new BonusCompCollection(year, salesman, orderEvaluation,
         socialPerformance,false, false, bonusOrder, bonusSocial);

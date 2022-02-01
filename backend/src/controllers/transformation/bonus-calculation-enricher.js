@@ -17,15 +17,15 @@ exports.getBonusForSale = (productName, ranking, items) =>{
 exports.getBonusForSocialPerformance = (performance, target, actual) =>{
     const factorDiff = factorDiffTargAct(target, actual);
     switch(performance){
-        case("leadership_competence"):
+        case("leadershipCompetence"):
             return factorDiff*target*5;
         case("openness"):
             return factorDiff*target*5;
-        case("social_behaviour"):
+        case("socialBehaviour"):
             return factorDiff*target*10;
         case("attitude"):
             return factorDiff*target*5;
-        case("comm_skills"):
+        case("communicationSkills"):
             return factorDiff*target*8;
         case("integrity"):
             return factorDiff*target*8;

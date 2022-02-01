@@ -48,7 +48,7 @@ filterSaleOrdersBySidYear = function(sid, year, saleOrders, accounts){
  */
 
 getVcardBySid = function(sid, accounts) {
-    return accounts.objects.filter(account => account.governmentId === String(sid))
+    return accounts.objects.filter(account => String(account.governmentId) === String(sid))
         .map(account => mapVcardStringOnVcard(account.vcard));
 }
 

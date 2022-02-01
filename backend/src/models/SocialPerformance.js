@@ -3,11 +3,11 @@ class SocialPerformance{
         this.sid = sid;
         this.issuerID = issuerID;
         this.year = year;
-        this.leadership_competence = leadership_competence;
+        this.leadershipCompetence = leadership_competence;
         this.openness = openness;
-        this.social_behaviour = social_behaviour;
+        this.socialBehaviour = social_behaviour;
         this.attitude = attitude;
-        this.comm_skills = comm_skills;
+        this.communicationSkills = comm_skills;
         this.integrity = integrity;
     }
 }
