@@ -9,8 +9,8 @@ const spInCollection = async (db, socialPerformance) => {
     let spCollection = db.collection('socialPerformanceCollection');
     const filter = { sid: socialPerformance.sid, year: socialPerformance.year, issuerID: socialPerformance.issuerID };
     const res = spCollection.findOne(filter);
-    if (await res) return true;
-    return false;
+    return (await res);
+
 }
 
 exports.getYearAverage = async (db, sid, year) => {
@@ -39,11 +39,11 @@ exports.getYearAverage = async (db, sid, year) => {
     return avg;
 }
 
-exports.add = async (db, body, user) => {
+exports.add = async (db, body,user) => {
     const issuerID = user.username;
     const year = new Date().getFullYear();
-    if (body.sid === user.username) return { status: 401, msg: "you cant rate yourself" };
-    if (user.role !== "Sales") return { status: 401, msg: "only salesmen are allowed to perform this action" };
+    //if (body.sid === user.username) return { status: 401, msg: "you cant rate yourself" };
+    //if (user.role !== "Sales") return { status: 401, msg: "only salesmen are allowed to perform this action" };
     const socialPerformance = new SocialPerformance(body.sid, issuerID, year, body.leadershipCompetence, body.openness, body.socialBehaviour, body.attitude, body.communicationSkills, body.integrity);
     const spIsInCollection = spInCollection(db, socialPerformance);
     if (await spIsInCollection) {

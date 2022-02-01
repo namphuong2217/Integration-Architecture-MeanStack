@@ -4,7 +4,7 @@ exports.getBonusCompCollection = async function(req, res) {
     const sid = req.params.sid;
     const year = req.params.year;
     const db = req.app.get('db');
-    const resp = await bonusCompCollectionController.getBonusComputationCollection(sid, year, db, req.session.user);
+    const resp = await bonusCompCollectionController.getBonusComputationCollection(sid, year, db);
     return res.send(resp);
 }
 
