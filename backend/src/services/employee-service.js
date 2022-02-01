@@ -33,8 +33,8 @@ const employeeRead = async(sid) => {
         .catch((error) => {
             console.log(error);
         })
-    if(!res){return {"status" : "employee not found"}}
-    return res.data.data[0];
+    if(!res){return { status: 404, msg: "no targets for sid" };}
+    return { status: 200, payload: await res.data.data[0] };
 }
 
 module.exports.employeeRead = employeeRead;
@@ -45,29 +45,29 @@ exports.employeesRead = async() => {
         .catch((error) => {
             console.log(error);
         })
-    if(!res){return {"status" : "employees not found"}}
-    return res.data.data;
+    if(!res){return { status: 404, msg: "no targets found" };}
+    return { status: 200, payload: await res.data.data };
 }
 
 exports.readEmployeeBonus = async(sid) => {
-    const salesman = await employeeRead(sid);
-    if(salesman.status){return salesman;}
-    const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${await salesman["employeeId"]}/bonussalary`;
+    const respEmployeeRead = await employeeRead(sid);
+    if(respEmployeeRead.status !== 200){return respEmployeeRead;}
+    const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${await respEmployeeRead.payload["employeeId"]}/bonussalary`;
     const res = await axios.get(url, await header)
         .catch((error) => {
             console.log(error);
         })
-    return res.data.data;
+    if(!res){return { status: 404, msg: "no targets for sid" };}
+    return { status: 200, payload: await res.data.data };
 }
 
 exports.writeEmployeeBonus = async(sid, bonus) => {
-    const salesman = await employeeRead(sid);
-    const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${await salesman["employeeId"]}/bonussalary`;
+    const salesmanResp = await employeeRead(sid);
+    if(salesmanResp.status !== 200){throw salesmanResp;}
+    const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${await salesmanResp.payload["employeeId"]}/bonussalary`;
     const qBody = qs.stringify(bonus);
-    const res = await axios.post(url, qBody, await header)
+    return await axios.post(url, qBody, await header)
         .catch((error) => {
             console.log(error);
         })
-
-    return res.data;
 }

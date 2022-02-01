@@ -55,7 +55,7 @@ router.get('/user', checkAuthorization(), userApi.getSelf);
  *  name: Salesman
  *  description: The Salesman Managing API
  */
-const salesManApi = require("../apis/salesman-api")
+const salesManApi = require("../apis/employee-api")
 /**
  * @swagger
  * /api/salesman/{sid}:

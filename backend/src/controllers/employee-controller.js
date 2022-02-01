@@ -9,8 +9,8 @@ exports.getEmployee = async function(sid) {
         .catch((error) => {
             console.log(error);
         });
-    if(resp.status){return resp}
-    return new Employee(resp.code, resp.firstName, resp.lastName, resp.unit);
+    if(resp.status !== 200){return resp}
+    return new Employee(resp.payload.code, resp.payload.firstName, resp.payload.lastName, resp.payload.unit);
 }
 
 exports.getSalesmen = async function() {
@@ -18,11 +18,10 @@ exports.getSalesmen = async function() {
         .catch((error) => {
             console.log(error);
         });
-    if(resp.status){return resp}
-
+    if(resp.status !== 200){return resp}
     let listOfSalesmenFinal = [];
-    for (const salesman of resp){
-        if(salesman.unit == "Sales"){
+    for (const salesman of resp.payload){
+        if(salesman.unit === "Sales"){
             const salesmanFinal = new Employee(salesman.code, salesman.firstName, salesman.lastName, salesman.unit);
             listOfSalesmenFinal.push(salesmanFinal);
         }
@@ -35,19 +34,14 @@ exports.getEmployeeBonus = async function(sid, year) {
         .catch((error) => {
             console.log(error);
         });
-    if(resp.status){return resp}
-    return bonusFilter.filterOrderEvaluationBySid(resp, year);
+    if(resp.status !== 200){return resp}
+    return bonusFilter.filterOrderEvaluationBySid(resp.payload, year);
 }
 //bonus is updated if the value already exists
-exports.postEmployeeBonus = async function(sid, year, bonusOHRM) {
-    if(!sid || !year){
-        return {status : "error"}
+exports.postEmployeeBonus = async function(sid, body) {
+    if(!sid || !body.year || !body.value){
+        throw {status : 409, msg: "input error"};
     }
-    const bonus = new Bonus(year, bonusOHRM);
-    const resp = await salesManService.writeEmployeeBonus(sid, bonus)
-        .catch((error) => {
-            console.log(error);
-        });
-    if(resp.status){return resp}
-    return resp;
+    const bonus = new Bonus(body.year, body.value);
+    return await salesManService.writeEmployeeBonus(sid, bonus);
 }
