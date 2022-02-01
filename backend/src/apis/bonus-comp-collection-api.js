@@ -13,7 +13,7 @@ exports.getBonusCompCollection = async function(req, res) {
 exports.postBonusCompCollection = async function(req, res){
     const body = req.body;
     const db = req.app.get('db');
-    const user = {role : "HR"};// TODO session.user
+    const user = req.session.user; //{role : "HR"};//
     let resp ;
     if(Permissions.hasUserPermission(user, "approveBonusHR")){
         resp = await bonusCompCollectionController.approvedByHR(body.sid, body.year, db);

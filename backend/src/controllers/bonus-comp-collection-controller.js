@@ -48,10 +48,14 @@ exports.approvedByCEO = async function(sid, year, comments, db){
         let bonusCompCollection = await getBonusComputationCollection(sid, year, db);
         bonusCompCollection.approvedByCEO = true;
         bonusCompCollection.comments = comments;
-        if(!hasCommentArraySameLength(bonusCompCollection.orderEvaluation, comments)){return {status:400, msg: "wrong input comment"}}
+        if(!hasCommentArraySameLength(bonusCompCollection.orderEvaluation, bonusCompCollection.socialPerformance, comments)){
+            return {status:400, msg: "wrong input comment"}
+        }
         return await bonusCompCollectionService.writeBonusCompCollection(bonusCompCollection, db);
     }
-    if(!hasCommentArraySameLength(bonusCompCollectionResp.payload.orderEvaluation, comments)){return {status:400, msg: "wrong input comment"}}
+    if(!hasCommentArraySameLength(bonusCompCollectionResp.payload.orderEvaluation, bonusCompCollectionResp.payload.socialPerformance, comments)){
+        return {status:400, msg: "wrong input comment"}
+    }
     //if already approved
     if(bonusCompCollectionResp.payload.approvedByCEO){
         return JSON.stringify({status: "404", msg: `collection is already approved`});
@@ -86,6 +90,6 @@ exports.approvedByHR = async function(sid, year, db){
 }
 
 //HELPER FUNCTION
-function hasCommentArraySameLength(salesOrder, comments){
-    return comments.length === salesOrder.length + 6;
+function hasCommentArraySameLength(salesOrder, socialperformance,  comments){
+    return comments.length === salesOrder.length + (socialperformance.integrity ? 6 : 0);
 }
