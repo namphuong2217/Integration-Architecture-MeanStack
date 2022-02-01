@@ -63,11 +63,13 @@ exports.readEmployeeBonus = async(sid) => {
 
 exports.writeEmployeeBonus = async(sid, bonus) => {
     const salesmanResp = await employeeRead(sid);
-    if(salesmanResp.status !== 200){throw salesmanResp;}
+    if(salesmanResp.status !== 200){return salesmanResp;}
     const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${await salesmanResp.payload["employeeId"]}/bonussalary`;
     const qBody = qs.stringify(bonus);
-    return await axios.post(url, qBody, await header)
+    const res = await axios.post(url, qBody, await header)
         .catch((error) => {
             console.log(error);
         })
+    if(!res){return { status: 500, msg: "could not write bonus" };}
+    return { status: 200, msg: "write bonus successful" };
 }

@@ -40,7 +40,7 @@ exports.getEmployeeBonus = async function(sid, year) {
 //bonus is updated if the value already exists
 exports.postEmployeeBonus = async function(sid, body) {
     if(!sid || !body.year || !body.value){
-        throw {status : 409, msg: "input error"};
+        return {status : 409, msg: "input error"};
     }
     const bonus = new Bonus(body.year, body.value);
     return await salesManService.writeEmployeeBonus(sid, bonus);

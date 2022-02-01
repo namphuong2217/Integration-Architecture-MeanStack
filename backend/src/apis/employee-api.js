@@ -24,7 +24,7 @@ exports.getEmployeeBonus = async function(req, res) {
 exports.postEmployeeBonus = async function(req, res) {
     const sid = req.params.sid;
     const resp = await employeeController.postEmployeeBonus(sid, req.body)
-        .catch((error) => {res.send(error)});
+        .catch((error) => {console.log(error)});
     return res.send(resp);
 }
 
