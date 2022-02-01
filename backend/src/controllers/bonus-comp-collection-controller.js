@@ -1,17 +1,15 @@
 const orderEvaluationController = require("../controllers/order-evaluation-controller");
 const salesmanController = require("./employee-controller");
-const socialPerformanceController = require("../controllers/social-performance-controller");
 const bonusCompCollectionService = require("../services/bonus-comp-collection-service");
 
 const BonusCompCollection = require("../models/BonusCompCollection");
-const OrderEvaluationEval = require("../models/OrderEvaluationEval");
-const SocialPerformanceEval = require("../models/SocialPerformanceEval");
 const SalesMan = require("../models/Employee");
 
 const {hasRoleHR, hasRoleCEO, hasRoleSales} = require("../Globals");
+const socialPerformanceService = require("../services/social-performance-service");
 
 exports.getBonusComputationCollection = async function(sid, year, db) {
-
+    year=parseInt(year);
     // If the collection is already in database
     const bonusCompCollection = await bonusCompCollectionService.readBonusCompCollection(sid, year, db);
     if(bonusCompCollection){
@@ -20,16 +18,14 @@ exports.getBonusComputationCollection = async function(sid, year, db) {
 
     // Collect data from different controllers
     const orderEvaluation = await orderEvaluationController.getOrderEvaluations(sid, year);
-    const socialPerformance = await socialPerformanceController.getSocialPerformance(sid, year, db);
+    const socialPerformance = await socialPerformanceService.getYearAverage(db, sid, year);
     const salesman = await salesmanController.getEmployee(sid);
 
-    // Enrich the given data with bonus and comment
-    const ergOrder = OrderEvaluationEval.fromOrderEvaluation(orderEvaluation);
-    const ergSocial = SocialPerformanceEval.createfromSocialPerformanceforBonusCompColl(socialPerformance);
+    const bonusOrder = 0;
+    const bonusSocial = 0;
 
-
-    return new BonusCompCollection(parseInt(salesman.sid), parseInt(year), salesman, ergOrder.listOrderEval,
-        ergSocial.socialPerformance,false, false, ergOrder.bonusSum, ergSocial.bonusSum);
+    return new BonusCompCollection(year, salesman, orderEvaluation,
+        socialPerformance,false, false, bonusOrder, bonusSocial);
 }
 
 exports.postBonusComputationCollection = async function(body, db, user){

@@ -13,8 +13,7 @@ class OrderEvaluationEval extends OrderEvaluation{
         let listOrderEval = [];
         let bonusSum = 0;
         orderEvaluation.forEach(orderEval => {
-            const bonus = bonusCalcEnricher.getBonusForSale(orderEval.nameProduct,
-                orderEval.clientRanking,orderEval.items);
+            const bonus = bonusCalcEnricher.getBonusForSale(orderEval.nameProduct, orderEval.clientRanking,orderEval.items);
             bonusSum += bonus;
             listOrderEval.push(new OrderEvaluationEval(orderEval.nameProduct, orderEval.client,
                 orderEvaluationRatingTranslator.translateRatingToString(orderEval.clientRanking),

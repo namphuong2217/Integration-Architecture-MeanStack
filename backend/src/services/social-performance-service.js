@@ -1,8 +1,7 @@
 const SocialPerformance = require("../models/SocialPerformance");
 
 exports.get = (db, sid) => {
-    let res = db.collection('socialPerformanceCollection').find({ sid: sid }).toArray();
-    return res;
+    return db.collection('socialPerformanceCollection').find({ sid: parseInt(sid) }).toArray();
 }
 
 const spInCollection = async (db, socialPerformance) => {
@@ -40,7 +39,7 @@ exports.getYearAverage = async (db, sid, year) => {
 }
 
 exports.add = async (db, body,user) => {
-    const issuerID = user.username;
+    const issuerID = user.username.toString();
     const year = new Date().getFullYear();
     //if (body.sid === user.username) return { status: 401, msg: "you cant rate yourself" };
     //if (user.role !== "Sales") return { status: 401, msg: "only salesmen are allowed to perform this action" };

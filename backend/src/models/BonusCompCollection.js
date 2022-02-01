@@ -1,8 +1,7 @@
 
 class BonusCompCollection {
-    constructor(sid, year, salesman, orderEvaluation, socialPerformance, approvedByCEO = false,
-        approvedByHR = false, bonusOrder = 0, bonusSocial = 0) {
-        this.sid = sid;
+    constructor(year, salesman, orderEvaluation, socialPerformance, approvedByCEO = false,
+        approvedByHR = false, bonusOrder = 0, bonusSocial = 0, targets=[], comments =[]) {
         this.year = year;
         this.salesman = salesman;
         this.orderEvaluation = orderEvaluation;
@@ -12,6 +11,8 @@ class BonusCompCollection {
         this.bonusSocial = bonusSocial;
         this.bonusOrder = bonusOrder;
         this.bonusTotal = bonusOrder + bonusSocial;
+        this.targets = targets;
+        this.comments = comments;
     }
 }
 
