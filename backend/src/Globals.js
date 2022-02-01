@@ -16,3 +16,25 @@ exports.hasRoleCEO = function (user){
 exports.hasRoleSales = function (user){
     return user.role == departments.sales;
 }
+
+exports.Permissions ={
+    sales : "Sales",
+    hr : "HR",
+    ceo : "Leader",
+
+    permissionSales : [],
+    permissionHR : ["approveBonusHR"],
+    permissionCEO : ["approveBonusCEO"],
+
+    hasUserPermission(user, action){
+        if(user.role === this.sales){
+            return this.permissionSales.includes(action);
+        }
+        else if(user.role === this.hr){
+            return this.permissionHR.includes(action);
+        }
+        else if(user.role === this.ceo){
+            return this.permissionCEO.includes(action);
+        }
+    }
+}
