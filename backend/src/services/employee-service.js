@@ -33,7 +33,7 @@ const employeeRead = async(sid) => {
         .catch((error) => {
             console.log(error);
         })
-    if(!res){return { status: 404, msg: "no targets for sid" };}
+    if(!res || res.status !== 200){return { status: 404, msg: "no targets for sid" };}
     return { status: 200, payload: await res.data.data[0] };
 }
 
@@ -45,7 +45,7 @@ exports.employeesRead = async() => {
         .catch((error) => {
             console.log(error);
         })
-    if(!res){return { status: 404, msg: "no targets found" };}
+    if(!res || res.status !== 200){return { status: 404, msg: "no targets found" };}
     return { status: 200, payload: await res.data.data };
 }
 
@@ -57,7 +57,7 @@ exports.readEmployeeBonus = async(sid) => {
         .catch((error) => {
             console.log(error);
         })
-    if(!res){return { status: 404, msg: "no targets for sid" };}
+    if(!res ||res.status !== 200){return { status: 404, msg: "no targets for sid" };}
     return { status: 200, payload: await res.data.data };
 }
 

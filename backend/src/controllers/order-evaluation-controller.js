@@ -5,17 +5,19 @@ exports.getOrderEvaluations = async function(sid, year){
 
     // get evaluation records from OpenCRX
     const respEvaluationRecords = await orderEvaluationService.orderEvaluationsRead()
-        .catch((error) => {
-            console.log(error);
-        });
+        .catch((error) => {console.log(error);});
+    if(respEvaluationRecords.status !== 200){return respEvaluationRecords;}
 
     //get accounts from OpenCRX
     const respAccounts = await orderEvaluationService.accountsRead()
-        .catch((error) => {
-            console.log(error);
-        });
+        .catch((error) => {console.log(error);});
+    if(respAccounts.status !== 200){return respAccounts;}
 
     //transform read data to orderevaluation
-    return await orderEvaluationFilter.transformOrderEvaluations(sid, year, respEvaluationRecords, respAccounts);
+    try{
+        return await orderEvaluationFilter.transformOrderEvaluations(sid, year, respEvaluationRecords.payload, respAccounts.payload);
+    }catch (e) {
+        return e;
+    }
 
 }

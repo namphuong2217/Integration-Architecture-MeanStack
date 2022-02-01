@@ -3,21 +3,16 @@ const positionService = require("../services/position-service");
 
 
 exports.getPositionsForOrder = async function(salesOrderId) {
-    const resp = await positionService.readPosition(salesOrderId)
-        .catch((error) => {
-            console.log(error);
-        });
-    if(resp.status){return resp};
+    const resp = await positionService.readPosition(salesOrderId);
     let listPosition = [];
-    if(resp.objects){
-        resp.objects.forEach(position => listPosition.push(
+    if(resp.payload.objects){
+        resp.payload.objects.forEach(position => listPosition.push(
             new Position("name",
                 position["quantity"],
                 getVcardProductByHref(position["product"]["@href"])
             )
         ));
     }
-
     return listPosition;
 }
 

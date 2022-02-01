@@ -9,6 +9,6 @@ exports.readProductName = async(productVcard) => {
         .catch((error) => {
             console.log(error);
         });
-    if(!res){return {"status" : "error"}}
-    return res.data;
+    if(!res || res.status !== 200){throw {status: 500, msg: "fetch position error"}}
+    return {"status": 200, payload: res.data};
 }

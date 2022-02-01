@@ -9,7 +9,8 @@ exports.orderEvaluationsRead = async() => {
         .catch((error) => {
             console.log(error);
         });
-    return res.data;
+    if(!res || res.status !== 200){return {status: 500, msg: "error fetch evaluation records"}}
+    return {status: 200, payload: res.data};
 }
 
 exports.accountsRead = async() => {
@@ -18,5 +19,6 @@ exports.accountsRead = async() => {
         .catch((error) => {
             console.log(error);
         });
-    return res.data;
+    if(!res || res.status !== 200){return {status: 500, msg: "error fetch account read"}}
+    return {status: 200, payload: res.data};
 }
