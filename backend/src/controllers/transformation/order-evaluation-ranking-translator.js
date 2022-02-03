@@ -9,7 +9,7 @@ exports.translateRatingToString = function(rating){
         case 4:
             return "okay";
         case 5:
-            return "satisfacotry";
+            return "satisfactory";
         default:
             return "incorrect rating input"
     }
