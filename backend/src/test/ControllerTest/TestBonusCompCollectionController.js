@@ -1,11 +1,11 @@
 const sinon = require("sinon");
 const chai = require("chai");
 let expect = chai.expect;
-const User = require("../models/User");
-const APP = require("../app");
+const User = require("../../models/User");
+const APP = require("../../app");
 
-const bonusCompCollectionController = require("../controllers/bonus-comp-collection-controller");
-const bonusCompCollectionService = require("../services/bonus-comp-collection-service");
+const bonusCompCollectionController = require("../../controllers/bonus-comp-collection-controller");
+const bonusCompCollectionService = require("../../services/bonus-comp-collection-service");
 
 //todo mongoMock
 const initDb = async function(){
@@ -14,8 +14,8 @@ const initDb = async function(){
 
 const year = 2010;
 const comments = [];
-const userHR = new User("901323", "TestHR", "lastname", "HR", "asdf", false);
-const userCEO = new User("901323", "TestCEO", "lastname", "Leader", "asdf", false);
+//const userHR = new User("901323", "TestHR", "lastname", "HR", "asdf", false);
+//const userCEO = new User("901323", "TestCEO", "lastname", "Leader", "asdf", false);
 const userSales = new User("2323", "TestSalesman", "lastname", "Sales", "asdf", false);
 
 describe("Test of order bonus-comp-collection-contoller postBonusComputationCollection", () => {
