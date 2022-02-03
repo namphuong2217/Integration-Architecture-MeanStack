@@ -9,6 +9,6 @@ exports.readPosition = async(salesOrderId) => {
         .catch((error) => {
             console.log(error);
         });
-    if(!res || res.status !== 200){throw {status: 500, msg: "fetch position error"}}
+    if(!res || res.status !== 200){return {status: 500, msg: "fetch position error"}}
     return {"status": 200, payload: res.data};
 }

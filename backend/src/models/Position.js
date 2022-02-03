@@ -1,6 +1,6 @@
 class Position{
-    constructor(name, amount, productVcard) {
-        this.name = name;
+    constructor(orderVcard, amount, productVcard) {
+        this.orderVcard = orderVcard;
         this.amount = amount;
         this.productVcard = productVcard;
     }

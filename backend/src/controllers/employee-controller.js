@@ -35,7 +35,7 @@ exports.getEmployeeBonus = async function(sid, year) {
             console.log(error);
         });
     if(resp.status !== 200){return resp}
-    return bonusFilter.filterOrderEvaluationBySid(resp.payload, year);
+    return bonusFilter.filterOrderEvaluationByYear(resp.payload, year);
 }
 //bonus is updated if the value already exists
 exports.postEmployeeBonus = async function(sid, body) {

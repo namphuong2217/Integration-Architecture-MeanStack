@@ -5,9 +5,9 @@ const positionService = require("../services/position-service");
 exports.getPositionsForOrder = async function(salesOrderId) {
     const resp = await positionService.readPosition(salesOrderId);
     let listPosition = [];
-    if(resp.payload.objects){
+    if(resp.status === 200){
         resp.payload.objects.forEach(position => listPosition.push(
-            new Position("name",
+            new Position(salesOrderId,
                 position["quantity"],
                 getVcardProductByHref(position["product"]["@href"])
             )
