@@ -8,6 +8,7 @@ const socialPerformanceTargetService = require("../services/social-performance-t
 
 const socialPerformanceService = require("../services/social-performance-service");
 const bonusCalcEnricher = require("./transformation/bonus-calculation-enricher");
+const {translateRatingToString} = require("./transformation/order-evaluation-ranking-translator");
 
 const getBonusComputationCollection = async function(sid, year, db) {
     year=parseInt(year);
@@ -25,6 +26,7 @@ const getBonusComputationCollection = async function(sid, year, db) {
     const bonusOrder=[];
     orderEvaluation.forEach(orderEval => {
         bonusOrder.push(bonusCalcEnricher.getBonusForSale(orderEval.nameProduct, orderEval.clientRanking, orderEval.items));
+        orderEval.clientRanking = translateRatingToString(orderEval.clientRanking);
     });
 
     const targetResp = await socialPerformanceTargetService.get(db, sid, year);
