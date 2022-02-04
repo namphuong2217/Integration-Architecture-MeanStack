@@ -17,6 +17,7 @@ import { SocialPerformanceTargetService } from 'src/app/services/social-performa
   styleUrls: ['./bonus-computation-collection-page.component.css'],
 })
 export class BonusComputationCollectionPageComponent implements OnInit {
+  sid: string;
   user: User;
   currentSalesman: Salesman;
   currentYear: string;
@@ -34,14 +35,12 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.sid = this.route.snapshot.paramMap.get('sid');
     this.salesmanService
-      .getSalesman(this.route.snapshot.paramMap.get('sid'))
+      .getSalesman(this.sid)
       .subscribe((salesman) => (this.currentSalesman = salesman));
     this.currentYear = this.route.snapshot.paramMap.get('year');
-    this.setBonusCompCollectionAndSalesman(
-      this.route.snapshot.paramMap.get('sid'),
-      this.currentYear
-    );
+    this.setBonusCompCollectionAndSalesman(this.sid, this.currentYear);
     this.userService.getOwnUser().subscribe((user) => (this.user = user));
     this.salesmanService
       .getSalesmen()

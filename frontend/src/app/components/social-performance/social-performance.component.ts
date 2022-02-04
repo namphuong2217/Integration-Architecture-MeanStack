@@ -1,36 +1,58 @@
-import {Component, Input} from '@angular/core';
-import {SocialPerformance} from '../../models/SocialPerformance';
+import { Component, Input } from '@angular/core';
+import { SocialPerformance } from '../../models/SocialPerformance';
 
 @Component({
   selector: 'app-social-performance',
   templateUrl: './social-performance.component.html',
-  styleUrls: ['./social-performance.component.css']
+  styleUrls: ['./social-performance.component.css'],
 })
-export class SocialPerformanceComponent{
+export class SocialPerformanceComponent {
+  constructor() {}
 
-  constructor() { }
-
-  displayedColumns: string[] = ['Criteria', 'Target Value', 'Actual Value', 'Bonus', 'Comment'];
+  displayedColumns: string[] = [
+    'Criteria',
+    'Target Value',
+    'Actual Value',
+    'Bonus',
+    'Comment',
+  ];
 
   @Input()
-  props: {permissionWriteComments : boolean,
-      bonusSocial : number,
-      bonusTotal : number,
-      socialPerformance : SocialPerformance
+  props: {
+    permissionWriteComments: boolean;
+    bonusSocial: number;
+    bonusTotal: number;
+    socialPerformance: SocialPerformance;
   };
 
   convertToArrayData(socialPerformanceRecords: SocialPerformance): object[] {
     const result = [];
-    if(socialPerformanceRecords.leadership_competence){ //if defined
-      const rowNames = ['Leadership Competence', 'Openess to Employee', 'Social Behavior to Employee', 'Attitude towards Client',
-        'Communication Skills', 'Integrity to Company'];
-      const fieldNames = ['leadership_competence', 'openness', 'social_behaviour', 'attitude', 'comm_skills', 'integrity'];
+    if (socialPerformanceRecords.leadership_competence) {
+      //if defined
+      const rowNames = [
+        'Leadership Competence',
+        'Openess to Employee',
+        'Social Behavior to Employee',
+        'Attitude towards Client',
+        'Communication Skills',
+        'Integrity to Company',
+      ];
+      const fieldNames = [
+        'leadership_competence',
+        'openness',
+        'social_behaviour',
+        'attitude',
+        'comm_skills',
+        'integrity',
+      ];
       for (let i = 0; i < rowNames.length; i++) {
         const field = socialPerformanceRecords[fieldNames[i]];
         const object = {
-          name: rowNames[i], target: Number(field.target).toFixed(0),
+          name: rowNames[i],
+          target: Number(field.target).toFixed(0),
           actual: Number(field.actual).toFixed(0),
-          bonus: "" + Number(field.bonus).toFixed(2) + " €", comment: field.comment
+          bonus: '' + Number(field.bonus).toFixed(2) + ' €',
+          comment: field.comment,
         };
         result.push(object);
       }
