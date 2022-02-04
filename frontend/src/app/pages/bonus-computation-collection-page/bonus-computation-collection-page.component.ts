@@ -67,9 +67,12 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   }
 
   setBonusCompCollectionAndSalesman(sid: string, year: string): void {
-    // this.bonusCompCollectionService.getBonusComputationCollection(sid, year)
-    //   .subscribe(bonusCompCollection => {this.bonusCompCollection = bonusCompCollection;
-    //     this.currentSalesman = this.bonusCompCollection.salesman;});
+    this.bonusCompCollectionService
+      .getBonusComputationCollection(sid, year)
+      .subscribe((bonusCompCollection) => {
+        this.bonusCompCollection = bonusCompCollection;
+        this.currentSalesman = this.bonusCompCollection.salesman;
+      });
   }
 
   selectYearAndEmployee(data) {
