@@ -80,7 +80,6 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   }
 
   confirmBonusCompCollection(): void {
-    console.log(this.bonusCompCollection);
     this.bonusCompCollectionService
       .postBonusComputationCollection(this.bonusCompCollection)
       .subscribe((response) => alert(`Bonus confirmed! (id: ${response})`));
@@ -111,7 +110,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
         this.user,
         'writeComments'
       ),
-      bonusSocial: this.bonusCompCollection.bonusSocial,
+      bonusSocialTotal: this.bonusCompCollection.bonusSocialTotal,
       bonusTotal: this.bonusCompCollection.bonusTotal,
       socialPerformance: this.bonusCompCollection.socialPerformance,
     };

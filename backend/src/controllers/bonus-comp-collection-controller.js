@@ -31,13 +31,11 @@ const getBonusComputationCollection = async function (sid, year, db) {
     });
 
     const targetResp = await socialPerformanceTargetService.get(db, sid, year);
-    if (targetResp === "no targets for sid") return "error";
+    if (targetResp.status !== 200) return "error";
     const bonusSocial = [];
-    if (targetResp.status === 200) {
-        Object.keys(socialPerformance).filter(key => key !== "sid" && key !== "year").forEach(socialKey => {
-            bonusSocial.push(bonusCalcEnricher.getBonusForSocialPerformance(socialKey, targetResp.payload[socialKey], socialPerformance[socialKey]));
-        });
-    }
+    Object.keys(socialPerformance).filter(key => key !== "sid" && key !== "year").forEach(socialKey => {
+        bonusSocial.push(bonusCalcEnricher.getBonusForSocialPerformance(socialKey, targetResp.payload[socialKey], socialPerformance[socialKey]));
+    });
     return new BonusCompCollection(sid, year, salesman, orderEvaluation,
         socialPerformance, false, false, bonusOrder, bonusSocial, targetResp.payload);
 }

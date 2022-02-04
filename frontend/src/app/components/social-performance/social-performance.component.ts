@@ -20,7 +20,7 @@ export class SocialPerformanceComponent {
   @Input()
   props: {
     permissionWriteComments: boolean;
-    bonusSocial: number;
+    bonusSocialTotal: number;
     bonusTotal: number;
     socialPerformance: SocialPerformance;
   };
@@ -38,11 +38,11 @@ export class SocialPerformanceComponent {
         'Integrity to Company',
       ];
       const fieldNames = [
-        'leadership_competence',
+        'leadershipCompetence',
         'openness',
-        'social_behaviour',
+        'socialBehaviour',
         'attitude',
-        'comm_skills',
+        'commSkills',
         'integrity',
       ];
       for (let i = 0; i < rowNames.length; i++) {

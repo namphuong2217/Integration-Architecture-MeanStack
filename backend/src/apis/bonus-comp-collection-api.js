@@ -10,6 +10,7 @@ exports.getBonusCompCollection = async function (req, res) {
         res.status(404);
         return res.send("incomplete social perforamnce");
     }
+    console.log(resp);
     return res.send(resp);
 }
 
