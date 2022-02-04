@@ -3,9 +3,9 @@ const socialPerformanceService = require("../services/social-performance-service
 exports.addSocialPerformance = async (req, res) => {
     const db = req.app.get('db');
     const body = req.body;
-    const user =  req.session.user; //{username: 90125}
+    const user = req.session.user; //{username: 90125}
     const result = await socialPerformanceService.add(db, body, user);
-    if (result.status === 200) return res.send(result.msg);
+    if (result.status === 200) return res.send();
     return res.status(result.status).send(result.msg);
 }
 

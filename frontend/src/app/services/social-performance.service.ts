@@ -20,7 +20,7 @@ export class SocialPerformanceService {
     handleSuccess: () => void
   ): void {
     this.http.post('/api/socialPerformance/', object).subscribe(
-      (response) => handleSuccess(),
+      () => handleSuccess(),
       (error) => setError(error.error)
     );
   }
