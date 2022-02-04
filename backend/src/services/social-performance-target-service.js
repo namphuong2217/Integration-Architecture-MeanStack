@@ -21,7 +21,7 @@ const spInCollection = async (db, socialPerformanceTargets) => {
     let spTargetCollection = db.collection('socialPerformanceTargetCollection');
     const filter = { sid: socialPerformanceTargets.sid, year: socialPerformanceTargets.year };
     const res = spTargetCollection.findOne(filter);
-    return !!(await res);
+    return await res;
 
 }
 
