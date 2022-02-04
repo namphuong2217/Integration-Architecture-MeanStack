@@ -38,7 +38,6 @@ const getBonusComputationCollection = async function (sid, year, db) {
             bonusSocial.push(bonusCalcEnricher.getBonusForSocialPerformance(socialKey, targetResp.payload[socialKey], socialPerformance[socialKey]));
         });
     }
-
     return new BonusCompCollection(sid, year, salesman, orderEvaluation,
         socialPerformance, false, false, bonusOrder, bonusSocial, targetResp.payload);
 }
