@@ -69,6 +69,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
     this.bonusCompCollectionService
       .getBonusComputationCollection(sid, year)
       .subscribe((bonusCompCollection) => {
+        console.log(bonusCompCollection);
         this.bonusCompCollection = bonusCompCollection;
         this.currentSalesman = this.bonusCompCollection.salesman;
       });
@@ -112,7 +113,8 @@ export class BonusComputationCollectionPageComponent implements OnInit {
       ),
       bonusSocialTotal: this.bonusCompCollection.bonusSocialTotal,
       bonusTotal: this.bonusCompCollection.bonusTotal,
-      socialPerformance: this.bonusCompCollection.socialPerformance,
+      socialPerformanceActual: this.bonusCompCollection.socialPerformance,
+      socialPerformanceTargets: this.bonusCompCollection.targets,
     };
   }
 

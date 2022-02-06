@@ -13,6 +13,7 @@ export class BonusCompCollection {
     public bonusTotal: number,
     public salesman: Salesman,
     public orderEvaluation: OrderEvaluation[],
-    public socialPerformance: SocialPerformance
+    public socialPerformance: SocialPerformance,
+    public targets: SocialPerformance
   ) {}
 }

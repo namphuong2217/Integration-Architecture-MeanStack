@@ -22,13 +22,16 @@ export class SocialPerformanceComponent {
     permissionWriteComments: boolean;
     bonusSocialTotal: number;
     bonusTotal: number;
-    socialPerformance: SocialPerformance;
+    socialPerformanceActual: SocialPerformance;
+    socialPerformanceTargets: SocialPerformance;
   };
 
-  convertToArrayData(socialPerformanceRecords: SocialPerformance): object[] {
+  convertToArrayData(
+    socialPerformanceActual: SocialPerformance,
+    socialPerformanceTargets: SocialPerformance
+  ): object[] {
     const result = [];
-    console.log(socialPerformanceRecords);
-    if (socialPerformanceRecords.leadershipCompetence) {
+    if (socialPerformanceActual.leadershipCompetence) {
       //if defined
       const rowNames = [
         'Leadership Competence',
@@ -47,11 +50,12 @@ export class SocialPerformanceComponent {
         'integrity',
       ];
       for (let i = 0; i < rowNames.length; i++) {
-        const field = socialPerformanceRecords[fieldNames[i]];
+        const fieldActual = socialPerformanceActual[fieldNames[i]];
+        const fieldTarget = socialPerformanceTargets[fieldNames[i]];
         const object = {
           name: rowNames[i],
-          // target: Number(field.target).toFixed(0),
-          // actual: Number(field.actual).toFixed(0),
+          target: Number(fieldTarget).toFixed(0),
+          actual: Number(fieldActual).toFixed(0),
           // bonus: '' + Number(field.bonus).toFixed(2) + ' €',
           // comment: field.comment,
         };
