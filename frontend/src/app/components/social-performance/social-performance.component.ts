@@ -24,13 +24,16 @@ export class SocialPerformanceComponent {
     bonusTotal: number;
     socialPerformanceActual: SocialPerformance;
     socialPerformanceTargets: SocialPerformance;
+    comments: string[];
+    bonusSocial: number[];
   };
 
-  convertToArrayData(
-    socialPerformanceActual: SocialPerformance,
-    socialPerformanceTargets: SocialPerformance
-  ): object[] {
+  convertToArrayData(): object[] {
     const result = [];
+    const socialPerformanceActual = this.props.socialPerformanceActual;
+    const socialPerformanceTargets = this.props.socialPerformanceTargets;
+    const comments = this.props.comments;
+    const bonusSocial = this.props.bonusSocial;
     if (socialPerformanceActual.leadershipCompetence) {
       //if defined
       const rowNames = [
@@ -56,8 +59,8 @@ export class SocialPerformanceComponent {
           name: rowNames[i],
           target: Number(fieldTarget).toFixed(0),
           actual: Number(fieldActual).toFixed(0),
-          // bonus: '' + Number(field.bonus).toFixed(2) + ' €',
-          // comment: field.comment,
+          bonus: '' + Number(bonusSocial[i]).toFixed(2) + ' €',
+          comment: comments[i] ? comments[i] : '',
         };
         result.push(object);
       }

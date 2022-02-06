@@ -111,6 +111,8 @@ export class BonusComputationCollectionPageComponent implements OnInit {
         this.user,
         'writeComments'
       ),
+      comments: this.bonusCompCollection.comments,
+      bonusSocial: this.bonusCompCollection.bonusSocial,
       bonusSocialTotal: this.bonusCompCollection.bonusSocialTotal,
       bonusTotal: this.bonusCompCollection.bonusTotal,
       socialPerformanceActual: this.bonusCompCollection.socialPerformance,
