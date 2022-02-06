@@ -1,14 +1,14 @@
-import {PerformanceRecord} from './PerformanceRecord';
+import { PerformanceRecord } from './PerformanceRecord';
 
-export interface SocialPerformance{
-    sid: number;
-    issuerID: number;
-    year: number;
-    leadership_competence: PerformanceRecord;
-    openness: PerformanceRecord;
-    social_behaviour: PerformanceRecord;
-    attitude: PerformanceRecord;
-    comm_skills: PerformanceRecord;
-    integrity: PerformanceRecord;
-    constructor(sid : number)
+export interface SocialPerformance {
+  sid: number;
+  issuerID: number;
+  year: number;
+  leadershipCompetence: PerformanceRecord;
+  openness: PerformanceRecord;
+  socialBehaviour: PerformanceRecord;
+  attitude: PerformanceRecord;
+  communicationSkills: PerformanceRecord;
+  integrity: PerformanceRecord;
+  constructor(sid: number);
 }

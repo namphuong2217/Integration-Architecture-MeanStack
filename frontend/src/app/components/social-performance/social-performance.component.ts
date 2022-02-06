@@ -27,7 +27,8 @@ export class SocialPerformanceComponent {
 
   convertToArrayData(socialPerformanceRecords: SocialPerformance): object[] {
     const result = [];
-    if (socialPerformanceRecords.leadership_competence) {
+    console.log(socialPerformanceRecords);
+    if (socialPerformanceRecords.leadershipCompetence) {
       //if defined
       const rowNames = [
         'Leadership Competence',
@@ -49,10 +50,10 @@ export class SocialPerformanceComponent {
         const field = socialPerformanceRecords[fieldNames[i]];
         const object = {
           name: rowNames[i],
-          target: Number(field.target).toFixed(0),
-          actual: Number(field.actual).toFixed(0),
-          bonus: '' + Number(field.bonus).toFixed(2) + ' €',
-          comment: field.comment,
+          // target: Number(field.target).toFixed(0),
+          // actual: Number(field.actual).toFixed(0),
+          // bonus: '' + Number(field.bonus).toFixed(2) + ' €',
+          // comment: field.comment,
         };
         result.push(object);
       }
