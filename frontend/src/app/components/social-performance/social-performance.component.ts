@@ -46,7 +46,7 @@ export class SocialPerformanceComponent {
         'openness',
         'socialBehaviour',
         'attitude',
-        'commSkills',
+        'communicationSkills',
         'integrity',
       ];
       for (let i = 0; i < rowNames.length; i++) {
