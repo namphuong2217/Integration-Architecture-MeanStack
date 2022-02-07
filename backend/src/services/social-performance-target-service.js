@@ -24,11 +24,12 @@ const spInCollection = async (db, socialPerformanceTargets) => {
     return await res;
 }
 
-exports.targetsExist = async (db, sid, year) => {
+exports.targetsExist = async (db, year) => {
     let spTargetCollection = db.collection('socialPerformanceTargetCollection');
-    const filter = { sid: sid, year: year };
-    const res = await spTargetCollection.findOne(filter);
-    return await res ? true : false;
+    const filter = { year: year };
+    const res = await spTargetCollection.find(filter).toArray();
+    const sidArray = await res.map(targetRecord => targetRecord.sid);
+    return JSON.stringify({ targetArray: sidArray });
 }
 
 exports.get = async (db, sid, year) => {

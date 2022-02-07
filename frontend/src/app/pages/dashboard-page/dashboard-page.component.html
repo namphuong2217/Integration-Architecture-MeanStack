@@ -91,7 +91,7 @@
           <td>{{salesman.last_name}}</td>
           <td>{{salesman.department}}</td>
           <td class="primary" *ngIf="showSocialPerformance(salesman.sid)" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[buttonEnterSocialPerformance.routerLink, salesman.sid, this.year]">Rate Social Performance</a></td>
-          <td class="primary" *ngIf="showBonusCalculation(salesman.sid)" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[bonusCalculationLink, salesman.sid, this.year]">{{getBonusButtonTitle()}}</a></td>
+          <td class="primary" *ngIf="showBonusCalculation(salesman.sid)" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[bonusCalculationLink, salesman.sid, this.year]">{{getBonusButtonTitle(salesman.sid)}}</a></td>
         </tr>
         </tbody>
       </table>

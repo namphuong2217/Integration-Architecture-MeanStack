@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { SocialPerformance } from '../models/SocialPerformance';
 import { HttpClient } from '@angular/common/http';
 
-interface targetExists {
-  exists: boolean;
+interface TargetArrayObj {
+  targetArray: string[];
 }
 
 @Injectable({
@@ -22,12 +22,9 @@ export class SocialPerformanceTargetService {
     );
   }
 
-  getPerformanceTargetsExist(
-    sid: string,
-    year: string
-  ): Observable<targetExists> {
-    return this.http.get<targetExists>(
-      `/api/socialPerformanceTargetsExist/${sid}/${year}`
+  getPerformanceTargetsExist(year: string): Observable<TargetArrayObj> {
+    return this.http.get<TargetArrayObj>(
+      `/api/socialPerformanceTargetsExist/${year}`
     );
   }
 

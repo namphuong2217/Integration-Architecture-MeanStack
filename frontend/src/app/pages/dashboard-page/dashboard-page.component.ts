@@ -4,6 +4,7 @@ import { Salesman } from '../../models/Salesman';
 import { UserService } from '../../services/user.service';
 import { Permissions } from '../../Global';
 import { User } from '../../models/User';
+import { SocialPerformanceTargetService } from 'src/app/services/social-performance-target.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -16,12 +17,14 @@ export class DashboardPageComponent implements OnInit {
   year: string;
   user: User;
   bonusCalculationLink = '/bonus';
+  sidsWithTargets: string[];
   buttonEnterSocialPerformance = {
     routerLink: '/enter-social-performance',
   };
   constructor(
     private salesmanService: SalesmanService,
-    private userService: UserService
+    private userService: UserService,
+    private socialPerformanceTargetService: SocialPerformanceTargetService
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +34,11 @@ export class DashboardPageComponent implements OnInit {
       this.salesmenCount = salesmen.length;
     });
     this.year = new Date().getFullYear().toString();
+    this.socialPerformanceTargetService
+      .getPerformanceTargetsExist(this.year)
+      .subscribe((sidsWithTargets) => {
+        this.sidsWithTargets = sidsWithTargets.targetArray;
+      });
   }
 
   showBonusCalculation(sid: string): boolean {
@@ -41,9 +49,13 @@ export class DashboardPageComponent implements OnInit {
     );
   }
 
-  getBonusButtonTitle() {
+  getBonusButtonTitle(sid: string) {
     if (Permissions.hasUserPermission(this.user, 'allBonusCalc')) {
-      return 'Confirm Bonus';
+      if (this.sidsWithTargets.includes(sid)) {
+        return 'Confirm Bonus';
+      } else {
+        return 'Set Target Values';
+      }
     } else {
       return 'View Bonus Calculation';
     }
