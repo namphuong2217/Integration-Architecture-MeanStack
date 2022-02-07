@@ -5,7 +5,11 @@
   <span class="success" *ngIf="successMessage">{{successMessage}}</span>
 </ng-template>
 
-<div class="container" *ngIf="(bonusCompCollection && user); else permissionToConfirm ? targetForm : null" >
+<ng-template #notCompleteMessage>
+  <h1>Your bonus has not been approved yet</h1>
+</ng-template>
+
+<div class="container" *ngIf="(bonusCompCollection && user); else permissionToConfirm() ? targetForm : notCompleteMessage" >
   <div class="bonus-header">
     <h1><b>Bonus Computation Sheet</b></h1>
   </div>
