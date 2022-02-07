@@ -9,9 +9,9 @@ import { HttpClient } from '@angular/common/http';
 export class SocialPerformanceTargetService {
   constructor(private http: HttpClient) {}
 
-  getPerformanceTargets(id: string, year: string): Observable<SocialPerformance> {
+  getPerformanceTargets(id: string): Observable<SocialPerformance> {
     console.log('run SocialPerformance Service');
-    return this.http.get<SocialPerformance>(`/api/socialPerformance/${id}/${year}`);
+    return this.http.get<SocialPerformance>(`/api/socialPerformance/${id}`);
   }
 
   postSocialPerformanceTargets(

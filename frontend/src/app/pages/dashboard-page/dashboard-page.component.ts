@@ -4,7 +4,6 @@ import { Salesman } from '../../models/Salesman';
 import { UserService } from '../../services/user.service';
 import { Permissions } from '../../Global';
 import { User } from '../../models/User';
-import {SocialPerformanceTargetService} from "../../services/social-performance-target.service";
 
 @Component({
   selector: 'app-dashboard-page',
@@ -16,13 +15,8 @@ export class DashboardPageComponent implements OnInit {
   salesmenCount: number;
   year: string;
   user: User;
-  buttonBonusCalculation = {
-    title: 'Bonus Calculation',
-    titleCEO: 'Confirm Bonus',
-    routerLink: '/bonus' };
+  buttonBonusCalculation = { title: 'Bonus Calculation', routerLink: '/bonus' };
   buttonEnterSocialPerformance = {
-    title: 'Rate Social Performance',
-    titleCEO: 'Determine Social Performance Target',
     routerLink: '/enter-social-performance',
   };
   constructor(
@@ -54,13 +48,4 @@ export class DashboardPageComponent implements OnInit {
     );
     return hasPermissionToEval && this.user.username !== sid;
   }
-
-  ifCurrentUserIsCEO(): boolean {
-    return this.user.role == "Leader";
-  }
-
-  ifCurrentUserIsHR(): boolean {
-    return this.user.role == "HR";
-  }
-
 }
