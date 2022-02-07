@@ -23,6 +23,7 @@ export class OrderEvaluationComponent {
     permissionWriteComments: boolean;
     bonusOrder: [];
     orderEvaluations: OrderEvaluation[];
+    comments: string[];
   };
 
   updateComment(row, val) {
@@ -32,5 +33,14 @@ export class OrderEvaluationComponent {
 
   permissionToWriteComment(): boolean {
     return this.props.permissionWriteComments;
+  }
+
+  createTableArray(): OrderEvaluation[]{
+    let i = 0;
+    this.props.orderEvaluations.forEach( order =>{
+      order.comment = this.props.comments[i];
+      order.bonus = this.props.bonusOrder[i++];
+    });
+    return this.props.orderEvaluations;
   }
 }

@@ -1,5 +1,5 @@
 <h1>A.) Orders Evaluation</h1>
-<table mat-table [dataSource]="props.orderEvaluations" class="full-width-table"
+<table mat-table [dataSource]="createTableArray()" class="full-width-table"
        matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
   <!-- nameProduct Column -->
   <ng-container matColumnDef="Name of Product">

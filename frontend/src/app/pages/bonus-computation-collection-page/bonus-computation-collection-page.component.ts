@@ -7,8 +7,6 @@ import { SalesmanService } from '../../services/salesman.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/User';
 import { Permissions } from '../../Global';
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import { SocialPerformanceTargetService } from 'src/app/services/social-performance-target.service';
 
 @Component({
@@ -69,7 +67,6 @@ export class BonusComputationCollectionPageComponent implements OnInit {
     this.bonusCompCollectionService
       .getBonusComputationCollection(sid, year)
       .subscribe((bonusCompCollection) => {
-        console.log(bonusCompCollection);
         this.bonusCompCollection = bonusCompCollection;
         this.currentSalesman = this.bonusCompCollection.salesman;
       });
@@ -103,6 +100,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
       ),
       bonusOrder: this.bonusCompCollection.bonusOrder,
       orderEvaluations: this.bonusCompCollection.orderEvaluation,
+      comments: this.bonusCompCollection.comments,
     };
   }
   createPropsSocialPerformance() {
