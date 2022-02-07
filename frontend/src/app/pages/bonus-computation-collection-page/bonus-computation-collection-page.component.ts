@@ -139,7 +139,6 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   }
 
   permissionToConfirm() {
-    console.log(Permissions.hasUserPermission(this.user, 'confirm'));
     return Permissions.hasUserPermission(this.user, 'confirm');
   }
 }
