@@ -15,7 +15,7 @@ export class DashboardPageComponent implements OnInit {
   salesmenCount: number;
   year: string;
   user: User;
-  buttonBonusCalculation = { title: 'Bonus Calculation', routerLink: '/bonus' };
+  bonusCalculationLink = '/bonus';
   buttonEnterSocialPerformance = {
     routerLink: '/enter-social-performance',
   };
@@ -39,6 +39,14 @@ export class DashboardPageComponent implements OnInit {
       (Permissions.hasUserPermission(this.user, 'viewOwnBonusCalc') &&
         sid == this.user.username)
     );
+  }
+
+  getBonusButtonTitle() {
+    if (Permissions.hasUserPermission(this.user, 'allBonusCalc')) {
+      return 'Confirm Bonus';
+    } else {
+      return 'View Bonus Calculation';
+    }
   }
 
   showSocialPerformance(sid: string): boolean {
