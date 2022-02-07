@@ -23,6 +23,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   salesmen: Salesman[];
   successMessage: string;
   postError: string;
+  hasTargets: boolean;
 
   constructor(
     private bonusCompCollectionService: BonusComputationCollectionService,
@@ -43,6 +44,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
     this.salesmanService
       .getSalesmen()
       .subscribe((salesmen) => (this.salesmen = salesmen));
+    this.checkHasTargets();
   }
 
   setPostError = (msg: string) => {
@@ -54,6 +56,14 @@ export class BonusComputationCollectionPageComponent implements OnInit {
     this.postError = '';
     this.successMessage = 'Success';
   };
+
+  checkHasTargets() {
+    this.socialPerformanceTargetService
+      .getPerformanceTargetsExist(this.currentYear)
+      .subscribe((res) => {
+        this.hasTargets = res.targetArray.includes(this.sid);
+      });
+  }
 
   saveTargets(socialPerformanceForm) {
     this.socialPerformanceTargetService.postSocialPerformanceTargets(
