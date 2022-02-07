@@ -4,7 +4,7 @@ exports.add = async (req, res) => {
     const db = req.app.get('db');
     const body = req.body;
     const user = req.session.user;
-    const result = await socialPerformanceTargetService.add(db, body);
+    const result = await socialPerformanceTargetService.add(db, body, user);
     if (result.status === 200) return res.send();
     return res.status(result.status).send(result.msg);
 }
