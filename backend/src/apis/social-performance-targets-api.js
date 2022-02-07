@@ -13,8 +13,15 @@ exports.get = async (req, res) => {
     const db = req.app.get('db');
     const sid = req.params.sid;
     const year = req.params.year;
-    const user = req.session.user;
-    const result = await socialPerformanceTargetService.get(db, sid, year, user);
+    const result = await socialPerformanceTargetService.get(db, sid, year);
     if (result.status === 200) return res.send(result.payload);
     return res.status(result.status).send(result.payload);
+}
+
+exports.doesExist = async (req, res) => {
+    const db = req.app.get('db');
+    const sid = req.params.sid;
+    const year = req.params.year;
+    const result = await socialPerformanceTargetService.targetsExist(db, sid, year);
+    return res.send(JSON.stringify({ exists: result }));
 }

@@ -3,15 +3,32 @@ import { Observable } from 'rxjs';
 import { SocialPerformance } from '../models/SocialPerformance';
 import { HttpClient } from '@angular/common/http';
 
+interface targetExists {
+  exists: boolean;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class SocialPerformanceTargetService {
   constructor(private http: HttpClient) {}
 
-  getPerformanceTargets(id: string): Observable<SocialPerformance> {
-    console.log('run SocialPerformance Service');
-    return this.http.get<SocialPerformance>(`/api/socialPerformance/${id}`);
+  getPerformanceTargets(
+    id: string,
+    year: string
+  ): Observable<SocialPerformance> {
+    return this.http.get<SocialPerformance>(
+      `/api/socialPerformanceTargets/${id}/${year}`
+    );
+  }
+
+  getPerformanceTargetsExist(
+    sid: string,
+    year: string
+  ): Observable<targetExists> {
+    return this.http.get<targetExists>(
+      `/api/socialPerformanceTargetsExist/${sid}/${year}`
+    );
   }
 
   postSocialPerformanceTargets(
