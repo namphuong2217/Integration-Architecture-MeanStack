@@ -7,7 +7,7 @@
 </ng-template>
 
 <ng-template #targetForm>
-  <app-social-performance-targets-form [propSid]="this.sid" (clickEvent)="saveTargets($event)">
+  <app-social-performance-targets-form [propSid]="this.sid" [year]="this.currentYear" (clickEvent)="saveTargets($event)">
   </app-social-performance-targets-form>
   <span class="error" *ngIf="postError">{{postError}}</span>
   <span class="success" *ngIf="successMessage">{{successMessage}}</span>

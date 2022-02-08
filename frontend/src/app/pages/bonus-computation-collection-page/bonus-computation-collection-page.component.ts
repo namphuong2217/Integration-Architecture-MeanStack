@@ -94,6 +94,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
       .replace(':year', data.year);
     this.router.navigate([newRoute]);
     this.setBonusCompCollectionAndSalesman();
+    this.checkHasTargets();
   }
 
   confirmBonusCompCollection(): void {
