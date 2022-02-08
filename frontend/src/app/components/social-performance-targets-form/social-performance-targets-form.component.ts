@@ -33,8 +33,12 @@ export class SocialPerformanceTargetsFormComponent {
   }
 
   saveForm() {
+    if (this.socialPerformanceForm.get('year')) {
+      this.socialPerformanceForm.setControl('year', new FormControl(this.year));
+    } else {
+      this.socialPerformanceForm.addControl('year', new FormControl(this.year));
+    }
     this.socialPerformanceForm.addControl('sid', new FormControl(this.propSid));
-    this.socialPerformanceForm.addControl('year', new FormControl(this.year));
     this.clickEvent.emit(this.socialPerformanceForm.value);
   }
 }

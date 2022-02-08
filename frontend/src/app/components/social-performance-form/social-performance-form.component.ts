@@ -10,6 +10,7 @@ import { ratings } from '../../Global';
 export class SocialPerformanceFormComponent {
   @Output() clickEvent = new EventEmitter<FormGroup>();
   @Input() propSid: string;
+  @Input() year: string;
   socialPerformanceForm: FormGroup;
 
   leadershipCompetenceValue = new FormControl('');
@@ -32,6 +33,11 @@ export class SocialPerformanceFormComponent {
   }
 
   saveForm() {
+    if (this.socialPerformanceForm.get('year')) {
+      this.socialPerformanceForm.setControl('year', new FormControl(this.year));
+    } else {
+      this.socialPerformanceForm.addControl('year', new FormControl(this.year));
+    }
     this.socialPerformanceForm.addControl('sid', new FormControl(this.propSid));
     this.clickEvent.emit(this.socialPerformanceForm.value);
   }

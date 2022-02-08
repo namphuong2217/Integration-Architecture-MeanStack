@@ -44,11 +44,12 @@ export class EnterSocialPerformancePageComponent implements OnInit {
       .subscribe((salesman) => (this.currentSalesman = salesman));
   }
 
-  selectYearAndEmployee(data: { year: string }) {
+  selectYear(data: { year: string }) {
+    this.currentYear = data.year;
     const curRoute = this.route.snapshot.routeConfig.path;
     const newRoute = curRoute
       .replace(':sid', this.currentSalesman.sid)
-      .replace(':year', data.year);
+      .replace(':year', this.currentYear);
     this.router.navigate([newRoute]);
   }
 
