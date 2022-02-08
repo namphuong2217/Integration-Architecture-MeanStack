@@ -56,6 +56,8 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   handleSuccess = () => {
     this.postError = '';
     this.successMessage = 'Success';
+    this.checkHasTargets();
+    this.setBonusCompCollectionAndSalesman();
   };
 
   checkHasTargets() {
