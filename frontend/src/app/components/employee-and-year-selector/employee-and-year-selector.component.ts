@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Salesman } from '../../models/Salesman';
-import { Permissions, years } from '../../Global';
+import { years } from '../../Global';
 import { User } from '../../models/User';
 
 @Component({
@@ -19,9 +19,9 @@ export class EmployeeAndYearSelectorComponent {
     salesmen: Salesman[];
   };
 
-  @Output() selectedEvent = new EventEmitter<{ sid: string; year: string }>();
+  @Output() selectedEvent = new EventEmitter<{ year: string }>();
 
-  selectYearOrEmployee(sid: string, year: string) {
-    this.selectedEvent.emit({ sid, year });
+  selectYearOrEmployee(year: string) {
+    this.selectedEvent.emit({ year });
   }
 }

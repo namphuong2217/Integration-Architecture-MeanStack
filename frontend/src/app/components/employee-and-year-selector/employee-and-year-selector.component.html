@@ -6,7 +6,7 @@
 <div>
   <mat-form-field appearance="fill" >
     <mat-label for="year-select">Year: </mat-label>
-    <mat-select name="years" id="year-select" #t (selectionChange)="selectYearOrEmployee(props.selectedSalesman.sid, t.value)" [value]="years[0]">
+    <mat-select name="years" id="year-select" #t (selectionChange)="selectYearOrEmployee(t.value)" [value]="years[0]">
       <mat-option *ngFor="let year of years" [value]="year" >
         {{year}}
       </mat-option>

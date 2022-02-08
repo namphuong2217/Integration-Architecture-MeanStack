@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BonusCompCollection } from '../../models/BonusCompCollection';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BonusComputationCollectionService } from '../../services/bonus-computation-collection.service';
 import { Salesman } from '../../models/Salesman';
 import { SalesmanService } from '../../services/salesman.service';
@@ -30,7 +30,8 @@ export class BonusComputationCollectionPageComponent implements OnInit {
     private socialPerformanceTargetService: SocialPerformanceTargetService,
     private salesmanService: SalesmanService,
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -82,9 +83,12 @@ export class BonusComputationCollectionPageComponent implements OnInit {
       });
   }
 
-  selectYearAndEmployee(data) {
-    this.currentYear = data.year;
-    this.setBonusCompCollectionAndSalesman(data.sid, data.year);
+  selectYearAndEmployee(data: { year: string }) {
+    const curRoute = this.route.snapshot.routeConfig.path;
+    const newRoute = curRoute
+      .replace(':sid', this.currentSalesman.sid)
+      .replace(':year', data.year);
+    this.router.navigate([newRoute]);
   }
 
   confirmBonusCompCollection(): void {
