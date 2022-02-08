@@ -40,7 +40,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
       .getSalesman(this.sid)
       .subscribe((salesman) => (this.currentSalesman = salesman));
     this.currentYear = this.route.snapshot.paramMap.get('year');
-    this.setBonusCompCollectionAndSalesman(this.sid, this.currentYear);
+    this.setBonusCompCollectionAndSalesman();
     this.userService.getOwnUser().subscribe((user) => (this.user = user));
     this.salesmanService
       .getSalesmen()
@@ -74,21 +74,26 @@ export class BonusComputationCollectionPageComponent implements OnInit {
     );
   }
 
-  setBonusCompCollectionAndSalesman(sid: string, year: string): void {
+  setBonusCompCollectionAndSalesman(): void {
     this.bonusCompCollectionService
-      .getBonusComputationCollection(sid, year)
-      .subscribe((bonusCompCollection) => {
-        this.bonusCompCollection = bonusCompCollection;
-        this.currentSalesman = this.bonusCompCollection.salesman;
-      });
+      .getBonusComputationCollection(this.sid, this.currentYear)
+      .subscribe(
+        (bonusCompCollection) => {
+          this.bonusCompCollection = bonusCompCollection;
+          this.currentSalesman = this.bonusCompCollection.salesman;
+        },
+        (error) => (this.bonusCompCollection = undefined)
+      );
   }
 
   selectYearAndEmployee(data: { year: string }) {
+    this.currentYear = data.year;
     const curRoute = this.route.snapshot.routeConfig.path;
     const newRoute = curRoute
       .replace(':sid', this.currentSalesman.sid)
       .replace(':year', data.year);
     this.router.navigate([newRoute]);
+    this.setBonusCompCollectionAndSalesman();
   }
 
   confirmBonusCompCollection(): void {
