@@ -31,7 +31,7 @@ export class Permissions {
   }
 }
 
-const makeLastYears = (yearsBack) => {
+const makeLastYears = (yearsBack: number) => {
   const currentYear = new Date().getFullYear();
   const yearArray: string[] = [currentYear.toString()];
   for (let i = 1; i <= yearsBack; i++) {

@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import { Permissions } from '../../Global';
 import { User } from '../../models/User';
 import { SocialPerformanceTargetService } from 'src/app/services/social-performance-target.service';
+import { years } from '../../Global';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -15,6 +16,7 @@ export class DashboardPageComponent implements OnInit {
   salesmen: Salesman[];
   salesmenCount: number;
   year: string;
+  years: string[];
   user: User;
   bonusCalculationLink = '/bonus';
   sidsWithTargets: string[];
@@ -33,7 +35,17 @@ export class DashboardPageComponent implements OnInit {
       this.salesmen = salesmen;
       this.salesmenCount = salesmen.length;
     });
+    this.years = years;
     this.year = new Date().getFullYear().toString();
+    this.checkTargets();
+  }
+
+  selectYear(year: string) {
+    this.year = year;
+    this.checkTargets();
+  }
+
+  checkTargets() {
     this.socialPerformanceTargetService
       .getPerformanceTargetsExist(this.year)
       .subscribe((sidsWithTargets) => {

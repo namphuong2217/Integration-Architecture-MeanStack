@@ -363,6 +363,11 @@ main .salesman-data-table a {
   text-align: right;
 }
 
+.table-heading {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* ================= MEDIA QUERIES ================ */
 @media screen and (max-width: 1200px) {
   .container {
