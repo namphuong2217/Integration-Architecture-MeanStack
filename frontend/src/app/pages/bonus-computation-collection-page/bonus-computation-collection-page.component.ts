@@ -123,7 +123,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
       bonusOrder: this.bonusCompCollection.bonusOrder,
       bonusOrderTotal: this.bonusCompCollection.bonusOrderTotal,
       orderEvaluations: this.bonusCompCollection.orderEvaluation,
-      comments: this.bonusCompCollection.comments,
+      comments: this.bonusCompCollection.orderEvaluationComments,
     };
   }
   createPropsSocialPerformance() {
@@ -132,7 +132,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
         this.user,
         'writeComments'
       ),
-      comments: this.bonusCompCollection.comments,
+      comments: this.bonusCompCollection.socialPerformanceComments,
       bonusSocial: this.bonusCompCollection.bonusSocial,
       bonusSocialTotal: this.bonusCompCollection.bonusSocialTotal,
       bonusTotal: this.bonusCompCollection.bonusTotal,

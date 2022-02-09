@@ -42,13 +42,14 @@ const getBonusComputationCollection = async function (sid, year, db) {
 
 module.exports.getBonusComputationCollection = getBonusComputationCollection;
 
-exports.approvedByCEO = async function (sid, year, comments, db) {
+exports.approvedByCEO = async function (sid, year, socialPerformanceComments, orderEvaluationComments, db) {
     const bonusCompCollectionResp = await bonusCompCollectionService.readBonusCompCollection(sid, year, db);
     //if not yet in database
     if (bonusCompCollectionResp.status !== 200) {
         let bonusCompCollection = await getBonusComputationCollection(sid, year, db);
         bonusCompCollection.approvedByCEO = true;
-        bonusCompCollection.comments = comments;
+        bonusCompCollection.socialPerformanceComments = socialPerformanceComments;
+        bonusCompCollection.orderEvaluationComments = orderEvaluationComments;
         if (!hasCommentArraySameLength(bonusCompCollection.orderEvaluation, bonusCompCollection.socialPerformance, comments)) {
             return { status: 400, msg: "wrong input comment" }
         }
