@@ -28,7 +28,14 @@ export class SocialPerformanceComponent {
     bonusSocial: number[];
   };
 
-  convertToArrayData(): object[] {
+  updateComment(row, val: string) {
+    const index = this.convertToArrayData().findIndex(
+      (el) => el.name === row.name
+    );
+    this.props.comments[index] = val;
+  }
+
+  convertToArrayData(): any[] {
     const result = [];
     const socialPerformanceActual = this.props.socialPerformanceActual;
     const socialPerformanceTargets = this.props.socialPerformanceTargets;

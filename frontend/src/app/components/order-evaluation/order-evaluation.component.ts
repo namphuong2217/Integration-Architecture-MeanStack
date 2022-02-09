@@ -28,8 +28,8 @@ export class OrderEvaluationComponent {
   };
 
   updateComment(row, val) {
-    console.log(this.props.orderEvaluations);
     const index = this.props.orderEvaluations.findIndex((el) => el == row);
+    this.props.comments[index] = val;
   }
 
   permissionToWriteComment(): boolean {
