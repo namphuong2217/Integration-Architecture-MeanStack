@@ -73,7 +73,17 @@
     <!------------ END OF INSIGHTS -------------->
 
     <div class="salesman-data-table" *ngIf="salesmen">
-      <h2>Senior Salesmen</h2>
+      <div class="table-heading">
+        <h2>Senior Salesman</h2>
+        <mat-form-field appearance="fill" >
+          <mat-label for="year-select">Year: </mat-label>
+          <mat-select name="years" id="year-select" #t (selectionChange)="selectYear(t.value)" [value]="years[0]">
+            <mat-option *ngFor="let year of years" [value]="year" >
+              {{year}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
       <table>
         <thead>
         <tr>
@@ -90,11 +100,8 @@
           <td>{{salesman.first_name}}</td>
           <td>{{salesman.last_name}}</td>
           <td>{{salesman.department}}</td>
-          <td class="primary" *ngIf="showSocialPerformance(salesman.sid)" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[buttonEnterSocialPerformance.routerLink, salesman.sid, this.year]"> {{buttonEnterSocialPerformance.title}}</a></td>
-          <td class="primary" *ngIf="showBonusCalculation(salesman.sid)" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[buttonBonusCalculation.routerLink, salesman.sid, this.year]">{{ifCurrentUserIsCEO() || ifCurrentUserIsHR() ? buttonBonusCalculation.titleCEO : buttonBonusCalculation.title}}</a></td>
-
-<!--          set social performance target values-->
-          <td class="primary" *ngIf="ifCurrentUserIsCEO()" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[buttonEnterSocialPerformance.routerLink, salesman.sid, this.year]"> {{ buttonEnterSocialPerformance.titleCEO}}</a></td>
+          <td class="primary" *ngIf="showSocialPerformance(salesman.sid)" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[buttonEnterSocialPerformance.routerLink, salesman.sid, this.year]">Rate Social Performance</a></td>
+          <td class="primary" *ngIf="showBonusCalculation(salesman.sid)" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[bonusCalculationLink, salesman.sid, this.year]">{{getBonusButtonTitle(salesman.sid)}}</a></td>
         </tr>
         </tbody>
       </table>
@@ -104,6 +111,23 @@
   <!----------------- END OF MAIN -------------------->
 
   <!------------ BEGIN OF RIGHT SECTION -------------->
+  <div class="right">
+    <!--
+    <div class="top">
+      <button id="menu-btn">
+        <span class="material-icons-sharp">menu</span>
+      </button>
+      <div class="profile">
+        <div class="info">
+          STATIC
+          <p><b>Michael Moore</b></p>
+          <small class="text-muted">CEO</small>
+        </div>
+      </div>
+    </div>
+    -->
+    <!-- END OF TOP -->
+  </div>
 </div>
 
 </body>

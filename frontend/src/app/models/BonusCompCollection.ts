@@ -8,11 +8,16 @@ export class BonusCompCollection {
     public year: number,
     public approvedByCEO: boolean,
     public approvedByHR: boolean,
+    public bonusSocial: number[],
     public bonusSocialTotal: number,
-    public bonusOrder: number,
+    public bonusOrder: [],
+    public socialPerformanceComments: string[],
+    public orderEvaluationComments: string[],
+    public bonusOrderTotal: number,
     public bonusTotal: number,
     public salesman: Salesman,
     public orderEvaluation: OrderEvaluation[],
-    public socialPerformance: SocialPerformance
+    public socialPerformance: SocialPerformance,
+    public targets: SocialPerformance
   ) {}
 }

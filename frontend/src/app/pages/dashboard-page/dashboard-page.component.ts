@@ -4,7 +4,8 @@ import { Salesman } from '../../models/Salesman';
 import { UserService } from '../../services/user.service';
 import { Permissions } from '../../Global';
 import { User } from '../../models/User';
-import {SocialPerformanceTargetService} from "../../services/social-performance-target.service";
+import { SocialPerformanceTargetService } from 'src/app/services/social-performance-target.service';
+import { years } from '../../Global';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -15,19 +16,17 @@ export class DashboardPageComponent implements OnInit {
   salesmen: Salesman[];
   salesmenCount: number;
   year: string;
+  years: string[];
   user: User;
-  buttonBonusCalculation = {
-    title: 'Bonus Calculation',
-    titleCEO: 'Confirm Bonus',
-    routerLink: '/bonus' };
+  bonusCalculationLink = '/bonus';
+  sidsWithTargets: string[];
   buttonEnterSocialPerformance = {
-    title: 'Rate Social Performance',
-    titleCEO: 'Determine Social Performance Target',
     routerLink: '/enter-social-performance',
   };
   constructor(
     private salesmanService: SalesmanService,
-    private userService: UserService
+    private userService: UserService,
+    private socialPerformanceTargetService: SocialPerformanceTargetService
   ) {}
 
   ngOnInit(): void {
@@ -36,7 +35,22 @@ export class DashboardPageComponent implements OnInit {
       this.salesmen = salesmen;
       this.salesmenCount = salesmen.length;
     });
+    this.years = years;
     this.year = new Date().getFullYear().toString();
+    this.checkTargets();
+  }
+
+  selectYear(year: string) {
+    this.year = year;
+    this.checkTargets();
+  }
+
+  checkTargets() {
+    this.socialPerformanceTargetService
+      .getPerformanceTargetsExist(this.year)
+      .subscribe((sidsWithTargets) => {
+        this.sidsWithTargets = sidsWithTargets.targetArray;
+      });
   }
 
   showBonusCalculation(sid: string): boolean {
@@ -47,6 +61,18 @@ export class DashboardPageComponent implements OnInit {
     );
   }
 
+  getBonusButtonTitle(sid: string) {
+    if (Permissions.hasUserPermission(this.user, 'allBonusCalc')) {
+      if (this.sidsWithTargets.includes(sid)) {
+        return 'Confirm Bonus';
+      } else {
+        return 'Set Target Values';
+      }
+    } else {
+      return 'View Bonus Calculation';
+    }
+  }
+
   showSocialPerformance(sid: string): boolean {
     const hasPermissionToEval = Permissions.hasUserPermission(
       this.user,
@@ -54,13 +80,4 @@ export class DashboardPageComponent implements OnInit {
     );
     return hasPermissionToEval && this.user.username !== sid;
   }
-
-  ifCurrentUserIsCEO(): boolean {
-    return this.user.role == "Leader";
-  }
-
-  ifCurrentUserIsHR(): boolean {
-    return this.user.role == "HR";
-  }
-
 }

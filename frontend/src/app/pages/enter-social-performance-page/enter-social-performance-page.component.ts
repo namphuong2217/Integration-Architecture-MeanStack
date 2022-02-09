@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SalesmanService } from '../../services/salesman.service';
 import { SocialPerformanceService } from '../../services/social-performance.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user.service';
 import { Salesman } from '../../models/Salesman';
@@ -29,7 +29,8 @@ export class EnterSocialPerformancePageComponent implements OnInit {
     private userService: UserService,
     private socialPerformanceService: SocialPerformanceService,
     private salesmanService: SalesmanService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -43,11 +44,13 @@ export class EnterSocialPerformancePageComponent implements OnInit {
       .subscribe((salesman) => (this.currentSalesman = salesman));
   }
 
-  selectYearAndEmployee(data) {
+  selectYear(data: { year: string }) {
     this.currentYear = data.year;
-    this.salesmanService
-      .getSalesman(data.sid)
-      .subscribe((salesman) => (this.currentSalesman = salesman));
+    const curRoute = this.route.snapshot.routeConfig.path;
+    const newRoute = curRoute
+      .replace(':sid', this.currentSalesman.sid)
+      .replace(':year', this.currentYear);
+    this.router.navigate([newRoute]);
   }
 
   createPropsYearSalesman() {

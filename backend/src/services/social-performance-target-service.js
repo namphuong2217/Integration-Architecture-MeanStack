@@ -1,9 +1,9 @@
 const SocialPerformanceTargets = require("../models/SocialPerformanceTargets");
 
-exports.add = async (db, body) => {
-    const year = new Date().getFullYear();
-    //if (body.sid === user.username) return { status: 401, msg: "you cant rate yourself" };
-    //if (user.role !== "Leader") return { status: 401, msg: "only the ceo is allowed to perform this action" };
+exports.add = async (db, body, user) => {
+    const year = Number(body.year);
+    if (body.sid === user.username) return { status: 401, msg: "you cant rate yourself" };
+    if (user.role !== "Leader") return { status: 401, msg: "only the ceo is allowed to perform this action" };
     const socialPerformanceTargets = new SocialPerformanceTargets(body.sid, year, body.leadershipCompetence, body.openness, body.socialBehaviour, body.attitude, body.communicationSkills, body.integrity);
     const spTargetIsInCollection = spInCollection(db, socialPerformanceTargets);
     if (await spTargetIsInCollection) {
@@ -22,7 +22,14 @@ const spInCollection = async (db, socialPerformanceTargets) => {
     const filter = { sid: socialPerformanceTargets.sid, year: socialPerformanceTargets.year };
     const res = spTargetCollection.findOne(filter);
     return await res;
+}
 
+exports.targetsExist = async (db, year) => {
+    let spTargetCollection = db.collection('socialPerformanceTargetCollection');
+    const filter = { year: year };
+    const res = await spTargetCollection.find(filter).toArray();
+    const sidArray = await res.map(targetRecord => targetRecord.sid);
+    return JSON.stringify({ targetArray: sidArray });
 }
 
 exports.get = async (db, sid, year) => {

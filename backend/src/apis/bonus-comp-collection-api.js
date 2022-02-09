@@ -10,7 +10,6 @@ exports.getBonusCompCollection = async function (req, res) {
         res.status(404);
         return res.send("incomplete social perforamnce");
     }
-    console.log(resp);
     return res.send(resp);
 }
 
@@ -23,8 +22,9 @@ exports.postBonusCompCollection = async function (req, res) {
     if (Permissions.hasUserPermission(user, "approveBonusHR")) {
         resp = await bonusCompCollectionController.approvedByHR(body.sid, body.year, db);
     } else if (Permissions.hasUserPermission(user, "approveBonusCEO")) {
-        resp = await bonusCompCollectionController.approvedByCEO(body.sid, body.year, body.comments, db);
+        resp = await bonusCompCollectionController.approvedByCEO(body.sid, body.year, body.socialPerformanceComment, body.orderEvaluationComments, db);
     }
     if (!resp) { res.send({ status: 400, msg: "permission error" }) }
-    return res.send(resp);
+    if (resp.status) return res.status(resp.status).send(res.msg);
+    return resp;
 }

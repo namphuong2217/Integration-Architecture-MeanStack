@@ -42,20 +42,15 @@ const getBonusComputationCollection = async function (sid, year, db) {
 
 module.exports.getBonusComputationCollection = getBonusComputationCollection;
 
-exports.approvedByCEO = async function (sid, year, comments, db) {
+exports.approvedByCEO = async function (sid, year, socialPerformanceComments, orderEvaluationComments, db) {
     const bonusCompCollectionResp = await bonusCompCollectionService.readBonusCompCollection(sid, year, db);
     //if not yet in database
     if (bonusCompCollectionResp.status !== 200) {
         let bonusCompCollection = await getBonusComputationCollection(sid, year, db);
         bonusCompCollection.approvedByCEO = true;
-        bonusCompCollection.comments = comments;
-        if (!hasCommentArraySameLength(bonusCompCollection.orderEvaluation, bonusCompCollection.socialPerformance, comments)) {
-            return { status: 400, msg: "wrong input comment" }
-        }
+        bonusCompCollection.socialPerformanceComments = socialPerformanceComments;
+        bonusCompCollection.orderEvaluationComments = socialPerformanceComments;
         return await bonusCompCollectionService.writeBonusCompCollection(bonusCompCollection, db);
-    }
-    if (!hasCommentArraySameLength(bonusCompCollectionResp.payload.orderEvaluation, bonusCompCollectionResp.payload.socialPerformance, comments)) {
-        return { status: 400, msg: "wrong input comment" }
     }
     //if already approved
     if (bonusCompCollectionResp.payload.approvedByCEO) {
@@ -88,9 +83,4 @@ exports.approvedByHR = async function (sid, year, db) {
     }
     //update bonusCompCollection
     return await bonusCompCollectionService.updateBonusCompCollection(sid, year, { "approvedByHR": true }, db);
-}
-
-//HELPER FUNCTION
-function hasCommentArraySameLength(salesOrder, socialperformance, comments) {
-    return comments.length === salesOrder.length + (socialperformance.integrity ? 6 : 0);
 }

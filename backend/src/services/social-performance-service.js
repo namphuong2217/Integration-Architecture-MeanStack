@@ -38,11 +38,11 @@ exports.getYearAverage = async (db, sid, year) => {
     return avg;
 }
 
-exports.add = async (db, body,user) => {
+exports.add = async (db, body, user) => {
     const issuerID = user.username.toString();
-    const year = new Date().getFullYear();
-    //if (body.sid === user.username) return { status: 401, msg: "you cant rate yourself" };
-    //if (user.role !== "Sales") return { status: 401, msg: "only salesmen are allowed to perform this action" };
+    const year = Number(body.year);
+    if (body.sid === user.username) return { status: 401, msg: "you cant rate yourself" };
+    if (user.role !== "Sales") return { status: 401, msg: "only salesmen are allowed to perform this action" };
     const socialPerformance = new SocialPerformance(body.sid, issuerID, year, body.leadershipCompetence, body.openness, body.socialBehaviour, body.attitude, body.communicationSkills, body.integrity);
     const spIsInCollection = spInCollection(db, socialPerformance);
     if (await spIsInCollection) {

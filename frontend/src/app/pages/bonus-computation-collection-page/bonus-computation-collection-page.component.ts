@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { BonusCompCollection } from '../../models/BonusCompCollection';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BonusComputationCollectionService } from '../../services/bonus-computation-collection.service';
 import { Salesman } from '../../models/Salesman';
 import { SalesmanService } from '../../services/salesman.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/User';
 import { Permissions } from '../../Global';
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import { SocialPerformanceTargetService } from 'src/app/services/social-performance-target.service';
 
 @Component({
@@ -25,13 +23,15 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   salesmen: Salesman[];
   successMessage: string;
   postError: string;
+  hasTargets: boolean;
 
   constructor(
     private bonusCompCollectionService: BonusComputationCollectionService,
     private socialPerformanceTargetService: SocialPerformanceTargetService,
     private salesmanService: SalesmanService,
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -40,11 +40,12 @@ export class BonusComputationCollectionPageComponent implements OnInit {
       .getSalesman(this.sid)
       .subscribe((salesman) => (this.currentSalesman = salesman));
     this.currentYear = this.route.snapshot.paramMap.get('year');
-    this.setBonusCompCollectionAndSalesman(this.sid, this.currentYear);
+    this.setBonusCompCollectionAndSalesman();
     this.userService.getOwnUser().subscribe((user) => (this.user = user));
     this.salesmanService
       .getSalesmen()
       .subscribe((salesmen) => (this.salesmen = salesmen));
+    this.checkHasTargets();
   }
 
   setPostError = (msg: string) => {
@@ -55,7 +56,17 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   handleSuccess = () => {
     this.postError = '';
     this.successMessage = 'Success';
+    this.checkHasTargets();
+    this.setBonusCompCollectionAndSalesman();
   };
+
+  checkHasTargets() {
+    this.socialPerformanceTargetService
+      .getPerformanceTargetsExist(this.currentYear)
+      .subscribe((res) => {
+        this.hasTargets = res.targetArray.includes(this.sid);
+      });
+  }
 
   saveTargets(socialPerformanceForm) {
     this.socialPerformanceTargetService.postSocialPerformanceTargets(
@@ -65,18 +76,27 @@ export class BonusComputationCollectionPageComponent implements OnInit {
     );
   }
 
-  setBonusCompCollectionAndSalesman(sid: string, year: string): void {
+  setBonusCompCollectionAndSalesman(): void {
     this.bonusCompCollectionService
-      .getBonusComputationCollection(sid, year)
-      .subscribe((bonusCompCollection) => {
-        this.bonusCompCollection = bonusCompCollection;
-        this.currentSalesman = this.bonusCompCollection.salesman;
-      });
+      .getBonusComputationCollection(this.sid, this.currentYear)
+      .subscribe(
+        (bonusCompCollection) => {
+          this.bonusCompCollection = bonusCompCollection;
+          this.currentSalesman = this.bonusCompCollection.salesman;
+        },
+        (error) => (this.bonusCompCollection = undefined)
+      );
   }
 
-  selectYearAndEmployee(data) {
+  selectYearAndEmployee(data: { year: string }) {
     this.currentYear = data.year;
-    this.setBonusCompCollectionAndSalesman(data.sid, data.year);
+    const curRoute = this.route.snapshot.routeConfig.path;
+    const newRoute = curRoute
+      .replace(':sid', this.currentSalesman.sid)
+      .replace(':year', data.year);
+    this.router.navigate([newRoute]);
+    this.setBonusCompCollectionAndSalesman();
+    this.checkHasTargets();
   }
 
   confirmBonusCompCollection(): void {
@@ -101,7 +121,9 @@ export class BonusComputationCollectionPageComponent implements OnInit {
         'writeComments'
       ),
       bonusOrder: this.bonusCompCollection.bonusOrder,
+      bonusOrderTotal: this.bonusCompCollection.bonusOrderTotal,
       orderEvaluations: this.bonusCompCollection.orderEvaluation,
+      comments: this.bonusCompCollection.orderEvaluationComments,
     };
   }
   createPropsSocialPerformance() {
@@ -110,9 +132,12 @@ export class BonusComputationCollectionPageComponent implements OnInit {
         this.user,
         'writeComments'
       ),
+      comments: this.bonusCompCollection.socialPerformanceComments,
+      bonusSocial: this.bonusCompCollection.bonusSocial,
       bonusSocialTotal: this.bonusCompCollection.bonusSocialTotal,
       bonusTotal: this.bonusCompCollection.bonusTotal,
-      socialPerformance: this.bonusCompCollection.socialPerformance,
+      socialPerformanceActual: this.bonusCompCollection.socialPerformance,
+      socialPerformanceTargets: this.bonusCompCollection.targets,
     };
   }
 
