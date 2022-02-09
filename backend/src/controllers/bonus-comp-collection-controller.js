@@ -49,7 +49,7 @@ exports.approvedByCEO = async function (sid, year, socialPerformanceComments, or
         let bonusCompCollection = await getBonusComputationCollection(sid, year, db);
         bonusCompCollection.approvedByCEO = true;
         bonusCompCollection.socialPerformanceComments = socialPerformanceComments;
-        bonusCompCollection.orderEvaluationComments = socialPerformanceComments;
+        bonusCompCollection.orderEvaluationComments = orderEvaluationComments;
         return await bonusCompCollectionService.writeBonusCompCollection(bonusCompCollection, db);
     }
     //if already approved
