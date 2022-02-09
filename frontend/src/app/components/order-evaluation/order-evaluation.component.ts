@@ -36,12 +36,13 @@ export class OrderEvaluationComponent {
     return this.props.permissionWriteComments;
   }
 
-  createTableArray(): OrderEvaluation[] {
-    const orderEvaluations = this.props.orderEvaluations;
+  createTableArray(): any[] {
+    const orderEvaluations: any = this.props.orderEvaluations;
     for (let i = 0; i < orderEvaluations.length; i++) {
       const order = orderEvaluations[i];
+      order.comment = this.props.comments[i];
       order.bonus = this.props.bonusOrder[i];
     }
-    return this.props.orderEvaluations;
+    return orderEvaluations;
   }
 }

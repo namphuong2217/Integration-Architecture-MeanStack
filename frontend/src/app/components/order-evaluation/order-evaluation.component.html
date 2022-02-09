@@ -32,8 +32,12 @@
 
   <ng-container matColumnDef="Comment" >
     <th mat-header-cell *matHeaderCellDef>Comment</th>
-    <td mat-cell *matCellDef="let element"><textarea *ngIf="permissionToWriteComment(); else cell" #t (input)="updateComment(element, t.value)">{{element.comment}}</textarea></td>
-    <ng-template #cell><td mat-cell *matCellDef="let row">{{row.comment}}</td></ng-template>
+    <td mat-cell *matCellDef="let element">
+      <ng-container *ngIf="props.permissionWriteComments else cellCom">
+        <textarea #t (input)="updateComment(element, t.value)">{{element.comment}}</textarea>
+      </ng-container>
+      <ng-template #cellCom>{{element.comment}}</ng-template>
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
