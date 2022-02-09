@@ -21,6 +21,7 @@ export class Permissions {
   ];
 
   static hasUserPermission(user: User, action: string) {
+    if (!user) return false;
     if (user.role == Permissions.sales) {
       return this.permissionSales.includes(action);
     } else if (user.role == Permissions.hr) {
