@@ -25,5 +25,6 @@ exports.postBonusCompCollection = async function (req, res) {
         resp = await bonusCompCollectionController.approvedByCEO(body.sid, body.year, body.socialPerformanceComment, body.orderEvaluationComments, db);
     }
     if (!resp) { res.send({ status: 400, msg: "permission error" }) }
-    return res.send(resp);
+    if (resp.status) return res.status(resp.status).send(res.msg);
+    return resp;
 }
