@@ -22,6 +22,7 @@ export class OrderEvaluationComponent {
   props: {
     permissionWriteComments: boolean;
     bonusOrder: [];
+    bonusOrderTotal: number;
     orderEvaluations: OrderEvaluation[];
     comments: string[];
   };
@@ -35,12 +36,13 @@ export class OrderEvaluationComponent {
     return this.props.permissionWriteComments;
   }
 
-  createTableArray(): OrderEvaluation[]{
-    let i = 0;
-    this.props.orderEvaluations.forEach( order =>{
+  createTableArray(): OrderEvaluation[] {
+    const orderEvaluations = this.props.orderEvaluations;
+    for (let i = 0; i < orderEvaluations.length; i++) {
+      const order = orderEvaluations[i];
       order.comment = this.props.comments[i];
-      order.bonus = this.props.bonusOrder[i++];
-    });
+      order.bonus = this.props.bonusOrder[i];
+    }
     return this.props.orderEvaluations;
   }
 }

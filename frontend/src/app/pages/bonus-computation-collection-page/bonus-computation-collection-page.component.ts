@@ -121,6 +121,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
         'writeComments'
       ),
       bonusOrder: this.bonusCompCollection.bonusOrder,
+      bonusOrderTotal: this.bonusCompCollection.bonusOrderTotal,
       orderEvaluations: this.bonusCompCollection.orderEvaluation,
       comments: this.bonusCompCollection.comments,
     };
