@@ -7,6 +7,8 @@ import { SocialPerformance } from '../../models/SocialPerformance';
   styleUrls: ['./social-performance.component.css'],
 })
 export class SocialPerformanceComponent {
+  socialPerformanceRecords: any[];
+
   constructor() {}
 
   displayedColumns: string[] = [
@@ -28,7 +30,18 @@ export class SocialPerformanceComponent {
     bonusSocial: number[];
   };
 
-  convertToArrayData(): object[] {
+  ngOnInit() {
+    this.socialPerformanceRecords = this.convertToArrayData();
+  }
+
+  updateComment(row, val: string) {
+    const index = this.socialPerformanceRecords.findIndex(
+      (el) => el.name === row.name
+    );
+    this.props.comments[index] = val;
+  }
+
+  convertToArrayData(): any[] {
     const result = [];
     const socialPerformanceActual = this.props.socialPerformanceActual;
     const socialPerformanceTargets = this.props.socialPerformanceTargets;

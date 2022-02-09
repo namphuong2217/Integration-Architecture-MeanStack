@@ -1,5 +1,5 @@
 <h1>B.) Social Performance Evaluation</h1>
-<table mat-table [dataSource]="convertToArrayData()" class="full-width-table"
+<table mat-table [dataSource]="this.socialPerformanceRecords" class="full-width-table"
        matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
 
   <ng-container matColumnDef="Criteria">
@@ -26,11 +26,10 @@
     <th mat-header-cell *matHeaderCellDef>Comment</th>
     <td mat-cell *matCellDef="let element">
       <ng-container *ngIf="props.permissionWriteComments else cellCom">
-        <textarea>{{element.comment}}</textarea>
+        <textarea #t (input)="updateComment(element, t.value)">{{element.comment}}</textarea>
       </ng-container>
       <ng-template #cellCom>{{element.comment}}</ng-template>
     </td>
-
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
