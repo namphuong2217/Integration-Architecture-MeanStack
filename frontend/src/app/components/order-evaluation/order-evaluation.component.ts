@@ -28,8 +28,8 @@ export class OrderEvaluationComponent {
   };
 
   updateComment(row, val) {
+    console.log(this.props.orderEvaluations);
     const index = this.props.orderEvaluations.findIndex((el) => el == row);
-    this.props.orderEvaluations[index].comment = val;
   }
 
   permissionToWriteComment(): boolean {
@@ -40,7 +40,6 @@ export class OrderEvaluationComponent {
     const orderEvaluations = this.props.orderEvaluations;
     for (let i = 0; i < orderEvaluations.length; i++) {
       const order = orderEvaluations[i];
-      order.comment = this.props.comments[i];
       order.bonus = this.props.bonusOrder[i];
     }
     return this.props.orderEvaluations;
