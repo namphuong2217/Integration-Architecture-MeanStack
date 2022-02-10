@@ -25,6 +25,8 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   postError: string;
   hasTargets: boolean;
   noBonusMessage: string;
+  confirmedMessage: string;
+  confirmedInfoClass: string;
 
   constructor(
     private bonusCompCollectionService: BonusComputationCollectionService,
@@ -107,7 +109,20 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   confirmBonusCompCollection(): void {
     this.bonusCompCollectionService
       .postBonusComputationCollection(this.bonusCompCollection)
-      .subscribe((response) => alert(`Bonus confirmed! (id: ${response})`));
+      .subscribe(
+        () => {
+          this.confirmedMessage = 'Success';
+          this.confirmedInfoClass = 'success';
+          this.bonusCompCollection.approvedByCEO =
+            this.user?.role === 'Leader' ? true : false;
+          this.bonusCompCollection.approvedByHR =
+            this.user?.role === 'HR' ? true : false;
+        },
+        (error) => {
+          this.confirmedMessage = error?.error;
+          this.confirmedInfoClass = 'error';
+        }
+      );
   }
 
   createPropsYearSalesman() {

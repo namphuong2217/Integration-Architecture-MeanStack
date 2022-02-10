@@ -16,13 +16,24 @@
 }
 
 .error {
-  margin: 1rem;
+  margin: 0;
+  margin-left: 1rem;
   color: red;
+  width: fit-content;
+  height: min-content;
   font-weight: bold;
 }
 
+.confirm-dialog {
+  display: flex;
+  align-items: center;
+}
+
 .success {
-  margin: 1rem;
+  margin: 0;
+  margin-left: 1rem;
   color: blue;
+  width: fit-content;
+  height: min-content;
   font-weight: bold;
 }
