@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SalesmanService } from '../../services/salesman.service';
+import { BonusComputationCollectionService } from 'src/app/services/bonus-computation-collection.service';
 import { Salesman } from '../../models/Salesman';
 import { UserService } from '../../services/user.service';
 import { Permissions } from '../../Global';
@@ -20,13 +21,15 @@ export class DashboardPageComponent implements OnInit {
   user: User;
   bonusCalculationLink = '/bonus';
   sidsWithTargets: string[];
+  approvedBonuses: string[];
   buttonEnterSocialPerformance = {
     routerLink: '/enter-social-performance',
   };
   constructor(
     private salesmanService: SalesmanService,
     private userService: UserService,
-    private socialPerformanceTargetService: SocialPerformanceTargetService
+    private socialPerformanceTargetService: SocialPerformanceTargetService,
+    private bonusComputationCollectionService: BonusComputationCollectionService
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +41,7 @@ export class DashboardPageComponent implements OnInit {
     this.years = years;
     this.year = new Date().getFullYear().toString();
     this.checkTargets();
+    this.checkApprovedBonuses();
   }
 
   selectYear(year: string) {
@@ -51,6 +55,12 @@ export class DashboardPageComponent implements OnInit {
       .subscribe((sidsWithTargets) => {
         this.sidsWithTargets = sidsWithTargets.targetArray;
       });
+  }
+
+  checkApprovedBonuses() {
+    this.bonusComputationCollectionService
+      .getApprovedBonuses(this.year)
+      .subscribe((res) => (this.approvedBonuses = res));
   }
 
   showBonusCalculation(sid: string): boolean {

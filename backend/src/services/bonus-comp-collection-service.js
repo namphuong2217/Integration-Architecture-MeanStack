@@ -8,6 +8,14 @@ const readBonusCompCollection = async (sid, year, db) => {
     return { status: 404, payload: "no targets for sid and year" };
 }
 
+exports.getApprovedBonuses = async (year, db) => {
+    const bonusCompCollection = db.collection("bonusCompCollection");
+    const filter = { year: year };
+    const res = await bonusCompCollection.find(filter).toArray();
+    const approvedBySid = await res.map(bonus => bonus.sid);
+    return await approvedBySid;
+}
+
 module.exports.readBonusCompCollection = readBonusCompCollection;
 
 exports.writeBonusCompCollection = async (bonusComputationCollection, db) => {

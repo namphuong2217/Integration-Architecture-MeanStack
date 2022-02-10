@@ -1,4 +1,5 @@
 const bonusCompCollectionController = require("../controllers/bonus-comp-collection-controller");
+const bonusCompCollectionService = require('../services/bonus-comp-collection-service');
 const Permissions = require("../Globals").Permissions;
 
 exports.getBonusCompCollection = async function (req, res) {
@@ -16,6 +17,12 @@ exports.getBonusCompCollection = async function (req, res) {
     return res.send(resp);
 }
 
+exports.getApprovedBonuses = async (req, res) => {
+    const db = req.app.get('db');
+    const year = Number(req.params.year);
+    const resp = await bonusCompCollectionService.getApprovedBonuses(year, db);
+    res.send(JSON.stringify(resp));
+}
 
 exports.postBonusCompCollection = async function (req, res) {
     const body = req.body;

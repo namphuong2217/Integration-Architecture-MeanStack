@@ -18,6 +18,10 @@ export class BonusComputationCollectionService {
     );
   }
 
+  getApprovedBonuses(year: string): Observable<string[]> {
+    return this.http.get<string[]>(`/api/approvedBonuses/${year}`);
+  }
+
   postBonusComputationCollection(
     bonusCompCollection: BonusCompCollection
   ): Observable<string> {
