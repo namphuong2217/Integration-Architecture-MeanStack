@@ -24,6 +24,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   successMessage: string;
   postError: string;
   hasTargets: boolean;
+  noBonusMessage: string;
 
   constructor(
     private bonusCompCollectionService: BonusComputationCollectionService,
@@ -84,7 +85,11 @@ export class BonusComputationCollectionPageComponent implements OnInit {
           this.bonusCompCollection = bonusCompCollection;
           this.currentSalesman = this.bonusCompCollection.salesman;
         },
-        (error) => (this.bonusCompCollection = undefined)
+        (error) => {
+          this.bonusCompCollection = undefined;
+          this.noBonusMessage =
+            error?.error || 'Bonus has not been approved yet';
+        }
       );
   }
 
