@@ -63,7 +63,7 @@ exports.approvedByCEO = async function (sid, year, socialPerformanceComments, or
     }
     //update bonusCompCollection
     return await bonusCompCollectionService.updateBonusCompCollection(
-        sid, year, { "approvedByCEO": true, comments: comments }, db);
+        sid, year, { "approvedByCEO": true, socialPerformanceComments: socialPerformanceComments, orderEvaluationComments: orderEvaluationComments }, db);
 }
 
 exports.approvedByHR = async function (sid, year, db) {
