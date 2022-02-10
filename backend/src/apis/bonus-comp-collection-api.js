@@ -3,12 +3,15 @@ const Permissions = require("../Globals").Permissions;
 
 exports.getBonusCompCollection = async function (req, res) {
     const sid = req.params.sid;
+    const user = req.session.user;
+    if (!Permissions.hasUserPermission(user, "readBonus") && user.username !== sid) {
+        return res.status(401).send("You are not authorized to read this bonus computation sheet")
+    }
     const year = req.params.year;
     const db = req.app.get('db');
-    const resp = await bonusCompCollectionController.getBonusComputationCollection(sid, year, db);
+    const resp = await bonusCompCollectionController.getBonusComputationCollection(sid, year, user, db);
     if (resp === "error") {
-        res.status(404);
-        return res.send("incomplete social perforamnce");
+        return res.status(404).send("incomplete social perforamnce");
     }
     return res.send(resp);
 }
