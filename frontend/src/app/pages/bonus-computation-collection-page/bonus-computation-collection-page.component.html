@@ -44,7 +44,7 @@
   </div>
 
 
-  <div class="right" *ngIf="permissionToViewFields() && permissionToConfirm()">
+  <div class="right" *ngIf="permissionToViewFields() && permissionToConfirm() && !confirmed()">
     <h1>C.) Confirm Bonus</h1>
     <div class="confirm-dialog">
       <button mat-raised-button color="primary" (click)="confirmBonusCompCollection()">Confirm</button>
