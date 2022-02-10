@@ -100,8 +100,11 @@
           <td>{{salesman.first_name}}</td>
           <td>{{salesman.last_name}}</td>
           <td>{{salesman.department}}</td>
-          <td class="primary" *ngIf="showSocialPerformance(salesman.sid)" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[buttonEnterSocialPerformance.routerLink, salesman.sid, this.year]">Rate Social Performance</a></td>
+          <td class="primary" *ngIf="showSocialPerformance(salesman.sid) else noSocialPerformance" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[buttonEnterSocialPerformance.routerLink, salesman.sid, this.year]">Rate Social Performance</a></td>
           <td class="primary" *ngIf="showBonusCalculation(salesman.sid)" style="text-decoration: underline; text-decoration-color: orangered"><a style="color:#FF0000;" [routerLink]="[bonusCalculationLink, salesman.sid, this.year]">{{getBonusButtonTitle(salesman.sid)}}</a></td>
+          <ng-template #noSocialPerformance>
+            <td class="primary" *ngIf="showApproved(salesman.sid)">Bonus Approved</td>
+          </ng-template>
         </tr>
         </tbody>
       </table>

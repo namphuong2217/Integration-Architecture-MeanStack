@@ -47,6 +47,7 @@ export class DashboardPageComponent implements OnInit {
   selectYear(year: string) {
     this.year = year;
     this.checkTargets();
+    this.checkApprovedBonuses();
   }
 
   checkTargets() {
@@ -60,7 +61,9 @@ export class DashboardPageComponent implements OnInit {
   checkApprovedBonuses() {
     this.bonusComputationCollectionService
       .getApprovedBonuses(this.year)
-      .subscribe((res) => (this.approvedBonuses = res));
+      .subscribe((res) => {
+        this.approvedBonuses = res;
+      });
   }
 
   showBonusCalculation(sid: string): boolean {
@@ -73,8 +76,17 @@ export class DashboardPageComponent implements OnInit {
     );
   }
 
+  showApproved(sid: string) {
+    const username = this.user.username;
+    const confirmPerm = Permissions.hasUserPermission(this.user, 'confirm');
+    return username !== sid && !confirmPerm;
+  }
+
   getBonusButtonTitle(sid: string) {
     if (Permissions.hasUserPermission(this.user, 'allBonusCalc')) {
+      if (this.approvedBonuses.includes(sid)) {
+        return 'Bonus Confirmed';
+      }
       if (this.sidsWithTargets.includes(sid)) {
         return 'Confirm Bonus';
       } else {
@@ -86,6 +98,8 @@ export class DashboardPageComponent implements OnInit {
   }
 
   showSocialPerformance(sid: string): boolean {
+    const isApproved = this.approvedBonuses.includes(sid);
+    if (isApproved) return false;
     const hasPermissionToEval = Permissions.hasUserPermission(
       this.user,
       'socialPerformanceEval'
