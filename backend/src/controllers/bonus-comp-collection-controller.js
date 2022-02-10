@@ -55,7 +55,7 @@ exports.approvedByCEO = async function (sid, year, socialPerformanceComments, or
     }
     //if already approved
     if (bonusCompCollectionResp.payload.approvedByCEO) {
-        return JSON.stringify({ status: "404", msg: `collection is already approved` });
+        return { status: 500, msg: `Collection is already approved` };
     }
     //if both approved - send to orangehrm
     if (bonusCompCollectionResp.payload.approvedByHR) {
@@ -76,7 +76,7 @@ exports.approvedByHR = async function (sid, year, db) {
     }
     //if already approved
     if (bonusCompCollectionResp.payload.approvedByHR) {
-        return JSON.stringify({ status: "404", msg: `collection is already approved` });
+        return { status: 500, msg: `Collection is already approved` };
     }
     //if both approved - send to orangehrm
     if (bonusCompCollectionResp.payload.approvedByCEO) {
