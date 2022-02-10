@@ -1,4 +1,5 @@
 const SocialPerformance = require("../models/SocialPerformance");
+const bonusCompCollectionService = require('./bonus-comp-collection-service');
 
 exports.get = (db, sid) => {
     return db.collection('socialPerformanceCollection').find({ sid: parseInt(sid) }).toArray();
@@ -41,6 +42,7 @@ exports.getYearAverage = async (db, sid, year) => {
 exports.add = async (db, body, user) => {
     const issuerID = user.username.toString();
     const year = Number(body.year);
+    if (bonusApproved(body.sid, body.year, db)) return { status: 500, msg: "Bonus already approved" };
     if (body.sid === user.username) return { status: 401, msg: "you cant rate yourself" };
     if (user.role !== "Sales") return { status: 401, msg: "only salesmen are allowed to perform this action" };
     const socialPerformance = new SocialPerformance(body.sid, issuerID, year, body.leadershipCompetence, body.openness, body.socialBehaviour, body.attitude, body.communicationSkills, body.integrity);
@@ -54,6 +56,11 @@ exports.add = async (db, body, user) => {
     if ((await db.collection('socialPerformanceCollection').insertOne(socialPerformance)).insertedId) {
         return { status: 200, msg: "success" };
     }
+}
+
+const bonusApproved = async (sid, year, db) => {
+    const res = await bonusCompCollectionService.readBonusCompCollection(sid, year, db);
+    return res.status === 200;
 }
 
 exports.delete = async (db, sid, year) => {
