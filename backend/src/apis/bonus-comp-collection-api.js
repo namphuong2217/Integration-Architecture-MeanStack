@@ -28,6 +28,9 @@ exports.postBonusCompCollection = async function (req, res) {
         resp = await bonusCompCollectionController.approvedByCEO(body.sid, body.year, body.socialPerformanceComments, body.orderEvaluationComments, db);
     }
     if (!resp) return res.status(401).send("permission error");
-    if (resp.status) return res.status(resp.status).send(resp.msg);
+    if (resp.status) {
+        if (resp.status === 200) return res.send();
+        return res.status(resp.status).send(resp.msg);
+    }
     return resp;
 }
