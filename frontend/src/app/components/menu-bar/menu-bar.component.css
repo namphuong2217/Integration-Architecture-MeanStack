@@ -23,6 +23,10 @@ span.appName {
   margin-right: 6px;
 }
 
+button.menu-button {
+  margin: 1rem;
+}
+
 button.menu-button:hover {
   background: rgba(0, 0, 0, 0.2);
 }
