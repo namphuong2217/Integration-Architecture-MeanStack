@@ -17,6 +17,6 @@ export class AppComponent implements OnInit {
       this.isLoggedIn = newState;
     });
     this.authService.isLoggedIn().subscribe();
-    this.titleService.setTitle('NTS - High Performance');
+    this.titleService.setTitle('Bonus Management Tool');
   }
 }
