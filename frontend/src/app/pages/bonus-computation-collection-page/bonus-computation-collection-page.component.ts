@@ -111,8 +111,6 @@ export class BonusComputationCollectionPageComponent implements OnInit {
       .postBonusComputationCollection(this.bonusCompCollection)
       .subscribe(
         () => {
-          this.confirmedMessage = 'Success';
-          this.confirmedInfoClass = 'success';
           this.bonusCompCollection.approvedByCEO =
             this.user?.role === 'Leader' ? true : false;
           this.bonusCompCollection.approvedByHR =

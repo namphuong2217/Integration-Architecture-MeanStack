@@ -26,14 +26,18 @@
 
 .confirm-dialog {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .success {
   margin: 0;
-  margin-left: 1rem;
   color: blue;
   width: fit-content;
   height: min-content;
   font-weight: bold;
+}
+
+.confirmed-info {
+  color: green;
 }
