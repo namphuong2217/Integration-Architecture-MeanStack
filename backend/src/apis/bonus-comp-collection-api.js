@@ -10,8 +10,8 @@ exports.getBonusCompCollection = async function (req, res) {
     const year = req.params.year;
     const db = req.app.get('db');
     const resp = await bonusCompCollectionController.getBonusComputationCollection(sid, year, user, db);
-    if (resp === "error") {
-        return res.status(404).send("incomplete social perforamnce");
+    if (resp.status) {
+        return res.status(resp.status).send(resp.payload);
     }
     return res.send(resp);
 }

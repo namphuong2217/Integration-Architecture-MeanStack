@@ -20,8 +20,9 @@ const getBonusComputationCollection = async function (sid, year, user, db) {
 
     // Collect data from different controllers
     const orderEvaluation = await orderEvaluationController.getOrderEvaluations(sid, year);
+    if (orderEvaluation.length === 0) return { status: 500, payload: "No Order Evaluations" };
     const socialPerformance = await socialPerformanceService.getYearAverage(db, sid, year);
-    if (socialPerformance.status === "error") return "error";
+    if (socialPerformance.status === "error") return { status: 500, payload: "Incomplete Social Performance Rating" };
     const salesman = await salesmanController.getEmployee(sid);
 
     const bonusOrder = [];
@@ -31,7 +32,7 @@ const getBonusComputationCollection = async function (sid, year, user, db) {
     });
 
     const targetResp = await socialPerformanceTargetService.get(db, sid, year);
-    if (targetResp.status !== 200) return "error";
+    if (targetResp.status !== 200) return { status: 500, payload: "No Social Performance Targets yet" };
     const bonusSocial = [];
     Object.keys(socialPerformance).filter(key => key !== "sid" && key !== "year").forEach(socialKey => {
         bonusSocial.push(bonusCalcEnricher.getBonusForSocialPerformance(socialKey, targetResp.payload[socialKey], socialPerformance[socialKey]));
