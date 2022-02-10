@@ -10,7 +10,7 @@ const socialPerformanceService = require("../services/social-performance-service
 const bonusCalcEnricher = require("./transformation/bonus-calculation-enricher");
 const { translateRatingToString } = require("./transformation/order-evaluation-ranking-translator");
 
-const getBonusComputationCollection = async function (sid, year, user, db) {
+const getBonusComputationCollection = async function (sid, year, db) {
     year = parseInt(year);
     // If the collection is already in database
     const bonusCompCollectionResp = await bonusCompCollectionService.readBonusCompCollection(sid, year, db);

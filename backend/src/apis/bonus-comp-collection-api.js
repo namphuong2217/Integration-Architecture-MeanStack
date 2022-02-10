@@ -9,7 +9,7 @@ exports.getBonusCompCollection = async function (req, res) {
     }
     const year = req.params.year;
     const db = req.app.get('db');
-    const resp = await bonusCompCollectionController.getBonusComputationCollection(sid, year, user, db);
+    const resp = await bonusCompCollectionController.getBonusComputationCollection(sid, year, db);
     if (resp.status) {
         return res.status(resp.status).send(resp.payload);
     }
@@ -25,6 +25,7 @@ exports.postBonusCompCollection = async function (req, res) {
     if (Permissions.hasUserPermission(user, "approveBonusHR")) {
         resp = await bonusCompCollectionController.approvedByHR(body.sid, body.year, db);
     } else if (Permissions.hasUserPermission(user, "approveBonusCEO")) {
+        console.log("API");
         resp = await bonusCompCollectionController.approvedByCEO(body.sid, body.year, body.socialPerformanceComments, body.orderEvaluationComments, db);
     }
     if (!resp) return res.status(401).send("permission error");
