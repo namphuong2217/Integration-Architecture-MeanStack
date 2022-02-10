@@ -7,10 +7,15 @@
 </ng-template>
 
 <ng-template #targetForm>
-  <app-social-performance-targets-form [propSid]="this.sid" [year]="this.currentYear" (clickEvent)="saveTargets($event)">
-  </app-social-performance-targets-form>
-  <span class="error" *ngIf="postError">{{postError}}</span>
-  <span class="success" *ngIf="successMessage">{{successMessage}}</span>
+  <div *ngIf="permissionToWriteComments() else noTargets">    
+    <app-social-performance-targets-form [propSid]="this.sid" [year]="this.currentYear" (clickEvent)="saveTargets($event)">
+    </app-social-performance-targets-form>
+    <span class="error" *ngIf="postError">{{postError}}</span>
+    <span class="success" *ngIf="successMessage">{{successMessage}}</span>
+  </div>
+  <ng-template #noTargets>
+    <h1>Wait for CEO to Set Targets</h1>
+  </ng-template>
 </ng-template>
 
 <ng-template #noBonus>

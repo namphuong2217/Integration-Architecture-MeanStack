@@ -151,6 +151,10 @@ export class BonusComputationCollectionPageComponent implements OnInit {
     return false;
   }
 
+  permissionToWriteComments() {
+    return Permissions.hasUserPermission(this.user, 'writeComments');
+  }
+
   permissionToConfirm() {
     return Permissions.hasUserPermission(this.user, 'confirm');
   }
