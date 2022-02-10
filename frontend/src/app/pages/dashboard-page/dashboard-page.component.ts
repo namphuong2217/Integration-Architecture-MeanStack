@@ -55,7 +55,9 @@ export class DashboardPageComponent implements OnInit {
 
   showBonusCalculation(sid: string): boolean {
     return (
-      Permissions.hasUserPermission(this.user, 'allBonusCalc') ||
+      (Permissions.hasUserPermission(this.user, 'allBonusCalc') &&
+        this.sidsWithTargets.includes(sid)) ||
+      Permissions.hasUserPermission(this.user, 'writeComments') ||
       (Permissions.hasUserPermission(this.user, 'viewOwnBonusCalc') &&
         sid == this.user.username)
     );
