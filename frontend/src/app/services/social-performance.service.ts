@@ -13,7 +13,7 @@ export class SocialPerformanceService {
     return this.http.get<SocialPerformance>(`/api/socialPerformance/${id}`);
   }
 
-  getHasRated(year: string): Observable<String[]> {
+  getHasRated(year: string): Observable<string[]> {
     return this.http.get<string[]>(`/api/hasRatedSocialPerformance/${year}`);
   }
 

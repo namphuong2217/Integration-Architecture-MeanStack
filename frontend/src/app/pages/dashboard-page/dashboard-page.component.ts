@@ -46,15 +46,14 @@ export class DashboardPageComponent implements OnInit {
     this.year = new Date().getFullYear().toString();
     this.checkTargets();
     this.checkApprovedBonuses();
-    this.socialPerformanceService
-      .getHasRated(this.year)
-      .subscribe((b) => console.log(b));
+    this.checkHasRated();
   }
 
   selectYear(year: string) {
     this.year = year;
     this.checkTargets();
     this.checkApprovedBonuses();
+    this.checkHasRated();
   }
 
   checkTargets() {
@@ -63,6 +62,13 @@ export class DashboardPageComponent implements OnInit {
       .subscribe((sidsWithTargets) => {
         this.sidsWithTargets = sidsWithTargets.targetArray;
       });
+  }
+
+  checkHasRated() {
+    this.socialPerformanceService.getHasRated(this.year).subscribe((arr) => {
+      console.log(arr);
+      this.hasRated = arr;
+    });
   }
 
   checkApprovedBonuses() {
@@ -83,10 +89,19 @@ export class DashboardPageComponent implements OnInit {
     );
   }
 
-  showApproved(sid: string) {
+  showApprovedOrRated(sid: string) {
     const username = this.user.username;
     const confirmPerm = Permissions.hasUserPermission(this.user, 'confirm');
     return username !== sid && !confirmPerm;
+  }
+
+  checkApprovedOrRated(sid: string) {
+    const approved = this.approvedBonuses
+      .map((bonus) => bonus.sid)
+      .includes(sid);
+    if (approved) return 'Approved';
+    const isRated = this.hasRated.includes(sid);
+    if (isRated) return 'Rated';
   }
 
   getBonusButtonTitle(sid: string) {
@@ -132,6 +147,9 @@ export class DashboardPageComponent implements OnInit {
       this.user,
       'socialPerformanceEval'
     );
-    return hasPermissionToEval && this.user.username !== sid;
+    const hasAlreadyRated = this.hasRated.includes(sid);
+    return (
+      hasPermissionToEval && this.user.username !== sid && !hasAlreadyRated
+    );
   }
 }
