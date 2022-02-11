@@ -1,3 +1,4 @@
+const { use } = require("express/lib/application");
 const SocialPerformance = require("../models/SocialPerformance");
 const bonusCompCollectionService = require('./bonus-comp-collection-service');
 
@@ -37,6 +38,13 @@ exports.getYearAverage = async (db, sid, year) => {
     }
 
     return avg;
+}
+
+exports.hasRated = async (username, year, db) => {
+    let spCollection = db.collection('socialPerformanceCollection');
+    const filter = { issuerID: username, year: Number(year) };
+    const ratedArr = await spCollection.find(filter).toArray();
+    return await ratedArr.map(spRecord => spRecord.sid);
 }
 
 exports.add = async (db, body, user) => {

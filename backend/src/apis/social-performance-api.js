@@ -16,6 +16,15 @@ exports.getSocialPerformance = async (req, res) => {
     return res.send(JSON.stringify(socialPerformance));
 }
 
+exports.hasRated = async (req, res) => {
+    const db = req.app.get('db');
+    const username = req.session.user?.username;
+    const year = req.params.year;
+    const hasRatedArr = await socialPerformanceService.hasRated(username, year, db);
+    console.log(await hasRatedArr);
+    return res.send(JSON.stringify(hasRatedArr));
+}
+
 exports.getYearAverage = async (req, res) => {
     const db = req.app.get('db');
     const sid = parseInt(req.params.sid);

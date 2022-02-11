@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { Permissions } from '../../Global';
 import { User } from '../../models/User';
 import { ApprovedBonus } from 'src/app/models/ApprovedBonus';
+import { SocialPerformanceService } from 'src/app/services/social-performance.service';
 import { SocialPerformanceTargetService } from 'src/app/services/social-performance-target.service';
 import { years } from '../../Global';
 
@@ -22,6 +23,7 @@ export class DashboardPageComponent implements OnInit {
   user: User;
   bonusCalculationLink = '/bonus';
   sidsWithTargets: string[];
+  hasRated: string[];
   approvedBonuses: ApprovedBonus[];
   buttonEnterSocialPerformance = {
     routerLink: '/enter-social-performance',
@@ -29,6 +31,7 @@ export class DashboardPageComponent implements OnInit {
   constructor(
     private salesmanService: SalesmanService,
     private userService: UserService,
+    private socialPerformanceService: SocialPerformanceService,
     private socialPerformanceTargetService: SocialPerformanceTargetService,
     private bonusComputationCollectionService: BonusComputationCollectionService
   ) {}
@@ -43,6 +46,9 @@ export class DashboardPageComponent implements OnInit {
     this.year = new Date().getFullYear().toString();
     this.checkTargets();
     this.checkApprovedBonuses();
+    this.socialPerformanceService
+      .getHasRated(this.year)
+      .subscribe((b) => console.log(b));
   }
 
   selectYear(year: string) {
