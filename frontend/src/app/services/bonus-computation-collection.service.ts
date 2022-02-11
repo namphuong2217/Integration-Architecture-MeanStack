@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BonusCompCollection } from '../models/BonusCompCollection';
+import { ApprovedBonus } from '../models/ApprovedBonus';
 
 @Injectable({
   providedIn: 'root',
@@ -18,8 +19,8 @@ export class BonusComputationCollectionService {
     );
   }
 
-  getApprovedBonuses(year: string): Observable<string[]> {
-    return this.http.get<string[]>(`/api/approvedBonuses/${year}`);
+  getApprovedBonuses(year: string): Observable<ApprovedBonus[]> {
+    return this.http.get<ApprovedBonus[]>(`/api/approvedBonuses/${year}`);
   }
 
   postBonusComputationCollection(

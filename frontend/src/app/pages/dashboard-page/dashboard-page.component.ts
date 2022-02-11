@@ -5,6 +5,7 @@ import { Salesman } from '../../models/Salesman';
 import { UserService } from '../../services/user.service';
 import { Permissions } from '../../Global';
 import { User } from '../../models/User';
+import { ApprovedBonus } from 'src/app/models/ApprovedBonus';
 import { SocialPerformanceTargetService } from 'src/app/services/social-performance-target.service';
 import { years } from '../../Global';
 
@@ -21,7 +22,7 @@ export class DashboardPageComponent implements OnInit {
   user: User;
   bonusCalculationLink = '/bonus';
   sidsWithTargets: string[];
-  approvedBonuses: string[];
+  approvedBonuses: ApprovedBonus[];
   buttonEnterSocialPerformance = {
     routerLink: '/enter-social-performance',
   };
@@ -83,9 +84,29 @@ export class DashboardPageComponent implements OnInit {
   }
 
   getBonusButtonTitle(sid: string) {
+    let isApproved = false;
+    let sidIndex: number;
+    this.approvedBonuses.forEach((bonus, i) => {
+      if (bonus.sid === sid) {
+        isApproved = true;
+        sidIndex = i;
+      }
+    });
     if (Permissions.hasUserPermission(this.user, 'allBonusCalc')) {
-      if (this.approvedBonuses.includes(sid)) {
-        return 'Bonus Confirmed';
+      if (isApproved) {
+        if (
+          this.user.role === 'Leader' &&
+          this.approvedBonuses[sidIndex].approvedByCEO
+        ) {
+          return 'Bonus Confirmed';
+        }
+        if (
+          this.user.role === 'HR' &&
+          this.approvedBonuses[sidIndex].approvedByHR
+        ) {
+          return 'Bonus Confirmed';
+        }
+        return 'Confirm Bonus';
       }
       if (this.sidsWithTargets.includes(sid)) {
         return 'Confirm Bonus';
@@ -98,7 +119,8 @@ export class DashboardPageComponent implements OnInit {
   }
 
   showSocialPerformance(sid: string): boolean {
-    const isApproved = this.approvedBonuses.includes(sid);
+    const approvedBySID = this.approvedBonuses.map((bonus) => bonus.sid);
+    const isApproved = approvedBySID.includes(sid);
     if (isApproved) return false;
     const hasPermissionToEval = Permissions.hasUserPermission(
       this.user,
