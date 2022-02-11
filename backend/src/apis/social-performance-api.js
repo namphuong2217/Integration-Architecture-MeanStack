@@ -21,7 +21,6 @@ exports.hasRated = async (req, res) => {
     const username = req.session.user?.username;
     const year = req.params.year;
     const hasRatedArr = await socialPerformanceService.hasRated(username, year, db);
-    console.log(await hasRatedArr);
     return res.send(JSON.stringify(hasRatedArr));
 }
 
