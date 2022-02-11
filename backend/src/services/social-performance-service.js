@@ -50,7 +50,7 @@ exports.hasRated = async (username, year, db) => {
 exports.add = async (db, body, user) => {
     const issuerID = user.username.toString();
     const year = Number(body.year);
-    if (bonusApproved(body.sid, body.year, db)) return { status: 500, msg: "Bonus already approved" };
+    if (await bonusApproved(body.sid, body.year, db)) return { status: 500, msg: "Bonus already approved" };
     if (body.sid === user.username) return { status: 401, msg: "you cant rate yourself" };
     if (user.role !== "Sales") return { status: 401, msg: "only salesmen are allowed to perform this action" };
     const socialPerformance = new SocialPerformance(body.sid, issuerID, year, body.leadershipCompetence, body.openness, body.socialBehaviour, body.attitude, body.communicationSkills, body.integrity);
