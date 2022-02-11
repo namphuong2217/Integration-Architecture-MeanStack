@@ -1,21 +1,21 @@
 
-exports.Permissions ={
-    sales : "Sales",
-    hr : "HR",
-    ceo : "Leader",
+exports.Permissions = {
+    sales: "Sales",
+    hr: "HR",
+    ceo: "Leader",
 
-    permissionSales : [],
-    permissionHR : ["approveBonusHR"],
-    permissionCEO : ["approveBonusCEO"],
+    permissionSales: [],
+    permissionHR: ["approveBonusHR", "readBonus"],
+    permissionCEO: ["approveBonusCEO", "readBonus"],
 
-    hasUserPermission(user, action){
-        if(user.role === this.sales){
+    hasUserPermission(user, action) {
+        if (user.role === this.sales) {
             return this.permissionSales.includes(action);
         }
-        else if(user.role === this.hr){
+        else if (user.role === this.hr) {
             return this.permissionHR.includes(action);
         }
-        else if(user.role === this.ceo){
+        else if (user.role === this.ceo) {
             return this.permissionCEO.includes(action);
         }
     }

@@ -3,14 +3,19 @@
 </div>
 
 <ng-template #SalesmanNoBonus>
-  <h1>Bonus has not been approved yet</h1>
+  <h1>{{noBonusMessage}}</h1>
 </ng-template>
 
 <ng-template #targetForm>
-  <app-social-performance-targets-form [propSid]="this.sid" [year]="this.currentYear" (clickEvent)="saveTargets($event)">
-  </app-social-performance-targets-form>
-  <span class="error" *ngIf="postError">{{postError}}</span>
-  <span class="success" *ngIf="successMessage">{{successMessage}}</span>
+  <div *ngIf="permissionToWriteComments() else noTargets">    
+    <app-social-performance-targets-form [propSid]="this.sid" [year]="this.currentYear" (clickEvent)="saveTargets($event)">
+    </app-social-performance-targets-form>
+    <span class="error" *ngIf="postError">{{postError}}</span>
+    <span class="success" *ngIf="successMessage">{{successMessage}}</span>
+  </div>
+  <ng-template #noTargets>
+    <h1>Wait for CEO to Set Targets</h1>
+  </ng-template>
 </ng-template>
 
 <ng-template #noBonus>
@@ -41,8 +46,13 @@
 
   <div class="right" *ngIf="permissionToViewFields() && permissionToConfirm()">
     <h1>C.) Confirm Bonus</h1>
-    <button mat-raised-button color="primary" (click)="confirmBonusCompCollection()">Confirm</button>
+    <div class="confirm-dialog">
+      <button mat-raised-button *ngIf="!confirmed() else info" color="primary" (click)="confirmBonusCompCollection()">Confirm</button>
+      <p class={{confirmedInfoClass}}>{{confirmedMessage}}</p>
+      <ng-template #info>
+        <h1 class="confirmed-info">Bonus Calculation confirmed!</h1>
+      </ng-template>
+    </div>
   </div>
-
 </div>
 

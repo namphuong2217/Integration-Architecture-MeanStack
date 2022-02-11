@@ -460,12 +460,14 @@ const bonusCompCollectionApi = require("../apis/bonus-comp-collection-api");
  *                      $ref: '#/components/schemas/Bonus Computation Collection'
  */
 router.get("/bonusCompCollection/:sid/:year", bonusCompCollectionApi.getBonusCompCollection)
+router.get("/approvedBonuses/:year", bonusCompCollectionApi.getApprovedBonuses);
 
 //todo beschriftung
 router.post("/bonusCompCollection", bonusCompCollectionApi.postBonusCompCollection)
 
 const socialPerformanceTargetAPI = require("../apis/social-performance-targets-api")
 router.get("/socialPerformanceTargets/:sid/:year", socialPerformanceTargetAPI.get);
+router.get("/hasRatedSocialPerformance/:year", socialPerformanceAPI.hasRated);
 router.get("/socialPerformanceTargetsExist/:year", socialPerformanceTargetAPI.getTargetsExistArray);
 router.post("/socialPerformanceTargets/", socialPerformanceTargetAPI.add);
 

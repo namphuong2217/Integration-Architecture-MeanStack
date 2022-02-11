@@ -1,6 +1,3 @@
-const {response} = require("express");
-
-
 const readBonusCompCollection = async (sid, year, db) => {
     const filter = { sid: sid, year: parseInt(year) };
     const res = await db.collection('bonusCompCollection').findOne(filter);
@@ -8,37 +5,47 @@ const readBonusCompCollection = async (sid, year, db) => {
     return { status: 404, payload: "no targets for sid and year" };
 }
 
+exports.getApprovedBonuses = async (year, db) => {
+    const bonusCompCollection = db.collection("bonusCompCollection");
+    const filter = { year: year };
+    const res = await bonusCompCollection.find(filter).toArray();
+    const approvedBySid = await res.map(bonus => {
+        return { sid: bonus.sid, approvedByCEO: bonus.approvedByCEO, approvedByHR: bonus.approvedByHR };
+    });
+    return await approvedBySid;
+}
+
 module.exports.readBonusCompCollection = readBonusCompCollection;
 
-exports.writeBonusCompCollection = async(bonusComputationCollection, db) => {
+exports.writeBonusCompCollection = async (bonusComputationCollection, db) => {
     const respRead = await readBonusCompCollection(bonusComputationCollection.sid, bonusComputationCollection.year, db);
-    if(respRead.status === 200){
-        return {status: 500, msg: "bonus computation collection already in collection"};
+    if (respRead.status === 200) {
+        return { status: 500, msg: "bonus computation collection already in collection" };
     }
     const res = await db.collection('bonusCompCollection').insertOne(bonusComputationCollection);
     if (res) return { status: 200, msg: "insertion successful" };
     return { status: 404, payload: "post error for sid and year" };
 }
 
-exports.updateBonusCompCollection = async(sid, year, updateVal, db) => {
+exports.updateBonusCompCollection = async (sid, year, updateVal, db) => {
     const respRead = await readBonusCompCollection(sid, year, db);
-    if(respRead.status !== 200){
-        return {status: 500, msg: "bonus computation collection not yet in collection for update"};
+    if (respRead.status !== 200) {
+        return { status: 500, msg: "bonus computation collection not yet in collection for update" };
     }
     const filter = { sid: sid, year: parseInt(year) };
-    const res = db.collection('bonusCompCollection').updateOne(filter, {$set : updateVal})
-    if (res) return { status: 200, msg : "update succesful" };
+    const res = db.collection('bonusCompCollection').updateOne(filter, { $set: updateVal })
+    if (res) return { status: 200, msg: "update succesful" };
     return { status: 404, payload: "update error for sid and year" };
 }
 
-exports.deleteBonusComputationCollection = async function(sid, year, db) {
+exports.deleteBonusComputationCollection = async function (sid, year, db) {
     const respRead = await readBonusCompCollection(sid, year, db);
-    if(respRead.status !== 200){
-        return {status: 500, msg: "bonus computation collection not in collection for deletion"};
+    if (respRead.status !== 200) {
+        return { status: 500, msg: "bonus computation collection not in collection for deletion" };
     }
     const filter = { sid: sid, year: parseInt(year) };
     const res = db.collection('bonusCompCollection').deleteOne(filter);
-    if (res) return { status: 200, msg : "deletion successful" };
+    if (res) return { status: 200, msg: "deletion successful" };
     return { status: 404, payload: "update error for sid and year" };
 }
 

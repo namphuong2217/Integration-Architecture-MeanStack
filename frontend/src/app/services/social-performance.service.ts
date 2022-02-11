@@ -10,8 +10,11 @@ export class SocialPerformanceService {
   constructor(private http: HttpClient) {}
 
   getPerformanceRecords(id: string): Observable<SocialPerformance> {
-    console.log('run SocialPerformance Service');
     return this.http.get<SocialPerformance>(`/api/socialPerformance/${id}`);
+  }
+
+  getHasRated(year: string): Observable<string[]> {
+    return this.http.get<string[]>(`/api/hasRatedSocialPerformance/${year}`);
   }
 
   postSocialPerformanceRecords(

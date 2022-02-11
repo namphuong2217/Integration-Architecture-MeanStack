@@ -24,6 +24,9 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   successMessage: string;
   postError: string;
   hasTargets: boolean;
+  noBonusMessage: string;
+  confirmedMessage: string;
+  confirmedInfoClass: string;
 
   constructor(
     private bonusCompCollectionService: BonusComputationCollectionService,
@@ -84,7 +87,11 @@ export class BonusComputationCollectionPageComponent implements OnInit {
           this.bonusCompCollection = bonusCompCollection;
           this.currentSalesman = this.bonusCompCollection.salesman;
         },
-        (error) => (this.bonusCompCollection = undefined)
+        (error) => {
+          this.bonusCompCollection = undefined;
+          this.noBonusMessage =
+            error?.error || 'Bonus has not been approved yet';
+        }
       );
   }
 
@@ -102,7 +109,20 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   confirmBonusCompCollection(): void {
     this.bonusCompCollectionService
       .postBonusComputationCollection(this.bonusCompCollection)
-      .subscribe((response) => alert(`Bonus confirmed! (id: ${response})`));
+      .subscribe(
+        () => {
+          if (this.user?.role === 'Leader') {
+            this.bonusCompCollection.approvedByCEO = true;
+          }
+          if (this.user?.role === 'HR') {
+            this.bonusCompCollection.approvedByHR = true;
+          }
+        },
+        (error) => {
+          this.confirmedMessage = error?.error;
+          this.confirmedInfoClass = 'error';
+        }
+      );
   }
 
   createPropsYearSalesman() {
@@ -149,6 +169,19 @@ export class BonusComputationCollectionPageComponent implements OnInit {
       return this.user.username == this.currentSalesman.sid;
     }
     return false;
+  }
+
+  permissionToWriteComments() {
+    return Permissions.hasUserPermission(this.user, 'writeComments');
+  }
+
+  confirmed() {
+    const role = this.user?.role;
+    const approvedByCEO = this.bonusCompCollection.approvedByCEO;
+    const approvedByHR = this.bonusCompCollection.approvedByHR;
+    return (
+      (role === 'Leader' && approvedByCEO) || (role === 'HR' && approvedByHR)
+    );
   }
 
   permissionToConfirm() {

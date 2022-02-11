@@ -20,8 +20,9 @@ const getBonusComputationCollection = async function (sid, year, db) {
 
     // Collect data from different controllers
     const orderEvaluation = await orderEvaluationController.getOrderEvaluations(sid, year);
+    if (orderEvaluation.length === 0) return { status: 500, payload: "No Order Evaluations" };
     const socialPerformance = await socialPerformanceService.getYearAverage(db, sid, year);
-    if (socialPerformance.status === "error") return "error";
+    if (socialPerformance.status === "error") return { status: 500, payload: "Incomplete Social Performance Rating" };
     const salesman = await salesmanController.getEmployee(sid);
 
     const bonusOrder = [];
@@ -31,7 +32,7 @@ const getBonusComputationCollection = async function (sid, year, db) {
     });
 
     const targetResp = await socialPerformanceTargetService.get(db, sid, year);
-    if (targetResp.status !== 200) return "error";
+    if (targetResp.status !== 200) return { status: 500, payload: "No Social Performance Targets yet" };
     const bonusSocial = [];
     Object.keys(socialPerformance).filter(key => key !== "sid" && key !== "year").forEach(socialKey => {
         bonusSocial.push(bonusCalcEnricher.getBonusForSocialPerformance(socialKey, targetResp.payload[socialKey], socialPerformance[socialKey]));
@@ -54,7 +55,7 @@ exports.approvedByCEO = async function (sid, year, socialPerformanceComments, or
     }
     //if already approved
     if (bonusCompCollectionResp.payload.approvedByCEO) {
-        return JSON.stringify({ status: "404", msg: `collection is already approved` });
+        return { status: 500, msg: `Collection is already approved` };
     }
     //if both approved - send to orangehrm
     if (bonusCompCollectionResp.payload.approvedByHR) {
@@ -62,7 +63,7 @@ exports.approvedByCEO = async function (sid, year, socialPerformanceComments, or
     }
     //update bonusCompCollection
     return await bonusCompCollectionService.updateBonusCompCollection(
-        sid, year, { "approvedByCEO": true, comments: comments }, db);
+        sid, year, { "approvedByCEO": true, socialPerformanceComments: socialPerformanceComments, orderEvaluationComments: orderEvaluationComments }, db);
 }
 
 exports.approvedByHR = async function (sid, year, db) {
@@ -75,7 +76,7 @@ exports.approvedByHR = async function (sid, year, db) {
     }
     //if already approved
     if (bonusCompCollectionResp.payload.approvedByHR) {
-        return JSON.stringify({ status: "404", msg: `collection is already approved` });
+        return { status: 500, msg: `Collection is already approved` };
     }
     //if both approved - send to orangehrm
     if (bonusCompCollectionResp.payload.approvedByCEO) {
