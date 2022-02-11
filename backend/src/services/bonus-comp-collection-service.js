@@ -1,6 +1,3 @@
-const { response } = require("express");
-
-
 const readBonusCompCollection = async (sid, year, db) => {
     const filter = { sid: sid, year: parseInt(year) };
     const res = await db.collection('bonusCompCollection').findOne(filter);
@@ -12,7 +9,9 @@ exports.getApprovedBonuses = async (year, db) => {
     const bonusCompCollection = db.collection("bonusCompCollection");
     const filter = { year: year };
     const res = await bonusCompCollection.find(filter).toArray();
-    const approvedBySid = await res.map(bonus => bonus.sid);
+    const approvedBySid = await res.map(bonus => {
+        return { sid: bonus.sid, approvedByCEO: bonus.approvedByCEO, approvedByHR: bonus.approvedByHR };
+    });
     return await approvedBySid;
 }
 
