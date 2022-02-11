@@ -111,10 +111,12 @@ export class BonusComputationCollectionPageComponent implements OnInit {
       .postBonusComputationCollection(this.bonusCompCollection)
       .subscribe(
         () => {
-          this.bonusCompCollection.approvedByCEO =
-            this.user?.role === 'Leader' ? true : false;
-          this.bonusCompCollection.approvedByHR =
-            this.user?.role === 'HR' ? true : false;
+          if (this.user?.role === 'Leader') {
+            this.bonusCompCollection.approvedByCEO = true;
+          }
+          if (this.user?.role === 'HR') {
+            this.bonusCompCollection.approvedByHR = true;
+          }
         },
         (error) => {
           this.confirmedMessage = error?.error;
