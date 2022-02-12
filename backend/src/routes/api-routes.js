@@ -14,7 +14,7 @@ router.get('/login', authApi.isLoggedIn); //the function, which handles requests
 router.post("/register", authApi.register);
 
 const userApi = require('../apis/user-api');
-router.get('/user',checkAuthorization("universal"), userApi.getSelf);
+router.get('/user', checkAuthorization("universal"), userApi.getSelf);
 
 
 //SALESMAN
@@ -79,7 +79,7 @@ const salesManApi = require("../apis/employee-api")
  *                  items:
  *                      $ref: '#/components/schemas/Salesman'
  */
-router.get("/salesman/:sid",checkAuthorization("universal"), salesManApi.getEmployee);
+router.get("/salesman/:sid", checkAuthorization("universal"), salesManApi.getEmployee);
 
 /**
  * @swagger
@@ -305,7 +305,7 @@ const socialPerformanceAPI = require("../apis/social-performance-api")
  *              schema:
  *                  type: object
  */
-router.post("/socialPerformance",checkAuthorization("postSocialPerformance"), socialPerformanceAPI.addSocialPerformance);
+router.post("/socialPerformance", checkAuthorization("postSocialPerformance"), socialPerformanceAPI.addSocialPerformance);
 
 /*
  * @swagger
@@ -415,7 +415,7 @@ const bonusCompCollectionApi = require("../apis/bonus-comp-collection-api");
  *                  items:
  *                      $ref: '#/components/schemas/Bonus Computation Collection'
  */
-router.get("/bonusCompCollection/:sid/:year",checkAuthorization("universal"), bonusCompCollectionApi.getBonusCompCollection)
+router.get("/bonusCompCollection/:sid/:year", checkAuthorization("universal"), bonusCompCollectionApi.getBonusCompCollection)
 
 /**
  * @swagger
@@ -440,7 +440,7 @@ router.get("/bonusCompCollection/:sid/:year",checkAuthorization("universal"), bo
  *                  items:
  *                      $ref: '#/components/schemas/Bonus Computation Collection'
  */
-router.get("/approvedBonuses/:year",checkAuthorization("universal"), bonusCompCollectionApi.getApprovedBonuses);
+router.get("/approvedBonuses/:year", checkAuthorization("universal"), bonusCompCollectionApi.getApprovedBonuses);
 
 
 /**
@@ -457,7 +457,7 @@ router.get("/approvedBonuses/:year",checkAuthorization("universal"), bonusCompCo
  *          401:
  *              description: Permission error
  */
-router.post("/bonusCompCollection",checkAuthorization("postBonus"), bonusCompCollectionApi.postBonusCompCollection);
+router.post("/bonusCompCollection", checkAuthorization("postBonus"), bonusCompCollectionApi.postBonusCompCollection);
 
 //SOCIAL PERFORMANCE TARGET
 /**
@@ -549,7 +549,7 @@ const socialPerformanceTargetAPI = require("../apis/social-performance-targets-a
  *          404:
  *              description: No targets found for given sid
  */
-router.get("/socialPerformanceTargets/:sid/:year",checkAuthorization("postTargets"), socialPerformanceTargetAPI.get);
+router.get("/socialPerformanceTargets/:sid/:year", checkAuthorization("postTargets"), socialPerformanceTargetAPI.get);
 
 /**
  * @swagger
@@ -574,7 +574,7 @@ router.get("/socialPerformanceTargets/:sid/:year",checkAuthorization("postTarget
  *                  items:
  *                      type: string
  */
-router.get("/hasRatedSocialPerformance/:year", checkAuthorization("universal"), socialPerformanceAPI.hasRated); //TODO AUTHORIZATION
+router.get("/hasRatedSocialPerformance/:year", checkAuthorization("universal"), socialPerformanceAPI.hasRated);
 
 /**
  * @swagger
@@ -602,7 +602,6 @@ router.get("/hasRatedSocialPerformance/:year", checkAuthorization("universal"), 
  *              description: No targets found for given sid
  */
 router.get("/socialPerformanceTargetsExist/:year", checkAuthorization("universal"), socialPerformanceTargetAPI.getTargetsExistArray);
-//TODO CHECK AUTHORIZATION
 
 /**
  * @swagger
@@ -618,6 +617,6 @@ router.get("/socialPerformanceTargetsExist/:year", checkAuthorization("universal
  *          500:
  *              description: Targets are already in collection
  */
-router.post("/socialPerformanceTargets/",checkAuthorization("postTargets"), socialPerformanceTargetAPI.add);
+router.post("/socialPerformanceTargets/", checkAuthorization("postTargets"), socialPerformanceTargetAPI.add);
 
 module.exports = router;
