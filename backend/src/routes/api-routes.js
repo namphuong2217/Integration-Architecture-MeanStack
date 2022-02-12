@@ -290,8 +290,6 @@ router.get("/orderEvaluation/:sid/:year", orderEvaluationApi.getOrderEvaluations
  *  name: Social Performance Record
  *  description: The Social Performance Reocd Managing API
  */
-
-
 const socialPerformanceAPI = require("../apis/social-performance-api")
 /**
  * @swagger
@@ -500,6 +498,58 @@ router.get("/approvedBonuses/:year", bonusCompCollectionApi.getApprovedBonuses);
 
 router.post("/bonusCompCollection", bonusCompCollectionApi.postBonusCompCollection)
 
+
+//SOCIAL PERFORMANCE TARGET
+/**
+ *@swagger
+ *components:
+ *   schemas:
+ *       Social Performance Target:
+ *           type: object
+ *           required:
+ *               - sid
+ *               - year
+ *               - leadership_competence
+ *               - openness
+ *               - social_behaviour
+ *               - attitude
+ *               - comm_skills
+ *               - integrity
+ *           properties:
+ *               sid:
+ *                   type: string
+ *                   description: Salesman ID
+ *               year:
+ *                   type: int
+ *                   description: Year of Social Performance Record
+ *               leadership_competence:
+ *                   type: object
+ *                   description: Leadership Competence
+ *               openness:
+ *                   type: object
+ *                   description: Openness
+ *               social_behaviour:
+ *                   type: object
+ *                   description: Social Behaviour
+ *               attitude:
+ *                   type: object
+ *                   description: Attitude
+ *               comm_skills:
+ *                   type: object
+ *                   description: Communication Skills
+ *               integrity:
+ *                   type: object
+ *                   description: eg. Sales
+ *           example:
+ *               sid: "1"
+ *               year: 2021
+ *               leadership_competence: {target: 3, actual: 4}
+ *               openness: {target: 3, actual: 4}
+ *               social_behaviour: {target: 3, actual: 4}
+ *               attitude: {target: 3, actual: 4}
+ *               comm_skills: {target: 3, actual: 4}
+ *               integrity: {target: 3, actual: 4}
+ */
 /**
  * @swagger
  * tags:
