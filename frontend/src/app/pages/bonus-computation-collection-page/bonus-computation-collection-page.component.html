@@ -7,7 +7,7 @@
 </ng-template>
 
 <ng-template #targetForm>
-  <div *ngIf="permissionToWriteComments() else noTargets">    
+  <div *ngIf="permissionToWriteComments() else noTargets">
     <app-social-performance-targets-form [propSid]="this.sid" [year]="this.currentYear" (clickEvent)="saveTargets($event)">
     </app-social-performance-targets-form>
     <span class="error" *ngIf="postError">{{postError}}</span>
@@ -47,7 +47,7 @@
   <div class="right" *ngIf="permissionToViewFields() && permissionToConfirm()">
     <h1>C.) Confirm Bonus</h1>
     <div class="confirm-dialog">
-      <button mat-raised-button *ngIf="!confirmed() else info" color="primary" (click)="confirmBonusCompCollection()">Confirm</button>
+      <button mat-raised-button *ngIf="!confirmed() else info" (click)="confirmBonusCompCollection()">Confirm</button>
       <p class={{confirmedInfoClass}}>{{confirmedMessage}}</p>
       <ng-template #info>
         <h1 class="confirmed-info">Bonus Calculation confirmed!</h1>

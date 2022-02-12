@@ -41,3 +41,10 @@
 .confirmed-info {
   color: green;
 }
+
+
+button {
+  float: right;
+  background-color: #143970;
+  color: white;
+}
