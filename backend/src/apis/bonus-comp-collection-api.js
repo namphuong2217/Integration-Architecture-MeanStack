@@ -5,7 +5,7 @@ const Permissions = require("../Globals").Permissions;
 exports.getBonusCompCollection = async function (req, res) {
     const sid = req.params.sid;
     const user = req.session.user;
-    if (user.username === sid) {
+    if (user.role === Permissions.sales && user.username !== sid) {
         return res.status(401).send("You are not authorized to read this bonus computation sheet")
     }
     const year = req.params.year;
