@@ -449,12 +449,32 @@ router.delete("/socialPerformance/:sid/:year", socialPerformanceAPI.deleteSocial
 *               salesman: 
 *                   type: object
 *                   description: Salesman Object
-*               orderEvaluation: 
-*                   type: object
-*                   description: Order Evaluation Object
+*               orderEvaluation:
+*                   type: array
+*                   items:
+*                       type: Order Evaluation Object
+*                   description: Array of Order Evaluations
 *               socialPerformance: 
 *                   type: object
 *                   description: Social Performance Object
+*               approvedByCEO:
+*                   type: boolean
+*                   description: true if already approved by CEO
+*               approvedByHR:
+*                   type: boolean
+*                   description: true if already approved by HR
+*               bonusSocial:
+*                   type: array
+*                   description: array of bonuses for social performance
+*               bonusOrder:
+*                   type: array
+*                   description: array of bonuses for order evaluation
+*               bonusSocialTotal:
+*                   type: Number
+*               bonusOrderTotal:
+*                   type: Number
+*               bonusTotal:
+*                   type: Number
 *           example:
 *               salesman: {}
 *               orderEvalution: {}
