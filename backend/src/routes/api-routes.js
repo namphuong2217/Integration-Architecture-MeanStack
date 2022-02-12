@@ -615,6 +615,32 @@ router.get("/socialPerformanceTargets/:sid/:year", socialPerformanceTargetAPI.ge
  *                      type: string
  */
 router.get("/hasRatedSocialPerformance/:year", socialPerformanceAPI.hasRated);
+
+/**
+ * @swagger
+ * api/socialPerformanceTargetExist/{year}:
+ *  get:
+ *      summary: Returns the social performance target for a given year
+ *      tags: [Social Performance Target]
+ *      parameters:
+ *          - in: path
+ *            name: year
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: The Year of Social Performance Record
+ *      responses:
+ *          200:
+ *              description: Social Performance Target for sid and year
+ *              contents:
+ *                  application/json
+ *              schema:
+ *                  type: object
+ *                  items:
+ *                      $ref: '#/components/schemas/Social Performance Target'
+ *          400:
+ *              description: No targets found for given sid
+ */
 router.get("/socialPerformanceTargetsExist/:year", socialPerformanceTargetAPI.getTargetsExistArray);
 router.post("/socialPerformanceTargets/", socialPerformanceTargetAPI.add);
 
