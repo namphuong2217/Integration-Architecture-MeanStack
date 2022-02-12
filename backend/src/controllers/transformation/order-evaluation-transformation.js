@@ -69,8 +69,10 @@ getCustomerByVcard = function(vcard, accounts){
     return accounts.objects.find(account => mapVcardStringOnVcard(account.vcard) === String(vcard));
 }
 
-getYearOfStringDate = function(date){
+const getYearOfStringDate = (date) =>{
     return date.split("-")[0];
 }
+
+module.exports.getYearOfStringDate = getYearOfStringDate;
 
 
