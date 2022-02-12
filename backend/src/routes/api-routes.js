@@ -313,6 +313,36 @@ const socialPerformanceAPI = require("../apis/social-performance-api")
  */
 router.get("/socialPerformance/:sid", socialPerformanceAPI.getSocialPerformance);
 
+
+/**
+ * @swagger
+ * /api/socialPerformanceYearAvg/{sid}/{year}:
+ *  get:
+ *      summary: Returns the average of all Social Performance records for SID and year
+ *      tags: [Social Performance Record]
+ *      parameters:
+ *          - in: path
+ *            name: sid
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: The Salesman ID
+ *          - in: path
+ *            name: year
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: The Year of Social Performance Record
+ *      responses:
+ *          200:
+ *              description: The average Social Performance Record for SID and year
+ *              contents:
+ *                  application/json
+ *              schema:
+ *                  type: object
+ *                  items:
+ *                      $ref: '#/components/schemas/Social Performance'
+ */
 router.get("/socialPerformanceYearAvg/:sid/:year", socialPerformanceAPI.getYearAverage);
 
 /**
