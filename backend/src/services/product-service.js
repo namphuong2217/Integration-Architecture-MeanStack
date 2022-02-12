@@ -9,6 +9,16 @@ exports.readProductName = async(productVcard) => {
         .catch((error) => {
             console.log(error);
         });
-    if(!res || res.status !== 200){throw {status: 500, msg: "fetch position error"}}
+    if(!res || res.status !== 200){throw {status: 500, msg: "fetch product error"}}
+    return {"status": 200, payload: res.data};
+}
+
+exports.readProducts = async() =>{
+    const url = "https://sepp-crm.inf.h-brs.de/opencrx-rest-CRX/org.opencrx.kernel.product1/provider/CRX/segment/Standard/product";
+    const res = await axios.get(url, header)
+        .catch((error) => {
+            console.log(error);
+        });
+    if(!res || res.status !== 200){throw {status: 500, msg: "fetch products error"}}
     return {"status": 200, payload: res.data};
 }
