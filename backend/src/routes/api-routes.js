@@ -236,6 +236,7 @@ router.get("/orderEvaluation/:sid/:year", orderEvaluationApi.getOrderEvaluations
 *           type: object
 *           required:
 *               - sid
+*               - issuerID
 *               - year
 *               - leadership_competence
 *               - openness
@@ -245,7 +246,10 @@ router.get("/orderEvaluation/:sid/:year", orderEvaluationApi.getOrderEvaluations
 *               - integrity
 *           properties:
 *               sid: 
-*                   type: int
+*                   type: string
+*                   description: Salesman ID
+*               issuerID:
+*                   type: string
 *                   description: Salesman ID
 *               year: 
 *                   type: int
@@ -269,7 +273,8 @@ router.get("/orderEvaluation/:sid/:year", orderEvaluationApi.getOrderEvaluations
 *                   type: object
 *                   description: eg. Sales
 *           example:
-*               sid: 1
+*               sid: "1"
+*               issuerID: "2"
 *               year: 2021
 *               leadership_competence: {target: 3, actual: 4}
 *               openness: {target: 3, actual: 4}
