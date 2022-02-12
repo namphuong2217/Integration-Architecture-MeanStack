@@ -42,9 +42,25 @@
   color: green;
 }
 
-
 button {
   float: right;
   background-color: #143970;
   color: white;
+}
+
+.remarks {
+  border: 1px solid black;
+}
+
+.remarks p {
+  margin: 1rem;
+}
+
+.remarks h1 {
+  margin: 1rem;
+}
+
+.remarks-textarea {
+  margin: 1rem;
+  min-width: 50%;
 }

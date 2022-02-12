@@ -32,7 +32,7 @@ exports.postBonusCompCollection = async function (req, res) {
     if (Permissions.hasUserPermission(user, "approveBonusHR")) {
         resp = await bonusCompCollectionController.approvedByHR(body.sid, body.year, db);
     } else if (Permissions.hasUserPermission(user, "approveBonusCEO")) {
-        resp = await bonusCompCollectionController.approvedByCEO(body.sid, body.year, body.socialPerformanceComments, body.orderEvaluationComments, db);
+        resp = await bonusCompCollectionController.approvedByCEO(body.sid, body.year, body.socialPerformanceComments, body.orderEvaluationComments, body.remarks, db);
     }
     if (!resp) return res.status(401).send("permission error");
     if (resp.status) {

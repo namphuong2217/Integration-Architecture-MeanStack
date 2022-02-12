@@ -27,6 +27,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   noBonusMessage: string;
   confirmedMessage: string;
   confirmedInfoClass: string;
+  remarks: string;
 
   constructor(
     private bonusCompCollectionService: BonusComputationCollectionService,
@@ -173,6 +174,10 @@ export class BonusComputationCollectionPageComponent implements OnInit {
 
   permissionToWriteComments() {
     return Permissions.hasUserPermission(this.user, 'writeComments');
+  }
+
+  updateRemarks(val: string) {
+    this.bonusCompCollection.remarks = val;
   }
 
   confirmed() {

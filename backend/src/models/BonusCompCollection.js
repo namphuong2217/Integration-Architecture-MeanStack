@@ -1,7 +1,7 @@
 
 class BonusCompCollection {
     constructor(sid, year, salesman, orderEvaluation, socialPerformance, approvedByCEO = false,
-        approvedByHR = false, bonusOrder = 0, bonusSocial = 0, targets = [], socialPerformanceComments = [], orderEvaluationComments = []) {
+        approvedByHR = false, bonusOrder = 0, bonusSocial = 0, targets = [], socialPerformanceComments = [], orderEvaluationComments = [], remarks = "") {
         this.sid = sid;
         this.year = year;
         this.salesman = salesman;
@@ -17,6 +17,7 @@ class BonusCompCollection {
         this.targets = targets;
         this.socialPerformanceComments = socialPerformanceComments;
         this.orderEvaluationComments = orderEvaluationComments;
+        this.remarks = remarks;
     }
 }
 module.exports = BonusCompCollection;
