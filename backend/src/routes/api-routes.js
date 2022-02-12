@@ -462,10 +462,48 @@ const bonusCompCollectionApi = require("../apis/bonus-comp-collection-api");
 router.get("/bonusCompCollection/:sid/:year", bonusCompCollectionApi.getBonusCompCollection)
 router.get("/approvedBonuses/:year", bonusCompCollectionApi.getApprovedBonuses);
 
-//todo beschriftung
+
 router.post("/bonusCompCollection", bonusCompCollectionApi.postBonusCompCollection)
 
-const socialPerformanceTargetAPI = require("../apis/social-performance-targets-api")
+/**
+ * @swagger
+ * tags:
+ *  name: Social Performance Target
+ *  description: Api of social performance targets
+ */
+const socialPerformanceTargetAPI = require("../apis/social-performance-targets-api");
+
+/**
+ * @swagger
+ * api/socialPerformanceTargets/{sid}/{year}:
+ *  get:
+ *      summary: Returns the social performance target for a given sid and year
+ *      tags: [Social Performance Target]
+ *      parameters:
+ *          - in: path
+ *            name: sid
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: The Salesman ID
+ *          - in: path
+ *            name: year
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: The Year of Social Performance Record
+ *      responses:
+ *          200:
+ *              description: Social Performance Target for a given sid and year
+ *              contents:
+ *                  application/json
+ *              schema:
+ *                  type: object
+ *                  items:
+ *                      $ref: '#/components/schemas/Bonus Computation Collection'
+ *          404:
+ *              description: No targets found for given sid
+ */
 router.get("/socialPerformanceTargets/:sid/:year", socialPerformanceTargetAPI.get);
 router.get("/hasRatedSocialPerformance/:year", socialPerformanceAPI.hasRated);
 router.get("/socialPerformanceTargetsExist/:year", socialPerformanceTargetAPI.getTargetsExistArray);
