@@ -642,6 +642,21 @@ router.get("/hasRatedSocialPerformance/:year", socialPerformanceAPI.hasRated);
  *              description: No targets found for given sid
  */
 router.get("/socialPerformanceTargetsExist/:year", socialPerformanceTargetAPI.getTargetsExistArray);
+
+/**
+ * @swagger
+ * api/socialPerformanceTargets:
+ *  post:
+ *      summary: Saves the social performance target object in the database
+ *      tags: [Social Performance Target]
+ *      responses:
+ *          200:
+ *              description: Social Performance Target successfully saved
+ *          401:
+ *              description: You can't rate yourself
+ *          500:
+ *              description: Targets are already in collection
+ */
 router.post("/socialPerformanceTargets/", socialPerformanceTargetAPI.add);
 
 module.exports = router;

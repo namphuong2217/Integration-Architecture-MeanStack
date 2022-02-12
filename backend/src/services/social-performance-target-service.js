@@ -3,7 +3,7 @@ const SocialPerformanceTargets = require("../models/SocialPerformanceTargets");
 exports.add = async (db, body, user) => {
     const year = Number(body.year);
     if (body.sid === user.username) return { status: 401, msg: "you cant rate yourself" };
-    if (user.role !== "Leader") return { status: 401, msg: "only the ceo is allowed to perform this action" };
+    //if (user.role !== "Leader") return { status: 401, msg: "only the ceo is allowed to perform this action" };
     const socialPerformanceTargets = new SocialPerformanceTargets(body.sid, year, body.leadershipCompetence, body.openness, body.socialBehaviour, body.attitude, body.communicationSkills, body.integrity);
     const spTargetIsInCollection = spInCollection(db, socialPerformanceTargets);
     if (await spTargetIsInCollection) {
