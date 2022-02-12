@@ -619,4 +619,26 @@ router.get("/socialPerformanceTargetsExist/:year", checkAuthorization("universal
  */
 router.post("/socialPerformanceTargets/", checkAuthorization("postTargets"), socialPerformanceTargetAPI.add);
 
+/**
+ * @swagger
+ * tags:
+ *  name: Products
+ *  description: Api of products
+ */
+const productAPI = require("../apis/product-api");
+
+/**
+ * @swagger
+ * api/numberOfProducts:
+ *  get:
+ *      summary: Retrieves the number of products
+ *      tags: [Social Performance Target]
+ *      responses:
+ *          200:
+ *              description: number of products in company
+ *          500:
+ *              description: Error fetching data
+ */
+router.get("/numberOfProducts/", productAPI.getNumberOfProducts)
+
 module.exports = router;
