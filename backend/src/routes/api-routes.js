@@ -211,13 +211,6 @@ router.get("/salesman/:sid/bonus/:year",checkAuthorization("postBonus"), salesMa
 *               department: Sales
 */
 
-/**
- * @swagger
- * tags:
- *  name: Order
- *  description: The Order Evalution API
- */
-
 
 //Social Performance
 /**
@@ -622,7 +615,7 @@ router.post("/socialPerformanceTargets/", checkAuthorization("postTargets"), soc
 /**
  * @swagger
  * tags:
- *  name: Products
+ *  name: Product
  *  description: Api of products
  */
 const productAPI = require("../apis/product-api");
@@ -632,7 +625,7 @@ const productAPI = require("../apis/product-api");
  * api/numberOfProducts:
  *  get:
  *      summary: Retrieves the number of products
- *      tags: [Social Performance Target]
+ *      tags: [Product]
  *      responses:
  *          200:
  *              description: number of products in company
@@ -640,5 +633,34 @@ const productAPI = require("../apis/product-api");
  *              description: Error fetching data
  */
 router.get("/numberOfProducts/", productAPI.getNumberOfProducts)
+
+/**
+ * @swagger
+ * tags:
+ *  name: Sales
+ *  description: Api of Sales
+ */
+const salesAPI = require("../apis/order-evaluation-api");
+
+/**
+ * @swagger
+ * api/totalNumberOfSales/{year}:
+ *  get:
+ *      summary: Retrieves the total number of sale orders for a given year
+ *      tags: [Sales]
+ *      parameters:
+ *          - in: path
+ *            name: year
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: The Year of the sales
+ *      responses:
+ *          200:
+ *              description: number of positions
+ *          500:
+ *              description: Error fetching data
+ */
+router.get("/totalNumberOfSales/:year", salesAPI.getTotalSales)
 
 module.exports = router;
