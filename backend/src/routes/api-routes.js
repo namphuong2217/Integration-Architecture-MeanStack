@@ -513,6 +513,30 @@ const bonusCompCollectionApi = require("../apis/bonus-comp-collection-api");
  *                      $ref: '#/components/schemas/Bonus Computation Collection'
  */
 router.get("/bonusCompCollection/:sid/:year", bonusCompCollectionApi.getBonusCompCollection)
+
+/**
+ * @swagger
+ * /api/approvedBonuses/{year}:
+ *  get:
+ *      summary: Returns all approved bonuses for a given year
+ *      tags: [Bonus Computation Collection]
+ *      parameters:
+ *          - in: path
+ *            name: year
+ *            schema:
+ *              type: Number
+ *            required: true
+ *            description: year
+ *      responses:
+ *          200:
+ *              description: Collections of approved bonuses for a given sid
+ *              contents:
+ *                  application/json
+ *              schema:
+ *                  type: object
+ *                  items:
+ *                      $ref: '#/components/schemas/Bonus Computation Collection'
+ */
 router.get("/approvedBonuses/:year", bonusCompCollectionApi.getApprovedBonuses);
 
 
