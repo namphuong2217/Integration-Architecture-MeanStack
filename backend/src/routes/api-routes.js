@@ -540,8 +540,21 @@ router.get("/bonusCompCollection/:sid/:year", bonusCompCollectionApi.getBonusCom
 router.get("/approvedBonuses/:year", bonusCompCollectionApi.getApprovedBonuses);
 
 
-router.post("/bonusCompCollection", bonusCompCollectionApi.postBonusCompCollection)
-
+/**
+ * @swagger
+ * /api/bonusCompCollection:
+ *  post:
+ *      summary: Saves the given bonus computation collection in the database
+ *      tags: [Bonus Computation Collection]
+ *      responses:
+ *          200:
+ *              description: Collection was successfully saved
+ *          500:
+ *              description: Collection is already approved
+ *          401:
+ *              description: Permission error
+ */
+router.post("/bonusCompCollection", bonusCompCollectionApi.postBonusCompCollection);
 
 //SOCIAL PERFORMANCE TARGET
 /**
