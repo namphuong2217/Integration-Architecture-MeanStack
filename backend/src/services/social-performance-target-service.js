@@ -33,7 +33,6 @@ exports.targetsExist = async (db, year) => {
 }
 
 exports.get = async (db, sid, year) => {
-    //if (user.role !== "Leader") return { status: 401, payload: "only the ceo is allowed to perform this action" };
     let spTargetCollection = db.collection('socialPerformanceTargetCollection');
     const filter = { sid: sid, year: Number(year) };
     const res = await spTargetCollection.findOne(filter);

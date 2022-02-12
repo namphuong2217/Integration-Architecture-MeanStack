@@ -8,13 +8,13 @@ const { checkAuthorization } = require('../middlewares/auth-middleware');
 
 const authApi = require('../apis/auth-api'); //api-endpoints are loaded from separate files
 router.post('/login', authApi.login); //the function decides which request type should be accepted
-router.delete('/login', checkAuthorization(), authApi.logout); //middlewares can be defined in parameters
+router.delete('/login', authApi.logout);
 router.get('/login', authApi.isLoggedIn); //the function, which handles requests is specified as the last parameter
 
 router.post("/register", authApi.register);
 
 const userApi = require('../apis/user-api');
-router.get('/user', checkAuthorization(), userApi.getSelf);
+router.get('/user',checkAuthorization("universal"), userApi.getSelf);
 
 
 //SALESMAN
@@ -79,9 +79,25 @@ const salesManApi = require("../apis/employee-api")
  *                  items:
  *                      $ref: '#/components/schemas/Salesman'
  */
-router.get("/salesman/:sid", salesManApi.getEmployee);
+router.get("/salesman/:sid",checkAuthorization("universal"), salesManApi.getEmployee);
 
-router.get("/salesmen", salesManApi.getEmployees);
+/**
+ * @swagger
+ * /api/salesmen:
+ *  get:
+ *      summary: Returns all salesmen of company
+ *      tags: [Salesman]
+ *      responses:
+ *          200:
+ *              description: All salesmen of company
+ *              contents:
+ *                  application/json
+ *              schema:
+ *                  type: array
+ *                  items:
+ *                      $ref: '#/components/schemas/Salesman'
+ */
+router.get("/salesmen", checkAuthorization("universal"), salesManApi.getEmployees);
 
 /**
 *@swagger
@@ -104,7 +120,7 @@ router.get("/salesmen", salesManApi.getEmployees);
 *               bonus: 200
 */
 
-/**
+/*
  * @swagger
  * /api/salesman/{sid}/bonus:
  *  post:
@@ -132,10 +148,10 @@ router.get("/salesmen", salesManApi.getEmployees);
  *                  type: object
  *                  items:
  *                      $ref: '#/components/schemas/Bonus'
- */
-router.post("/salesman/:sid/bonus", salesManApi.postEmployeeBonus);
 
-/**
+router.post("/salesman/:sid/bonus", checkAuthorization("postBonus"), salesManApi.postEmployeeBonus);
+ */
+/*
  * @swagger
  * /api/salesman/{sid}/bonus:
  *  get:
@@ -157,8 +173,10 @@ router.post("/salesman/:sid/bonus", salesManApi.postEmployeeBonus);
  *                  type: object
  *                  items:
  *                      $ref: '#/components/schemas/Bonus'
+
+router.get("/salesman/:sid/bonus/:year",checkAuthorization("postBonus"), salesManApi.getEmployeeBonus);
+
  */
-router.get("/salesman/:sid/bonus/:year", salesManApi.getEmployeeBonus);
 
 //ORDER EVALUATION
 /**
@@ -200,32 +218,6 @@ router.get("/salesman/:sid/bonus/:year", salesManApi.getEmployeeBonus);
  *  description: The Order Evalution API
  */
 
-const orderEvaluationApi = require("../apis/order-evaluation-api")
-
-/**
- * @swagger
- * /api/orderEvaluation/{sid}:
- *  get:
- *      summary: Returns order evaluations of a salesman specified by SID
- *      tags: [Order]
- *      parameters:
- *          - in: path
- *            name: sid
- *            schema: 
- *              type: string
- *            required: true
- *            description: The Salesman ID
- *      responses:
- *          200:
- *              description: The Order Evalution
- *              contents:
- *                  application/json
- *              schema:
- *                  type: object
- *                  items:
- *                      $ref: '#/components/schemas/Order'
- */
-router.get("/orderEvaluation/:sid/:year", orderEvaluationApi.getOrderEvaluations);
 
 //Social Performance
 /**
@@ -291,62 +283,7 @@ router.get("/orderEvaluation/:sid/:year", orderEvaluationApi.getOrderEvaluations
  *  description: The Social Performance Reocd Managing API
  */
 const socialPerformanceAPI = require("../apis/social-performance-api")
-/**
- * @swagger
- * /api/socialPerformance/{sid}:
- *  get:
- *      summary: Returns all Social Performance records for SID
- *      tags: [Social Performance Record]
- *      parameters:
- *          - in: path
- *            name: sid
- *            schema: 
- *              type: string
- *            required: true
- *            description: The Salesman ID
- *      responses:
- *          200:
- *              description: The Social Performance Record for SID
- *              contents:
- *                  application/json
- *              schema:
- *                  type: object
- *                  items:
- *                      $ref: '#/components/schemas/Social Performance'
- */
-router.get("/socialPerformance/:sid", socialPerformanceAPI.getSocialPerformance);
 
-
-/**
- * @swagger
- * /api/socialPerformanceYearAvg/{sid}/{year}:
- *  get:
- *      summary: Returns the average of all Social Performance records for SID and year
- *      tags: [Social Performance Record]
- *      parameters:
- *          - in: path
- *            name: sid
- *            schema:
- *              type: string
- *            required: true
- *            description: The Salesman ID
- *          - in: path
- *            name: year
- *            schema:
- *              type: string
- *            required: true
- *            description: The Year of Social Performance Record
- *      responses:
- *          200:
- *              description: The average Social Performance Record for SID and year
- *              contents:
- *                  application/json
- *              schema:
- *                  type: object
- *                  items:
- *                      $ref: '#/components/schemas/Social Performance'
- */
-router.get("/socialPerformanceYearAvg/:sid/:year", socialPerformanceAPI.getYearAverage);
 
 /**
  * @swagger
@@ -368,44 +305,9 @@ router.get("/socialPerformanceYearAvg/:sid/:year", socialPerformanceAPI.getYearA
  *              schema:
  *                  type: object
  */
-router.post("/socialPerformance", socialPerformanceAPI.addSocialPerformance);
+router.post("/socialPerformance",checkAuthorization("postSocialPerformance"), socialPerformanceAPI.addSocialPerformance);
 
-/**
- * 
- * /api/socialPerformance/{sid}/{year}:
- *  put:
- *      summary: Updates a performance Record in DB
- *      tags: [Social Performance Record]
- *      parameters:
- *          - in: path
- *            name: sid
- *            schema: 
- *              type: string
- *            required: true
- *            description: The Salesman ID
- *          - in: path
- *            name: year
- *            schema: 
- *              type: string
- *            required: true
- *            description: The Year of Social Performance Record
- *      requestBody:
- *       required: true
- *       content:
- *          application/json:
- *            schema:
- *              $ref: '#/components/schemas/Social Performance'
- *      responses:
- *          200:
- *              description: Status
- *              contents:
- *                  application/json
- *              schema:
- *                  type: object
- */
-//router.put("/socialPerformance/:sid/:year", socialPerformanceAPI.updateSocialPerformance);
-
-/**
+/*
  * @swagger
  * /api/socialPerformance/{sid}/{year}:
  *  delete:
@@ -431,10 +333,11 @@ router.post("/socialPerformance", socialPerformanceAPI.addSocialPerformance);
  *                  application/json
  *              schema:
  *                  type: object
- */
-router.delete("/socialPerformance/:sid/:year", socialPerformanceAPI.deleteSocialPerformance);
 
-//controller
+router.delete("/socialPerformance/:sid/:year", socialPerformanceAPI.deleteSocialPerformance);
+ */
+
+//Bonus Computation Collection
 /**
 *@swagger
 *components:
@@ -512,7 +415,7 @@ const bonusCompCollectionApi = require("../apis/bonus-comp-collection-api");
  *                  items:
  *                      $ref: '#/components/schemas/Bonus Computation Collection'
  */
-router.get("/bonusCompCollection/:sid/:year", bonusCompCollectionApi.getBonusCompCollection)
+router.get("/bonusCompCollection/:sid/:year",checkAuthorization("universal"), bonusCompCollectionApi.getBonusCompCollection)
 
 /**
  * @swagger
@@ -537,7 +440,7 @@ router.get("/bonusCompCollection/:sid/:year", bonusCompCollectionApi.getBonusCom
  *                  items:
  *                      $ref: '#/components/schemas/Bonus Computation Collection'
  */
-router.get("/approvedBonuses/:year", bonusCompCollectionApi.getApprovedBonuses);
+router.get("/approvedBonuses/:year",checkAuthorization("universal"), bonusCompCollectionApi.getApprovedBonuses);
 
 
 /**
@@ -554,7 +457,7 @@ router.get("/approvedBonuses/:year", bonusCompCollectionApi.getApprovedBonuses);
  *          401:
  *              description: Permission error
  */
-router.post("/bonusCompCollection", bonusCompCollectionApi.postBonusCompCollection);
+router.post("/bonusCompCollection",checkAuthorization("postBonus"), bonusCompCollectionApi.postBonusCompCollection);
 
 //SOCIAL PERFORMANCE TARGET
 /**
@@ -646,7 +549,7 @@ const socialPerformanceTargetAPI = require("../apis/social-performance-targets-a
  *          404:
  *              description: No targets found for given sid
  */
-router.get("/socialPerformanceTargets/:sid/:year", socialPerformanceTargetAPI.get);
+router.get("/socialPerformanceTargets/:sid/:year",checkAuthorization("postTargets"), socialPerformanceTargetAPI.get);
 
 /**
  * @swagger
@@ -671,7 +574,7 @@ router.get("/socialPerformanceTargets/:sid/:year", socialPerformanceTargetAPI.ge
  *                  items:
  *                      type: string
  */
-router.get("/hasRatedSocialPerformance/:year", socialPerformanceAPI.hasRated);
+router.get("/hasRatedSocialPerformance/:year", checkAuthorization("universal"), socialPerformanceAPI.hasRated); //TODO AUTHORIZATION
 
 /**
  * @swagger
@@ -698,7 +601,8 @@ router.get("/hasRatedSocialPerformance/:year", socialPerformanceAPI.hasRated);
  *          400:
  *              description: No targets found for given sid
  */
-router.get("/socialPerformanceTargetsExist/:year", socialPerformanceTargetAPI.getTargetsExistArray);
+router.get("/socialPerformanceTargetsExist/:year", checkAuthorization("universal"), socialPerformanceTargetAPI.getTargetsExistArray);
+//TODO CHECK AUTHORIZATION
 
 /**
  * @swagger
@@ -714,6 +618,6 @@ router.get("/socialPerformanceTargetsExist/:year", socialPerformanceTargetAPI.ge
  *          500:
  *              description: Targets are already in collection
  */
-router.post("/socialPerformanceTargets/", socialPerformanceTargetAPI.add);
+router.post("/socialPerformanceTargets/",checkAuthorization("postTargets"), socialPerformanceTargetAPI.add);
 
 module.exports = router;
