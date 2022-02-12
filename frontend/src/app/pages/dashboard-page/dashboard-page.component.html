@@ -7,33 +7,8 @@
 </head>
 <body>
 <div class="container">
-  <!------------ BEGIN OF LEFT SECTION -------------->
-  <aside>
-    <!--
-    <div class="top">
-      <div class="close" id="close-btn">
-        <span class="material-icons-sharp">close</span>
-      </div>
-    </div>
 
-    <div class="sidebar">
-      <a href="#" class="active">
-        <span class="material-icons-sharp">grid_view</span>
-        <h3>Dashboard</h3>
-      </a>
-      <a href="#">
-        <span class="material-icons-sharp">person_outline</span>
-        <h3>Salesman</h3>
-      </a>
-      <a href="#">
-        <span class="material-icons-sharp">receipt_long</span>
-        <h3>Orders</h3>
-      </a>
-    </div>
-    -->
-  </aside>
-  <!------------------ END OF ASIDE ------------------>
-
+  <aside></aside>
   <!------------ BEGIN OF CENTRAL SECTION -------------->
   <main>
     <h1>Dashboard</h1>
@@ -43,8 +18,8 @@
         <span class="material-icons-sharp">analytics</span>
         <div class="middle">
           <div class="left">
-            <h3>Total Sales</h3>
-            <h1>TODO</h1>
+            <h3>Product types</h3>
+            <h1>{{numberOfProducts}}</h1>
           </div>
         </div>
       </div>
@@ -58,13 +33,13 @@
           </div>
         </div>
       </div>
-      <!------------ END OF EXPENSES -------------->
+      <!------------ END OF EXPENSES ---insights----------->
       <div class="income">
         <span class="material-icons-sharp">stacked_line_chart</span>
         <div class="middle">
           <div class="left">
-            <h3>Total Categories</h3>
-            <h1>TODO</h1>
+            <h3>Total Sales {{year}}</h3>
+            <h1>{{numberOfSales}}</h1>
           </div>
         </div>
       </div>
