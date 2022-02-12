@@ -500,11 +500,35 @@ const socialPerformanceTargetAPI = require("../apis/social-performance-targets-a
  *              schema:
  *                  type: object
  *                  items:
- *                      $ref: '#/components/schemas/Bonus Computation Collection'
+ *                      $ref: '#/components/schemas/Social Performance Target'
  *          404:
  *              description: No targets found for given sid
  */
 router.get("/socialPerformanceTargets/:sid/:year", socialPerformanceTargetAPI.get);
+
+/**
+ * @swagger
+ * api/hasRatedSocialPerformance/{year}:
+ *  get:
+ *      summary: Returns all sids that rated the user set in session for a given year
+ *      tags: [Social Performance Target]
+ *      parameters:
+ *          - in: path
+ *            name: year
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: The Year of Social Performance Record
+ *      responses:
+ *          200:
+ *              description: Array of sids that rated the user in session for a given year
+ *              contents:
+ *                  application/json
+ *              schema:
+ *                  type: array
+ *                  items:
+ *                      type: string
+ */
 router.get("/hasRatedSocialPerformance/:year", socialPerformanceAPI.hasRated);
 router.get("/socialPerformanceTargetsExist/:year", socialPerformanceTargetAPI.getTargetsExistArray);
 router.post("/socialPerformanceTargets/", socialPerformanceTargetAPI.add);
