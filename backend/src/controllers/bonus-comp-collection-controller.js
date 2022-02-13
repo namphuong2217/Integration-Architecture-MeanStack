@@ -43,6 +43,30 @@ const getBonusComputationCollection = async function (sid, year, db) {
 
 module.exports.getBonusComputationCollection = getBonusComputationCollection;
 
+const updateBonusComputationCollection = async function (sid, year, newSocialPerformance, newTargets) {
+    year = parseInt(year);
+
+    // Collect data from different controllers
+    const orderEvaluation = await orderEvaluationController.getOrderEvaluations(sid, year);
+    if (orderEvaluation.length === 0) return { status: 500, payload: "No Order Evaluations" };
+    const salesman = await salesmanController.getEmployee(sid);
+
+    const bonusOrder = [];
+    orderEvaluation.forEach(orderEval => {
+        bonusOrder.push(bonusCalcEnricher.getBonusForSale(orderEval.nameProduct, orderEval.clientRanking, orderEval.items));
+        orderEval.clientRanking = translateRatingToString(orderEval.clientRanking);
+    });
+
+    const bonusSocial = [];
+    Object.keys(newSocialPerformance).filter(key => key !== "sid" && key !== "year").forEach(socialKey => {
+        bonusSocial.push(bonusCalcEnricher.getBonusForSocialPerformance(socialKey, newTargets[socialKey], newSocialPerformance[socialKey]));
+    });
+    return new BonusCompCollection(sid, year, salesman, orderEvaluation,
+        newSocialPerformance, false, true, bonusOrder, bonusSocial, newTargets);
+}
+
+module.exports.updateBonusCompCollection = updateBonusComputationCollection;
+
 exports.approvedByCEO = async function (sid, year, socialPerformanceComments, orderEvaluationComments, remarks, db) {
     const bonusCompCollectionResp = await bonusCompCollectionService.readBonusCompCollection(sid, year, db);
     //if not yet in database

@@ -452,6 +452,7 @@ router.get("/approvedBonuses/:year", checkAuthorization("universal"), bonusCompC
  */
 router.post("/bonusCompCollection", checkAuthorization("postBonus"), bonusCompCollectionApi.postBonusCompCollection);
 
+router.put("/bonusSocialPerformance", checkAuthorization("updateBonusSocialPerformance"), bonusCompCollectionApi.updateBonusSocialPerformance);
 //SOCIAL PERFORMANCE TARGET
 /**
  *@swagger
