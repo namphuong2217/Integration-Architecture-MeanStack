@@ -11,7 +11,11 @@ export class Permissions {
     'writeTarget',
     'writeValueSocialPerformance',
   ];
-  static permissionHR: string[] = ['allBonusCalc', 'confirm'];
+  static permissionHR: string[] = [
+    'allBonusCalc',
+    'confirm',
+    'alterSocialPerformance',
+  ];
   static permissionCEO: string[] = [
     'allBonusCalc',
     'socialPerformanceTarget',

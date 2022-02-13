@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { SocialPerformance } from '../../models/SocialPerformance';
+import { Permissions } from 'src/app/Global';
+import { User } from '../../models/User';
+import { ratings } from 'src/app/Global';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-social-performance',
@@ -8,8 +12,10 @@ import { SocialPerformance } from '../../models/SocialPerformance';
 })
 export class SocialPerformanceComponent {
   socialPerformanceRecords: any[];
+  ratings = ratings;
+  user: User;
 
-  constructor() {}
+  constructor(private userService: UserService) {}
 
   displayedColumns: string[] = [
     'Criteria',
@@ -31,7 +37,12 @@ export class SocialPerformanceComponent {
   };
 
   ngOnInit() {
+    this.userService.getOwnUser().subscribe((user) => (this.user = user));
     this.socialPerformanceRecords = this.convertToArrayData();
+  }
+
+  permissionToAlterSocialPerformance() {
+    return Permissions.hasUserPermission(this.user, 'alterSocialPerformance');
   }
 
   updateComment(row, val: string) {
