@@ -28,6 +28,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   confirmedMessage: string;
   confirmedInfoClass: string;
   remarks: string;
+  isUpdatedSocialPerformance = false;
 
   constructor(
     private bonusCompCollectionService: BonusComputationCollectionService,
@@ -96,6 +97,10 @@ export class BonusComputationCollectionPageComponent implements OnInit {
       );
   }
 
+  setValuesUpdated(updated: boolean) {
+    this.isUpdatedSocialPerformance = updated;
+  }
+
   selectYearAndEmployee(data: { year: string }) {
     this.currentYear = data.year;
     const curRoute = this.route.snapshot.routeConfig.path;
@@ -108,6 +113,10 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   }
 
   confirmBonusCompCollection(): void {
+    if (this.isUpdatedSocialPerformance) {
+      this.updateValues();
+      return;
+    }
     this.bonusCompCollectionService
       .postBonusComputationCollection(this.bonusCompCollection)
       .subscribe(
@@ -118,6 +127,21 @@ export class BonusComputationCollectionPageComponent implements OnInit {
           if (this.user?.role === 'HR') {
             this.bonusCompCollection.approvedByHR = true;
           }
+        },
+        (error) => {
+          this.confirmedMessage = error?.error;
+          this.confirmedInfoClass = 'error';
+        }
+      );
+  }
+
+  updateValues(): void {
+    this.bonusCompCollectionService
+      .updateBonusSocialPerformance(this.bonusCompCollection)
+      .subscribe(
+        () => {
+          this.bonusCompCollection.approvedByCEO = false;
+          this.bonusCompCollection.approvedByHR = true;
         },
         (error) => {
           this.confirmedMessage = error?.error;

@@ -40,7 +40,7 @@
 
   <div *ngIf="permissionToViewFields()">
     <app-order-evaluation-dt [props]="createPropsOrderEval()"></app-order-evaluation-dt>
-    <app-social-performance  [props]="createPropsSocialPerformance()"></app-social-performance>
+    <app-social-performance (setValuesUpdated)="setValuesUpdated($event)"  [props]="createPropsSocialPerformance()"></app-social-performance>
   </div>
 
   <div class="remarks" *ngIf="permissionToViewFields()">
