@@ -15,7 +15,7 @@ const getToken = () => {
     });
 }
 
-const makeHeader = async() => {
+const makeHeader = async () => {
     const body = await getToken();
     const token = await body.data.access_token;
     return {
@@ -27,49 +27,50 @@ const makeHeader = async() => {
 
 const header = makeHeader();
 
-const employeeRead = async(sid) => {
+const employeeRead = async (sid) => {
     const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/search?code=${sid}`;
     const res = await axios.get(url, await header)
         .catch((error) => {
             console.log(error);
         })
-    if(!res || res.status !== 200){return { status: 404, msg: "no targets for sid" };}
+    if (!res || res.status !== 200) { return { status: 404, msg: "no targets for sid" }; }
     return { status: 200, payload: await res.data.data[0] };
 }
 
 module.exports.employeeRead = employeeRead;
 
-exports.employeesRead = async() => {
+exports.employeesRead = async () => {
     const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/search`;
     const res = await axios.get(url, await header)
         .catch((error) => {
             console.log(error);
         })
-    if(!res || res.status !== 200){return { status: 404, msg: "no targets found" };}
+    if (!res || res.status !== 200) { return { status: 404, msg: "no targets found" }; }
     return { status: 200, payload: await res.data.data };
 }
 
-exports.readEmployeeBonus = async(sid) => {
+exports.readEmployeeBonus = async (sid) => {
     const respEmployeeRead = await employeeRead(sid);
-    if(respEmployeeRead.status !== 200){return respEmployeeRead;}
+    if (respEmployeeRead.status !== 200) { return respEmployeeRead; }
     const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${await respEmployeeRead.payload["employeeId"]}/bonussalary`;
     const res = await axios.get(url, await header)
         .catch((error) => {
             console.log(error);
         })
-    if(!res ||res.status !== 200){return { status: 404, msg: "no targets for sid" };}
+    if (!res || res.status !== 200) { return { status: 404, msg: "no targets for sid" }; }
     return { status: 200, payload: await res.data.data };
 }
 
-exports.writeEmployeeBonus = async(sid, bonus) => {
+exports.writeEmployeeBonus = async (sid, bonus) => {
     const salesmanResp = await employeeRead(sid);
-    if(salesmanResp.status !== 200){return salesmanResp;}
+    if (salesmanResp.status !== 200) { return salesmanResp; }
     const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${await salesmanResp.payload["employeeId"]}/bonussalary`;
     const qBody = qs.stringify(bonus);
-    const res = await axios.post(url, qBody, await header)
-        .catch((error) => {
-            console.log(error);
-        })
-    if(!res){return { status: 500, msg: "could not write bonus" };}
-    return { status: 200, msg: "write bonus successful" };
+    try {
+        await axios.post(url, qBody, await header);
+        return { status: 200, msg: "write bonus successful" };
+    } catch (error) {
+        console.log(error);
+        return { status: 500, msg: "could not write bonus" };
+    }
 }

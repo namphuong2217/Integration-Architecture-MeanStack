@@ -64,7 +64,7 @@ exports.approvedByCEO = async function (sid, year, socialPerformanceComments, or
     }
     //update bonusCompCollection
     return await bonusCompCollectionService.updateBonusCompCollection(
-        sid, year, { "approvedByCEO": true, socialPerformanceComments: socialPerformanceComments, orderEvaluationComments: orderEvaluationComments }, db);
+        sid, year, { "approvedByCEO": true, socialPerformanceComments: socialPerformanceComments, orderEvaluationComments: orderEvaluationComments, remarks: remarks }, db);
 }
 
 exports.approvedByHR = async function (sid, year, db) {
@@ -75,13 +75,14 @@ exports.approvedByHR = async function (sid, year, db) {
         bonusCompCollection.approvedByHR = true;
         return await bonusCompCollectionService.writeBonusCompCollection(bonusCompCollection, db);
     }
+
     //if already approved
     if (bonusCompCollectionResp.payload.approvedByHR) {
         return { status: 500, msg: `Collection is already approved` };
     }
     //if both approved - send to orangehrm
     if (bonusCompCollectionResp.payload.approvedByCEO) {
-        await salesmanController.postEmployeeBonus(sid, year, bonusCompCollectionResp.bonusTotal); // post bonus on OHRM
+        await salesmanController.postEmployeeBonus(sid, year, bonusCompCollectionResp.payload.bonusTotal); // post bonus on OHRM
     }
     //update bonusCompCollection
     return await bonusCompCollectionService.updateBonusCompCollection(sid, year, { "approvedByHR": true }, db);
