@@ -6,3 +6,7 @@
   width: 100%;
   margin: 20px auto;
 }
+
+.mat-primary {
+  background-color: #143970;
+}

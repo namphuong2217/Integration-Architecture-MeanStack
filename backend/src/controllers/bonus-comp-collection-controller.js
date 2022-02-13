@@ -43,7 +43,7 @@ const getBonusComputationCollection = async function (sid, year, db) {
 
 module.exports.getBonusComputationCollection = getBonusComputationCollection;
 
-exports.approvedByCEO = async function (sid, year, socialPerformanceComments, orderEvaluationComments, db) {
+exports.approvedByCEO = async function (sid, year, socialPerformanceComments, orderEvaluationComments, remarks, db) {
     const bonusCompCollectionResp = await bonusCompCollectionService.readBonusCompCollection(sid, year, db);
     //if not yet in database
     if (bonusCompCollectionResp.status !== 200) {
@@ -51,6 +51,7 @@ exports.approvedByCEO = async function (sid, year, socialPerformanceComments, or
         bonusCompCollection.approvedByCEO = true;
         bonusCompCollection.socialPerformanceComments = socialPerformanceComments;
         bonusCompCollection.orderEvaluationComments = orderEvaluationComments;
+        bonusCompCollection.remarks = remarks;
         return await bonusCompCollectionService.writeBonusCompCollection(bonusCompCollection, db);
     }
     //if already approved

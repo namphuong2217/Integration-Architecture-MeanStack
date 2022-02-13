@@ -23,4 +23,6 @@ span.error {
 
 button.register {
   float: right;
+  background-color: #143970;
+  color: white;
 }

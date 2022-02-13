@@ -27,6 +27,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   noBonusMessage: string;
   confirmedMessage: string;
   confirmedInfoClass: string;
+  remarks: string;
 
   constructor(
     private bonusCompCollectionService: BonusComputationCollectionService,
@@ -136,10 +137,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   }
   createPropsOrderEval() {
     return {
-      permissionWriteComments: Permissions.hasUserPermission(
-        this.user,
-        'writeComments'
-      ),
+      permissionWriteComments: this.permissionToWriteComments(),
       bonusOrder: this.bonusCompCollection.bonusOrder,
       bonusOrderTotal: this.bonusCompCollection.bonusOrderTotal,
       orderEvaluations: this.bonusCompCollection.orderEvaluation,
@@ -148,10 +146,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   }
   createPropsSocialPerformance() {
     return {
-      permissionWriteComments: Permissions.hasUserPermission(
-        this.user,
-        'writeComments'
-      ),
+      permissionWriteComments: this.permissionToWriteComments(),
       comments: this.bonusCompCollection.socialPerformanceComments,
       bonusSocial: this.bonusCompCollection.bonusSocial,
       bonusSocialTotal: this.bonusCompCollection.bonusSocialTotal,
@@ -172,7 +167,15 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   }
 
   permissionToWriteComments() {
-    return Permissions.hasUserPermission(this.user, 'writeComments');
+    const commentPermission = Permissions.hasUserPermission(
+      this.user,
+      'writeComments'
+    );
+    return commentPermission && !this.confirmed();
+  }
+
+  updateRemarks(val: string) {
+    this.bonusCompCollection.remarks = val;
   }
 
   confirmed() {

@@ -1,3 +1,15 @@
+.status {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.dots {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 .dot {
   display: flex;
   align-items: center;
@@ -40,4 +52,31 @@
 
 .confirmed-info {
   color: green;
+}
+
+button {
+  float: right;
+  background-color: #143970;
+  color: white;
+}
+
+.right {
+  margin-top: 1rem;
+}
+
+.remarks {
+  border: 1px solid black;
+}
+
+.remarks p {
+  margin: 1rem;
+}
+
+.remarks h1 {
+  margin: 1rem;
+}
+
+.remarks-textarea {
+  margin: 1rem;
+  min-width: 50%;
 }

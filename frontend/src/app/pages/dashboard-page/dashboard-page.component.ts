@@ -8,6 +8,7 @@ import { User } from '../../models/User';
 import { ApprovedBonus } from 'src/app/models/ApprovedBonus';
 import { SocialPerformanceService } from 'src/app/services/social-performance.service';
 import { SocialPerformanceTargetService } from 'src/app/services/social-performance-target.service';
+import {DashboardStatisticsService} from "../../services/dashboard-statistics.service";
 import { years } from '../../Global';
 
 @Component({
@@ -18,6 +19,8 @@ import { years } from '../../Global';
 export class DashboardPageComponent implements OnInit {
   salesmen: Salesman[];
   salesmenCount: number;
+  numberOfProducts: string;
+  numberOfSales : string;
   year: string;
   years: string[];
   user: User;
@@ -33,7 +36,8 @@ export class DashboardPageComponent implements OnInit {
     private userService: UserService,
     private socialPerformanceService: SocialPerformanceService,
     private socialPerformanceTargetService: SocialPerformanceTargetService,
-    private bonusComputationCollectionService: BonusComputationCollectionService
+    private bonusComputationCollectionService: BonusComputationCollectionService,
+    private dashboardStatisticsService: DashboardStatisticsService
   ) {}
 
   ngOnInit(): void {
@@ -42,11 +46,13 @@ export class DashboardPageComponent implements OnInit {
       this.salesmen = salesmen;
       this.salesmenCount = salesmen.length;
     });
+    this.dashboardStatisticsService.getNumberOfProducts().subscribe((numProd)=> (this.numberOfProducts = numProd));
     this.years = years;
     this.year = new Date().getFullYear().toString();
     this.checkTargets();
     this.checkApprovedBonuses();
     this.checkHasRated();
+    this.getNumberOfSales(this.year);
   }
 
   selectYear(year: string) {
@@ -54,6 +60,11 @@ export class DashboardPageComponent implements OnInit {
     this.checkTargets();
     this.checkApprovedBonuses();
     this.checkHasRated();
+    this.getNumberOfSales(year)
+  }
+
+  getNumberOfSales(year: string){
+    this.dashboardStatisticsService.getTotalNumberOfSales(year).subscribe((numSales) => this.numberOfSales = numSales);
   }
 
   checkTargets() {

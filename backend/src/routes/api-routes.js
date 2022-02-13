@@ -8,13 +8,13 @@ const { checkAuthorization } = require('../middlewares/auth-middleware');
 
 const authApi = require('../apis/auth-api'); //api-endpoints are loaded from separate files
 router.post('/login', authApi.login); //the function decides which request type should be accepted
-router.delete('/login', checkAuthorization(), authApi.logout); //middlewares can be defined in parameters
+router.delete('/login', authApi.logout);
 router.get('/login', authApi.isLoggedIn); //the function, which handles requests is specified as the last parameter
 
 router.post("/register", authApi.register);
 
 const userApi = require('../apis/user-api');
-router.get('/user', checkAuthorization(), userApi.getSelf);
+router.get('/user', checkAuthorization("universal"), userApi.getSelf);
 
 
 //SALESMAN
@@ -79,9 +79,25 @@ const salesManApi = require("../apis/employee-api")
  *                  items:
  *                      $ref: '#/components/schemas/Salesman'
  */
-router.get("/salesman/:sid", salesManApi.getEmployee);
+router.get("/salesman/:sid", checkAuthorization("universal"), salesManApi.getEmployee);
 
-router.get("/salesmen", salesManApi.getEmployees);
+/**
+ * @swagger
+ * /api/salesmen:
+ *  get:
+ *      summary: Returns all salesmen of company
+ *      tags: [Salesman]
+ *      responses:
+ *          200:
+ *              description: All salesmen of company
+ *              contents:
+ *                  application/json
+ *              schema:
+ *                  type: array
+ *                  items:
+ *                      $ref: '#/components/schemas/Salesman'
+ */
+router.get("/salesmen", checkAuthorization("universal"), salesManApi.getEmployees);
 
 /**
 *@swagger
@@ -104,7 +120,7 @@ router.get("/salesmen", salesManApi.getEmployees);
 *               bonus: 200
 */
 
-/**
+/*
  * @swagger
  * /api/salesman/{sid}/bonus:
  *  post:
@@ -132,10 +148,10 @@ router.get("/salesmen", salesManApi.getEmployees);
  *                  type: object
  *                  items:
  *                      $ref: '#/components/schemas/Bonus'
- */
-router.post("/salesman/:sid/bonus", salesManApi.postEmployeeBonus);
 
-/**
+router.post("/salesman/:sid/bonus", checkAuthorization("postBonus"), salesManApi.postEmployeeBonus);
+ */
+/*
  * @swagger
  * /api/salesman/{sid}/bonus:
  *  get:
@@ -157,8 +173,10 @@ router.post("/salesman/:sid/bonus", salesManApi.postEmployeeBonus);
  *                  type: object
  *                  items:
  *                      $ref: '#/components/schemas/Bonus'
+
+router.get("/salesman/:sid/bonus/:year",checkAuthorization("postBonus"), salesManApi.getEmployeeBonus);
+
  */
-router.get("/salesman/:sid/bonus/:year", salesManApi.getEmployeeBonus);
 
 //ORDER EVALUATION
 /**
@@ -193,39 +211,6 @@ router.get("/salesman/:sid/bonus/:year", salesManApi.getEmployeeBonus);
 *               department: Sales
 */
 
-/**
- * @swagger
- * tags:
- *  name: Order
- *  description: The Order Evalution API
- */
-
-const orderEvaluationApi = require("../apis/order-evaluation-api")
-
-/**
- * @swagger
- * /api/orderEvaluation/{sid}:
- *  get:
- *      summary: Returns order evaluations of a salesman specified by SID
- *      tags: [Order]
- *      parameters:
- *          - in: path
- *            name: sid
- *            schema: 
- *              type: string
- *            required: true
- *            description: The Salesman ID
- *      responses:
- *          200:
- *              description: The Order Evalution
- *              contents:
- *                  application/json
- *              schema:
- *                  type: object
- *                  items:
- *                      $ref: '#/components/schemas/Order'
- */
-router.get("/orderEvaluation/:sid/:year", orderEvaluationApi.getOrderEvaluations);
 
 //Social Performance
 /**
@@ -236,6 +221,7 @@ router.get("/orderEvaluation/:sid/:year", orderEvaluationApi.getOrderEvaluations
 *           type: object
 *           required:
 *               - sid
+*               - issuerID
 *               - year
 *               - leadership_competence
 *               - openness
@@ -245,7 +231,10 @@ router.get("/orderEvaluation/:sid/:year", orderEvaluationApi.getOrderEvaluations
 *               - integrity
 *           properties:
 *               sid: 
-*                   type: int
+*                   type: string
+*                   description: Salesman ID
+*               issuerID:
+*                   type: string
 *                   description: Salesman ID
 *               year: 
 *                   type: int
@@ -269,7 +258,8 @@ router.get("/orderEvaluation/:sid/:year", orderEvaluationApi.getOrderEvaluations
 *                   type: object
 *                   description: eg. Sales
 *           example:
-*               sid: 1
+*               sid: "1"
+*               issuerID: "2"
 *               year: 2021
 *               leadership_competence: {target: 3, actual: 4}
 *               openness: {target: 3, actual: 4}
@@ -285,35 +275,8 @@ router.get("/orderEvaluation/:sid/:year", orderEvaluationApi.getOrderEvaluations
  *  name: Social Performance Record
  *  description: The Social Performance Reocd Managing API
  */
-
-
 const socialPerformanceAPI = require("../apis/social-performance-api")
-/**
- * @swagger
- * /api/socialPerformance/{sid}:
- *  get:
- *      summary: Returns all Social Performance records for SID
- *      tags: [Social Performance Record]
- *      parameters:
- *          - in: path
- *            name: sid
- *            schema: 
- *              type: string
- *            required: true
- *            description: The Salesman ID
- *      responses:
- *          200:
- *              description: The Social Performance Record for SID
- *              contents:
- *                  application/json
- *              schema:
- *                  type: object
- *                  items:
- *                      $ref: '#/components/schemas/Social Performance'
- */
-router.get("/socialPerformance/:sid", socialPerformanceAPI.getSocialPerformance);
 
-router.get("/socialPerformanceYearAvg/:sid/:year", socialPerformanceAPI.getYearAverage);
 
 /**
  * @swagger
@@ -335,44 +298,9 @@ router.get("/socialPerformanceYearAvg/:sid/:year", socialPerformanceAPI.getYearA
  *              schema:
  *                  type: object
  */
-router.post("/socialPerformance", socialPerformanceAPI.addSocialPerformance);
+router.post("/socialPerformance", checkAuthorization("postSocialPerformance"), socialPerformanceAPI.addSocialPerformance);
 
-/**
- * 
- * /api/socialPerformance/{sid}/{year}:
- *  put:
- *      summary: Updates a performance Record in DB
- *      tags: [Social Performance Record]
- *      parameters:
- *          - in: path
- *            name: sid
- *            schema: 
- *              type: string
- *            required: true
- *            description: The Salesman ID
- *          - in: path
- *            name: year
- *            schema: 
- *              type: string
- *            required: true
- *            description: The Year of Social Performance Record
- *      requestBody:
- *       required: true
- *       content:
- *          application/json:
- *            schema:
- *              $ref: '#/components/schemas/Social Performance'
- *      responses:
- *          200:
- *              description: Status
- *              contents:
- *                  application/json
- *              schema:
- *                  type: object
- */
-//router.put("/socialPerformance/:sid/:year", socialPerformanceAPI.updateSocialPerformance);
-
-/**
+/*
  * @swagger
  * /api/socialPerformance/{sid}/{year}:
  *  delete:
@@ -398,10 +326,11 @@ router.post("/socialPerformance", socialPerformanceAPI.addSocialPerformance);
  *                  application/json
  *              schema:
  *                  type: object
- */
-router.delete("/socialPerformance/:sid/:year", socialPerformanceAPI.deleteSocialPerformance);
 
-//controller
+router.delete("/socialPerformance/:sid/:year", socialPerformanceAPI.deleteSocialPerformance);
+ */
+
+//Bonus Computation Collection
 /**
 *@swagger
 *components:
@@ -416,12 +345,32 @@ router.delete("/socialPerformance/:sid/:year", socialPerformanceAPI.deleteSocial
 *               salesman: 
 *                   type: object
 *                   description: Salesman Object
-*               orderEvaluation: 
-*                   type: object
-*                   description: Order Evaluation Object
+*               orderEvaluation:
+*                   type: array
+*                   items:
+*                       type: Order Evaluation Object
+*                   description: Array of Order Evaluations
 *               socialPerformance: 
 *                   type: object
 *                   description: Social Performance Object
+*               approvedByCEO:
+*                   type: boolean
+*                   description: true if already approved by CEO
+*               approvedByHR:
+*                   type: boolean
+*                   description: true if already approved by HR
+*               bonusSocial:
+*                   type: array
+*                   description: array of bonuses for social performance
+*               bonusOrder:
+*                   type: array
+*                   description: array of bonuses for order evaluation
+*               bonusSocialTotal:
+*                   type: Number
+*               bonusOrderTotal:
+*                   type: Number
+*               bonusTotal:
+*                   type: Number
 *           example:
 *               salesman: {}
 *               orderEvalution: {}
@@ -459,16 +408,259 @@ const bonusCompCollectionApi = require("../apis/bonus-comp-collection-api");
  *                  items:
  *                      $ref: '#/components/schemas/Bonus Computation Collection'
  */
-router.get("/bonusCompCollection/:sid/:year", bonusCompCollectionApi.getBonusCompCollection)
-router.get("/approvedBonuses/:year", bonusCompCollectionApi.getApprovedBonuses);
+router.get("/bonusCompCollection/:sid/:year", checkAuthorization("universal"), bonusCompCollectionApi.getBonusCompCollection)
 
-//todo beschriftung
-router.post("/bonusCompCollection", bonusCompCollectionApi.postBonusCompCollection)
+/**
+ * @swagger
+ * /api/approvedBonuses/{year}:
+ *  get:
+ *      summary: Returns all approved bonuses for a given year
+ *      tags: [Bonus Computation Collection]
+ *      parameters:
+ *          - in: path
+ *            name: year
+ *            schema:
+ *              type: Number
+ *            required: true
+ *            description: year
+ *      responses:
+ *          200:
+ *              description: Collections of approved bonuses for a given sid
+ *              contents:
+ *                  application/json
+ *              schema:
+ *                  type: object
+ *                  items:
+ *                      $ref: '#/components/schemas/Bonus Computation Collection'
+ */
+router.get("/approvedBonuses/:year", checkAuthorization("universal"), bonusCompCollectionApi.getApprovedBonuses);
 
-const socialPerformanceTargetAPI = require("../apis/social-performance-targets-api")
-router.get("/socialPerformanceTargets/:sid/:year", socialPerformanceTargetAPI.get);
-router.get("/hasRatedSocialPerformance/:year", socialPerformanceAPI.hasRated);
-router.get("/socialPerformanceTargetsExist/:year", socialPerformanceTargetAPI.getTargetsExistArray);
-router.post("/socialPerformanceTargets/", socialPerformanceTargetAPI.add);
+
+/**
+ * @swagger
+ * /api/bonusCompCollection:
+ *  post:
+ *      summary: Saves the given bonus computation collection in the database
+ *      tags: [Bonus Computation Collection]
+ *      responses:
+ *          200:
+ *              description: Collection was successfully saved
+ *          500:
+ *              description: Collection is already approved
+ *          401:
+ *              description: Permission error
+ */
+router.post("/bonusCompCollection", checkAuthorization("postBonus"), bonusCompCollectionApi.postBonusCompCollection);
+
+//SOCIAL PERFORMANCE TARGET
+/**
+ *@swagger
+ *components:
+ *   schemas:
+ *       Social Performance Target:
+ *           type: object
+ *           required:
+ *               - sid
+ *               - year
+ *               - leadership_competence
+ *               - openness
+ *               - social_behaviour
+ *               - attitude
+ *               - comm_skills
+ *               - integrity
+ *           properties:
+ *               sid:
+ *                   type: string
+ *                   description: Salesman ID
+ *               year:
+ *                   type: int
+ *                   description: Year of Social Performance Record
+ *               leadership_competence:
+ *                   type: object
+ *                   description: Leadership Competence
+ *               openness:
+ *                   type: object
+ *                   description: Openness
+ *               social_behaviour:
+ *                   type: object
+ *                   description: Social Behaviour
+ *               attitude:
+ *                   type: object
+ *                   description: Attitude
+ *               comm_skills:
+ *                   type: object
+ *                   description: Communication Skills
+ *               integrity:
+ *                   type: object
+ *                   description: eg. Sales
+ *           example:
+ *               sid: "1"
+ *               year: 2021
+ *               leadership_competence: {target: 3, actual: 4}
+ *               openness: {target: 3, actual: 4}
+ *               social_behaviour: {target: 3, actual: 4}
+ *               attitude: {target: 3, actual: 4}
+ *               comm_skills: {target: 3, actual: 4}
+ *               integrity: {target: 3, actual: 4}
+ */
+/**
+ * @swagger
+ * tags:
+ *  name: Social Performance Target
+ *  description: Api of social performance targets
+ */
+const socialPerformanceTargetAPI = require("../apis/social-performance-targets-api");
+
+/**
+ * @swagger
+ * api/socialPerformanceTargets/{sid}/{year}:
+ *  get:
+ *      summary: Returns the social performance target for a given sid and year
+ *      tags: [Social Performance Target]
+ *      parameters:
+ *          - in: path
+ *            name: sid
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: The Salesman ID
+ *          - in: path
+ *            name: year
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: The Year of Social Performance Record
+ *      responses:
+ *          200:
+ *              description: Social Performance Target for a given sid and year
+ *              contents:
+ *                  application/json
+ *              schema:
+ *                  type: object
+ *                  items:
+ *                      $ref: '#/components/schemas/Social Performance Target'
+ *          404:
+ *              description: No targets found for given sid
+ */
+router.get("/socialPerformanceTargets/:sid/:year", checkAuthorization("postTargets"), socialPerformanceTargetAPI.get);
+
+/**
+ * @swagger
+ * api/hasRatedSocialPerformance/{year}:
+ *  get:
+ *      summary: Returns all sids that rated the user set in session for a given year
+ *      tags: [Social Performance Target]
+ *      parameters:
+ *          - in: path
+ *            name: year
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: The Year of Social Performance Record
+ *      responses:
+ *          200:
+ *              description: Array of sids that rated the user in session for a given year
+ *              contents:
+ *                  application/json
+ *              schema:
+ *                  type: array
+ *                  items:
+ *                      type: string
+ */
+router.get("/hasRatedSocialPerformance/:year", checkAuthorization("universal"), socialPerformanceAPI.hasRated);
+
+/**
+ * @swagger
+ * api/socialPerformanceTargetExist/{year}:
+ *  get:
+ *      summary: Returns the social performance target for a given year
+ *      tags: [Social Performance Target]
+ *      parameters:
+ *          - in: path
+ *            name: year
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: The Year of Social Performance Record
+ *      responses:
+ *          200:
+ *              description: Social Performance Target for sid and year
+ *              contents:
+ *                  application/json
+ *              schema:
+ *                  type: object
+ *                  items:
+ *                      $ref: '#/components/schemas/Social Performance Target'
+ *          400:
+ *              description: No targets found for given sid
+ */
+router.get("/socialPerformanceTargetsExist/:year", checkAuthorization("universal"), socialPerformanceTargetAPI.getTargetsExistArray);
+
+/**
+ * @swagger
+ * api/socialPerformanceTargets:
+ *  post:
+ *      summary: Saves the social performance target object in the database
+ *      tags: [Social Performance Target]
+ *      responses:
+ *          200:
+ *              description: Social Performance Target successfully saved
+ *          401:
+ *              description: You can't rate yourself
+ *          500:
+ *              description: Targets are already in collection
+ */
+router.post("/socialPerformanceTargets/", checkAuthorization("postTargets"), socialPerformanceTargetAPI.add);
+
+/**
+ * @swagger
+ * tags:
+ *  name: Product
+ *  description: Api of products
+ */
+const productAPI = require("../apis/product-api");
+
+/**
+ * @swagger
+ * api/numberOfProducts:
+ *  get:
+ *      summary: Retrieves the number of products
+ *      tags: [Product]
+ *      responses:
+ *          200:
+ *              description: number of products in company
+ *          500:
+ *              description: Error fetching data
+ */
+router.get("/numberOfProducts/", productAPI.getNumberOfProducts)
+
+/**
+ * @swagger
+ * tags:
+ *  name: Sales
+ *  description: Api of Sales
+ */
+const salesAPI = require("../apis/order-evaluation-api");
+
+/**
+ * @swagger
+ * api/totalNumberOfSales/{year}:
+ *  get:
+ *      summary: Retrieves the total number of sale orders for a given year
+ *      tags: [Sales]
+ *      parameters:
+ *          - in: path
+ *            name: year
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: The Year of the sales
+ *      responses:
+ *          200:
+ *              description: number of positions
+ *          500:
+ *              description: Error fetching data
+ */
+router.get("/totalNumberOfSales/:year", salesAPI.getTotalSales)
 
 module.exports = router;

@@ -13,6 +13,7 @@ export class BonusCompCollection {
     public bonusOrder: [],
     public socialPerformanceComments: string[],
     public orderEvaluationComments: string[],
+    public remarks: string,
     public bonusOrderTotal: number,
     public bonusTotal: number,
     public salesman: Salesman,

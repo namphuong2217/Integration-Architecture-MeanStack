@@ -38,3 +38,7 @@ button.menu-button.active {
 button.menu-button.active:hover {
   background: rgba(255, 255, 255, 0.1);
 }
+
+.mat-primary {
+  background-color: #143970;
+}

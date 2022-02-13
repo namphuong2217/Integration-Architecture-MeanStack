@@ -3,12 +3,16 @@ exports.Permissions = {
     sales: "Sales",
     hr: "HR",
     ceo: "Leader",
+    admin: "admin",
 
-    permissionSales: [],
-    permissionHR: ["approveBonusHR", "readBonus"],
-    permissionCEO: ["approveBonusCEO", "readBonus"],
+    permissionSales: ["postSocialPerformance"],
+    permissionHR: ["approveBonusHR", "postBonus"],
+    permissionCEO: ["approveBonusCEO", "postBonus", "postTargets"],
 
     hasUserPermission(user, action) {
+        if (action === "universal") {
+            return user ? true : false;
+        }
         if (user.role === this.sales) {
             return this.permissionSales.includes(action);
         }
@@ -17,6 +21,9 @@ exports.Permissions = {
         }
         else if (user.role === this.ceo) {
             return this.permissionCEO.includes(action);
+        }
+        else if (user.role === this.admin) {
+            return true;
         }
     }
 }

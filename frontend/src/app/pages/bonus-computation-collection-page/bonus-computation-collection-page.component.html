@@ -7,7 +7,7 @@
 </ng-template>
 
 <ng-template #targetForm>
-  <div *ngIf="permissionToWriteComments() else noTargets">    
+  <div *ngIf="permissionToWriteComments() else noTargets">
     <app-social-performance-targets-form [propSid]="this.sid" [year]="this.currentYear" (clickEvent)="saveTargets($event)">
     </app-social-performance-targets-form>
     <span class="error" *ngIf="postError">{{postError}}</span>
@@ -30,12 +30,12 @@
   <div class="bonus-header">
     <h1><b>Bonus Computation Sheet</b></h1>
   </div>
-  <div *ngIf="permissionToViewFields()">
+  <div class="status" *ngIf="permissionToViewFields()">
     <h1>Status</h1>
-    <div class="dot" [ngClass]="{'approved' : bonusCompCollection.approvedByHR, 'notApproved' : !bonusCompCollection.approvedByHR}">HR</div>
-    <br>
-    <div class="dot" [ngClass]="{'approved' : bonusCompCollection.approvedByCEO, 'notApproved' : !bonusCompCollection.approvedByCEO}">CEO</div>
-    <br>
+    <div class="dots">
+      <div class="dot" [ngClass]="{'approved' : bonusCompCollection.approvedByHR, 'notApproved' : !bonusCompCollection.approvedByHR}">HR</div>
+      <div class="dot" [ngClass]="{'approved' : bonusCompCollection.approvedByCEO, 'notApproved' : !bonusCompCollection.approvedByCEO}">CEO</div>
+    </div>
   </div>
 
   <div *ngIf="permissionToViewFields()">
@@ -43,11 +43,27 @@
     <app-social-performance  [props]="createPropsSocialPerformance()"></app-social-performance>
   </div>
 
+  <div class="remarks" *ngIf="permissionToViewFields()">
+    <h1>Remarks</h1>
+    <mat-form-field *ngIf="permissionToWriteComments() else remarksInfo" appearance="fill" class="remarks-textarea">
+      <mat-label>Remarks</mat-label>
+      <textarea matInput
+        #t
+        (input)="updateRemarks(t.value)"
+        cdkTextareaAutosize
+        #autosize="cdkTextareaAutosize"
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5">{{this.bonusCompCollection.remarks}}</textarea>
+    </mat-form-field>
+    <ng-template #remarksInfo>
+      <p>{{this.bonusCompCollection.remarks}}</p>
+    </ng-template>
+  </div>
 
   <div class="right" *ngIf="permissionToViewFields() && permissionToConfirm()">
     <h1>C.) Confirm Bonus</h1>
     <div class="confirm-dialog">
-      <button mat-raised-button *ngIf="!confirmed() else info" color="primary" (click)="confirmBonusCompCollection()">Confirm</button>
+      <button mat-raised-button *ngIf="!confirmed() else info" (click)="confirmBonusCompCollection()">Confirm</button>
       <p class={{confirmedInfoClass}}>{{confirmedMessage}}</p>
       <ng-template #info>
         <h1 class="confirmed-info">Bonus Calculation confirmed!</h1>

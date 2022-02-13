@@ -6,14 +6,12 @@ const Permissions = require("../Globals").Permissions;
  * @param {boolean} beAdmin if true, user needs to be admin
  * @return {(function(*, *, *): void)|*}
  */
-exports.checkAuthorization = (action, beAdmin) => {
+exports.checkAuthorization = (action) => {
     return (req, res, next) => {
         if(req.session.authenticated){
-            if(true || Permissions.hasUserPermission(req.session.user, action)){ //TODO delete true and adapt hasUserPermission
-                if(!beAdmin || req.session.user.isAdmin){
-                    next();
-                    return;
-                }
+            if(Permissions.hasUserPermission(req.session.user, action)){
+                next();
+                return;
             }
         }
         res.status(401).send("no permission"); //intercept request
