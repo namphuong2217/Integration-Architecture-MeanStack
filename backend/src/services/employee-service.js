@@ -64,13 +64,8 @@ exports.readEmployeeBonus = async (sid) => {
 exports.writeEmployeeBonus = async (sid, bonus) => {
     const salesmanResp = await employeeRead(sid);
     if (salesmanResp.status !== 200) { return salesmanResp; }
-    console.log(salesmanResp);
     const url = `https://sepp-hrm.inf.h-brs.de/symfony/web/index.php/api/v1/employee/${await salesmanResp.payload["employeeId"]}/bonussalary`;
     const qBody = qs.stringify(bonus);
-    console.log("URL: " + url);
-    console.log("BODY: " + qBody);
-    console.log("HEADER: ");
-    console.log(await header);
     try {
         await axios.post(url, qBody, await header);
         return { status: 200, msg: "write bonus successful" };
