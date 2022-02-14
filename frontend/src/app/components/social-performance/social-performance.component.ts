@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input, Output, SimpleChanges } from '@angular/core';
 import { SocialPerformance } from '../../models/SocialPerformance';
 import { Permissions } from 'src/app/Global';
 import { User } from '../../models/User';
@@ -59,6 +59,13 @@ export class SocialPerformanceComponent {
   ngOnInit() {
     this.userService.getOwnUser().subscribe((user) => (this.user = user));
     this.socialPerformanceRecords = this.convertToArrayData();
+  }
+
+  //TODO Dont lose focus on Input
+  ngOnChanges(changes: SimpleChanges) {
+    if (!this.props.permissionWriteComments) {
+      this.socialPerformanceRecords = this.convertToArrayData();
+    }
   }
 
   permissionToAlterSocialPerformance() {

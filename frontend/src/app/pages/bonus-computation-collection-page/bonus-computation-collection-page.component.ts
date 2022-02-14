@@ -121,12 +121,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
       .postBonusComputationCollection(this.bonusCompCollection)
       .subscribe(
         () => {
-          if (this.user?.role === 'Leader') {
-            this.bonusCompCollection.approvedByCEO = true;
-          }
-          if (this.user?.role === 'HR') {
-            this.bonusCompCollection.approvedByHR = true;
-          }
+          this.setBonusCompCollectionAndSalesman();
         },
         (error) => {
           this.confirmedMessage = error?.error;
