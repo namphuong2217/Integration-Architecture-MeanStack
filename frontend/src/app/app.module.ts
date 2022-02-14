@@ -31,6 +31,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
 import { SocialPerformanceTargetsFormComponent } from './components/social-performance-targets-form/social-performance-targets-form.component';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { SocialPerformanceTargetsFormComponent } from './components/social-perfo
     EmployeeAndYearSelectorComponent,
     RegisterComponent,
     SocialPerformanceTargetsFormComponent,
+    RegisterPageComponent,
   ],
   imports: [
     BrowserModule,
