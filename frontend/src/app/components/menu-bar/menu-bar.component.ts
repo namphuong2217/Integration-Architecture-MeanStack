@@ -3,6 +3,7 @@ import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {User} from "../../models/User";
 import {UserService} from "../../services/user.service";
+import { Permissions } from 'src/app/Global';
 
 @Component({
   selector: 'app-menu-bar',
@@ -31,7 +32,18 @@ export class MenuBarComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router, private userService:UserService) { }
 
   ngOnInit(): void {
-    this.fetchUser();
+    this.userService.getOwnUser().subscribe(user => {
+      this.user = user
+      this.addRegistrationButton(user);
+    });
+  }
+
+  addRegistrationButton(user: User){
+    if(Permissions.hasUserPermission(user, "registerAccount")){
+      const button = {title: 'Register', routerLink: 'register'};
+      this.buttons.push(button)
+      console.log(this.buttons);
+    }
   }
 
   /**
@@ -40,14 +52,5 @@ export class MenuBarComponent implements OnInit {
   handleLogout(){
     this.authService.logout().subscribe();
     this.router.navigate(['login']); //after logout go back to the login-page
-  }
-
-  /**
-   * fetches information about logged-in user
-   */
-  fetchUser(){
-    this.userService.getOwnUser().subscribe(user => {
-      this.user = user
-    });
   }
 }

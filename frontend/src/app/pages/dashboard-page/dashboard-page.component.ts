@@ -77,7 +77,6 @@ export class DashboardPageComponent implements OnInit {
 
   checkHasRated() {
     this.socialPerformanceService.getHasRated(this.year).subscribe((arr) => {
-      console.log(arr);
       this.hasRated = arr;
     });
   }
