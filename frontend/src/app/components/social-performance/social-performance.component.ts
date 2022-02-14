@@ -61,7 +61,6 @@ export class SocialPerformanceComponent {
     this.socialPerformanceRecords = this.convertToArrayData();
   }
 
-  //TODO Dont lose focus on Input
   ngOnChanges(changes: SimpleChanges) {
     if (!this.props.permissionWriteComments) {
       this.socialPerformanceRecords = this.convertToArrayData();
