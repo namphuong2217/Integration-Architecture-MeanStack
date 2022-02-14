@@ -12,10 +12,6 @@ export class LoginPageComponent {
   showLogin: boolean;
   message: string;
 
-  switchView = () => {
-    this.showLogin = !this.showLogin;
-  };
-
   constructor() {
     this.showLogin = true;
   }

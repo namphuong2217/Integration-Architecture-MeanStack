@@ -9,7 +9,6 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  @Input() switchView: () => void;
 
   credentials: Credentials;
 
@@ -42,7 +41,6 @@ export class RegisterComponent implements OnInit {
         if (response.status === 200) {
           //if response status is 200, assume login was successful
           this.resetCredentials();
-          this.enterApplication();
         } else {
           this.registrationError = response.body;
           this.resetCredentials();
