@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BonusCompCollection } from '../../models/BonusCompCollection';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BonusComputationCollectionService } from '../../services/bonus-computation-collection.service';
@@ -8,6 +8,7 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../models/User';
 import { Permissions } from '../../Global';
 import { SocialPerformanceTargetService } from 'src/app/services/social-performance-target.service';
+import { SocialPerformanceComponent } from 'src/app/components/social-performance/social-performance.component';
 
 @Component({
   selector: 'app-bonus-computation-collection',
@@ -29,6 +30,9 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   confirmedInfoClass: string;
   remarks: string;
   isUpdatedSocialPerformance = false;
+
+  @ViewChild(SocialPerformanceComponent)
+  spComponent: SocialPerformanceComponent;
 
   constructor(
     private bonusCompCollectionService: BonusComputationCollectionService,
@@ -122,6 +126,7 @@ export class BonusComputationCollectionPageComponent implements OnInit {
       .subscribe(
         () => {
           this.setBonusCompCollectionAndSalesman();
+          this.spComponent.updateSocialPerformance();
         },
         (error) => {
           this.confirmedMessage = error?.error;

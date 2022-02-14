@@ -61,12 +61,6 @@ export class SocialPerformanceComponent {
     this.socialPerformanceRecords = this.convertToArrayData();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (!this.props.permissionWriteComments) {
-      this.socialPerformanceRecords = this.convertToArrayData();
-    }
-  }
-
   permissionToAlterSocialPerformance() {
     return Permissions.hasUserPermission(this.user, 'alterSocialPerformance');
   }
@@ -87,6 +81,11 @@ export class SocialPerformanceComponent {
     } else if (distinction === 'actual') {
       this.props.socialPerformanceActual[fieldName] = val;
     }
+  }
+
+  updateSocialPerformance() {
+    console.log('HERE');
+    this.socialPerformanceRecords = this.convertToArrayData();
   }
 
   convertToArrayData(): any[] {
