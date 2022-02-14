@@ -204,8 +204,8 @@ export class BonusComputationCollectionPageComponent implements OnInit {
 
   confirmed() {
     const role = this.user?.role;
-    const approvedByCEO = this.bonusCompCollection.approvedByCEO;
-    const approvedByHR = this.bonusCompCollection.approvedByHR;
+    const approvedByCEO = this.bonusCompCollection?.approvedByCEO;
+    const approvedByHR = this.bonusCompCollection?.approvedByHR;
     return (
       (role === 'Leader' && approvedByCEO) || (role === 'HR' && approvedByHR)
     );
