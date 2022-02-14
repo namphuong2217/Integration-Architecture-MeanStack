@@ -48,6 +48,10 @@ exports.updateBonusSocialPerformance = async function (req, res) {
     const year = Number(body.year);
     const newSocialPerformance = body.socialPerformance;
     const newTargets = body.targets;
-    console.log(await bonusCompCollectionController.updateBonusCompCollection(sid, year, newSocialPerformance, newTargets));
-    res.send();
+    const db = req.app.get('db');
+    const resp = await bonusCompCollectionController.updateBonusCompCollection(sid, year, newSocialPerformance, newTargets, db);
+    if (resp.status === 200) {
+        return res.send(JSON.stringify(resp.payload));
+    }
+    return res.status(resp.status).send(resp.payload);
 }

@@ -43,7 +43,7 @@ const getBonusComputationCollection = async function (sid, year, db) {
 
 module.exports.getBonusComputationCollection = getBonusComputationCollection;
 
-const updateBonusComputationCollection = async function (sid, year, newSocialPerformance, newTargets) {
+const updateBonusComputationCollection = async function (sid, year, newSocialPerformance, newTargets, db) {
     year = parseInt(year);
 
     // Collect data from different controllers
@@ -61,8 +61,9 @@ const updateBonusComputationCollection = async function (sid, year, newSocialPer
     Object.keys(newSocialPerformance).filter(key => key !== "sid" && key !== "year").forEach(socialKey => {
         bonusSocial.push(bonusCalcEnricher.getBonusForSocialPerformance(socialKey, newTargets[socialKey], newSocialPerformance[socialKey]));
     });
-    return new BonusCompCollection(sid, year, salesman, orderEvaluation,
+    const bonus = new BonusCompCollection(sid, year, salesman, orderEvaluation,
         newSocialPerformance, false, true, bonusOrder, bonusSocial, newTargets);
+    return await bonusCompCollectionService.updateBonusSocialPerformance(bonus, db);
 }
 
 module.exports.updateBonusCompCollection = updateBonusComputationCollection;

@@ -24,7 +24,7 @@ exports.writeBonusCompCollection = async (bonusComputationCollection, db) => {
     }
     const res = await db.collection('bonusCompCollection').insertOne(bonusComputationCollection);
     if (res) return { status: 200, msg: "insertion successful" };
-    return { status: 404, payload: "post error for sid and year" };
+    return { status: 404, msg: "post error for sid and year" };
 }
 
 exports.updateBonusCompCollection = async (sid, year, updateVal, db) => {
@@ -36,6 +36,15 @@ exports.updateBonusCompCollection = async (sid, year, updateVal, db) => {
     const res = db.collection('bonusCompCollection').updateOne(filter, { $set: updateVal })
     if (res) return { status: 200, msg: "update succesful" };
     return { status: 404, payload: "update error for sid and year" };
+}
+
+exports.updateBonusSocialPerformance = async (bonusComputationCollection, db) => {
+    const bonusCollection = db.collection('bonusCompCollection');
+    filter = { sid: bonusComputationCollection.sid, year: Number(bonusComputationCollection.year) };
+    await bonusCollection.deleteOne(filter);
+    const res = bonusCollection.insertOne(bonusComputationCollection);
+    if (res) return { status: 200, payload: bonusComputationCollection };
+    return { status: 500, payload: "Could not insert updated social performance" }
 }
 
 exports.deleteBonusComputationCollection = async function (sid, year, db) {
