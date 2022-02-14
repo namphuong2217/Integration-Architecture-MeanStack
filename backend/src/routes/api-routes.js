@@ -452,7 +452,20 @@ router.get("/approvedBonuses/:year", checkAuthorization("universal"), bonusCompC
  */
 router.post("/bonusCompCollection", checkAuthorization("postBonus"), bonusCompCollectionApi.postBonusCompCollection);
 
+/**
+ * @swagger
+ * /api/bonusSocialPerformance:
+ *  put:
+ *      summary: Updates social performance and target values changed by HR
+ *      tags: [Bonus Computation Collection]
+ *      responses:
+ *          200:
+ *              description: Collection was successfully saved
+ *          401:
+ *              description: Permission error
+ */
 router.put("/bonusSocialPerformance", checkAuthorization("updateBonusSocialPerformance"), bonusCompCollectionApi.updateBonusSocialPerformance);
+
 //SOCIAL PERFORMANCE TARGET
 /**
  *@swagger
