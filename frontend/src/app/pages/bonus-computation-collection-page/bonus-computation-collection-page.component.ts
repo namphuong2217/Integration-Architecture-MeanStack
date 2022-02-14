@@ -139,9 +139,11 @@ export class BonusComputationCollectionPageComponent implements OnInit {
     this.bonusCompCollectionService
       .updateBonusSocialPerformance(this.bonusCompCollection)
       .subscribe(
-        () => {
+        (res) => {
           this.bonusCompCollection.approvedByCEO = false;
           this.bonusCompCollection.approvedByHR = true;
+          this.setValuesUpdated(false);
+          this.bonusCompCollection = res;
         },
         (error) => {
           this.confirmedMessage = error?.error;
@@ -209,6 +211,10 @@ export class BonusComputationCollectionPageComponent implements OnInit {
     return (
       (role === 'Leader' && approvedByCEO) || (role === 'HR' && approvedByHR)
     );
+  }
+
+  confirmButtonText() {
+    return this.isUpdatedSocialPerformance ? 'Update and Confirm' : 'Confirm';
   }
 
   permissionToConfirm() {

@@ -25,8 +25,8 @@ export class BonusComputationCollectionService {
 
   updateBonusSocialPerformance(
     bonusCompCollection: BonusCompCollection
-  ): Observable<string> {
-    return this.http.put<string>(
+  ): Observable<BonusCompCollection> {
+    return this.http.put<BonusCompCollection>(
       `/api/bonusSocialPerformance`,
       bonusCompCollection
     );
