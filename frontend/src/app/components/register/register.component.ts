@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit {
   }
 
   resetCredentials() {
+    this.pwRepeat = '';
     this.credentials = new Credentials('', '');
   }
 

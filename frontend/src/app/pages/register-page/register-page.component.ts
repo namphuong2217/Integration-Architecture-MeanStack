@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Permissions } from 'src/app/Global';
+import { User } from 'src/app/models/User';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register-page',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterPageComponent implements OnInit {
 
-  constructor() { }
+  user: User;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.userService.getOwnUser().subscribe((user) => (this.user = user));
+  }
+
+  permissionToRegister(){
+    return Permissions.hasUserPermission(this.user, "registerAccount");
   }
 
 }

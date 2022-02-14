@@ -1,1 +1,5 @@
-<app-register></app-register>
+<app-register *ngIf="permissionToRegister() else noAuth"></app-register>
+
+<ng-template #noAuth>
+    <h1>No Auth</h1>
+</ng-template>
