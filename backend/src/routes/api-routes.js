@@ -11,7 +11,7 @@ router.post('/login', authApi.login); //the function decides which request type 
 router.delete('/login', authApi.logout);
 router.get('/login', authApi.isLoggedIn); //the function, which handles requests is specified as the last parameter
 
-router.post("/register", authApi.register);
+router.post("/register", checkAuthorization(), authApi.register);
 
 const userApi = require('../apis/user-api');
 router.get('/user', checkAuthorization("universal"), userApi.getSelf);
