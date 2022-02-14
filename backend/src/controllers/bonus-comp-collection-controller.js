@@ -69,6 +69,7 @@ const updateBonusComputationCollection = async function (sid, year, newSocialPer
         const oldBonus = oldBonusResp.payload;
         bonus.socialPerformanceComments = oldBonus.socialPerformanceComments;
         bonus.orderEvaluationComments = oldBonus.orderEvaluationComments;
+        bonus.remarks = oldBonus.remarks;
     }
 
     return await bonusCompCollectionService.updateBonusSocialPerformance(bonus, db);
