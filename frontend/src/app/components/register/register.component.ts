@@ -14,6 +14,8 @@ export class RegisterComponent implements OnInit {
 
   registrationError: string;
 
+  registrationSuccess: string;
+
   pwRepeat: string;
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -42,13 +44,17 @@ export class RegisterComponent implements OnInit {
         if (response.status === 200) {
           //if response status is 200, assume login was successful
           this.resetCredentials();
+          this.registrationSuccess = "Successfully created account";
+          this.registrationError = "";
         } else {
           this.registrationError = response.body;
+          this.registrationSuccess = "";
           this.resetCredentials();
         }
       },
       (error) => {
         this.registrationError = error.error;
+        this.registrationSuccess = "";
         this.resetCredentials();
         this.pwRepeat = '';
       }
