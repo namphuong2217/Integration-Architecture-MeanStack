@@ -63,6 +63,14 @@ const updateBonusComputationCollection = async function (sid, year, newSocialPer
     });
     const bonus = new BonusCompCollection(sid, year, salesman, orderEvaluation,
         newSocialPerformance, false, true, bonusOrder, bonusSocial, newTargets);
+
+    const oldBonusResp = await bonusCompCollectionService.readBonusCompCollection(sid, year, db);
+    if (oldBonusResp.status === 200) {
+        const oldBonus = oldBonusResp.payload;
+        bonus.socialPerformanceComments = oldBonus.socialPerformanceComments;
+        bonus.orderEvaluationComments = oldBonus.orderEvaluationComments;
+    }
+
     return await bonusCompCollectionService.updateBonusSocialPerformance(bonus, db);
 }
 
