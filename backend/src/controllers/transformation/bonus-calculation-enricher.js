@@ -18,17 +18,17 @@ exports.getBonusForSocialPerformance = (performance, target, actual) => {
     const factorDiff = factorDiffTargAct(target, actual);
     switch (performance) {
         case ("leadershipCompetence"):
-            return factorDiff * target * 5;
+            return factorDiff * target * 2 + 10*target;
         case ("openness"):
-            return factorDiff * target * 5;
+            return factorDiff * target * 2 + 10*target;
         case ("socialBehaviour"):
-            return factorDiff * target * 10;
+            return factorDiff * target * 5 + 10*target;
         case ("attitude"):
-            return factorDiff * target * 5;
+            return factorDiff * target * 2 + 10*target;
         case ("communicationSkills"):
-            return factorDiff * target * 8;
+            return factorDiff * target * 4 + 10*target;
         case ("integrity"):
-            return factorDiff * target * 8;
+            return factorDiff * target * 4 + 10*target;
         default:
             return null;
     }

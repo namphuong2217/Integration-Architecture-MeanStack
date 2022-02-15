@@ -23,6 +23,15 @@ export class BonusComputationCollectionService {
     return this.http.get<ApprovedBonus[]>(`/api/approvedBonuses/${year}`);
   }
 
+  updateBonusSocialPerformance(
+    bonusCompCollection: BonusCompCollection
+  ): Observable<BonusCompCollection> {
+    return this.http.put<BonusCompCollection>(
+      `/api/bonusSocialPerformance`,
+      bonusCompCollection
+    );
+  }
+
   postBonusComputationCollection(
     bonusCompCollection: BonusCompCollection
   ): Observable<string> {

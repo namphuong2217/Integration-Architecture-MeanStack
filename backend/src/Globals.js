@@ -6,7 +6,7 @@ exports.Permissions = {
     admin: "admin",
 
     permissionSales: ["postSocialPerformance"],
-    permissionHR: ["approveBonusHR", "postBonus"],
+    permissionHR: ["approveBonusHR", "postBonus", "updateBonusSocialPerformance"],
     permissionCEO: ["approveBonusCEO", "postBonus", "postTargets"],
 
     hasUserPermission(user, action) {

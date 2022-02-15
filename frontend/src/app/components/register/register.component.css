@@ -21,6 +21,10 @@ span.error {
   color: red;
 }
 
+span.success {
+  color: blue;
+}
+
 button.register {
   float: right;
   background-color: #143970;

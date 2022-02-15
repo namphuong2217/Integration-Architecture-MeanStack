@@ -94,15 +94,6 @@ export class AuthService {
         observe: 'response',
         responseType: 'text',
       })
-      .pipe(
-        tap((response) => {
-          if (response.status === 200) {
-            //if request was successful
-            this.loggedIn = true; //set new stat
-            this.emitLoginChange(true); //notify listeners
-          }
-        })
-      );
   }
 
   /**

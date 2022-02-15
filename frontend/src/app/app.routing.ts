@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {LoginPageComponent} from './pages/login-page/login-page.component';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import {NotFoundPageComponent} from './pages/not-found-page/not-found-page.component';
 import {DashboardPageComponent} from './pages/dashboard-page/dashboard-page.component';
@@ -22,6 +23,7 @@ import {
  */
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
+  {path: 'register', component: RegisterPageComponent, canActivate: [AuthGuardService]},
   {path: 'dashboard', component: DashboardPageComponent, canActivate: [AuthGuardService]},
   {path: 'bonus/:sid/:year', component: BonusComputationCollectionPageComponent, canActivate: [AuthGuardService]},
   {path: 'enter-social-performance/:sid/:year', component: EnterSocialPerformancePageComponent, canActivate: [AuthGuardService]},
