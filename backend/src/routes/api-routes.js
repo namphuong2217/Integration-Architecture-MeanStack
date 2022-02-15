@@ -11,7 +11,7 @@ router.post('/login', authApi.login); //the function decides which request type 
 router.delete('/login', authApi.logout);
 router.get('/login', authApi.isLoggedIn); //the function, which handles requests is specified as the last parameter
 
-router.post("/register", authApi.register);
+router.post("/register", checkAuthorization(), authApi.register);
 
 const userApi = require('../apis/user-api');
 router.get('/user', checkAuthorization("universal"), userApi.getSelf);
@@ -451,6 +451,20 @@ router.get("/approvedBonuses/:year", checkAuthorization("universal"), bonusCompC
  *              description: Permission error
  */
 router.post("/bonusCompCollection", checkAuthorization("postBonus"), bonusCompCollectionApi.postBonusCompCollection);
+
+/**
+ * @swagger
+ * /api/bonusSocialPerformance:
+ *  put:
+ *      summary: Updates social performance and target values changed by HR
+ *      tags: [Bonus Computation Collection]
+ *      responses:
+ *          200:
+ *              description: Collection was successfully saved
+ *          401:
+ *              description: Permission error
+ */
+router.put("/bonusSocialPerformance", checkAuthorization("updateBonusSocialPerformance"), bonusCompCollectionApi.updateBonusSocialPerformance);
 
 //SOCIAL PERFORMANCE TARGET
 /**

@@ -41,3 +41,17 @@ exports.postBonusCompCollection = async function (req, res) {
     }
     return resp;
 }
+
+exports.updateBonusSocialPerformance = async function (req, res) {
+    const body = req.body;
+    const sid = body.sid;
+    const year = Number(body.year);
+    const newSocialPerformance = body.socialPerformance;
+    const newTargets = body.targets;
+    const db = req.app.get('db');
+    const resp = await bonusCompCollectionController.updateBonusCompCollection(sid, year, newSocialPerformance, newTargets, db);
+    if (resp.status === 200) {
+        return res.send(JSON.stringify(resp.payload));
+    }
+    return res.status(resp.status).send(resp.payload);
+}

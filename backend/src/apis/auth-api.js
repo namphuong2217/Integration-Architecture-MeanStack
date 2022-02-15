@@ -64,8 +64,7 @@ exports.register = async function (req, res) {
     const user = new User(employee.sid, employee.first_name, employee.last_name,
         employee.department, password, false);
     userService.add(db, user)
-        .then(authService.authenticate(req.session, user))
-        .then(//mark session as authenticated
+        .then(
             res.send('registration successful')
         ).catch(_ => {
             res.status(401).send('registration failed');

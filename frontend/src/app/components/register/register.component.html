@@ -1,21 +1,23 @@
-<h1>Bonus Management Tool</h1>
-<img src="assets/logo.png"  width="150px"/>
 <mat-card>
-  <h1>Register</h1>
+  <h1>Register a new Account</h1>
   <mat-form-field appearance="fill">
     <mat-label>username</mat-label>
-    <input type="text" [(ngModel)]="credentials.username" name="username2" matInput> <!-- [(ngModel)] creates a two-way binding between input & variable -->
+    <input type="text" [(ngModel)]="credentials.username" name="username2" matInput>
+    <!-- [(ngModel)] creates a two-way binding between input & variable -->
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>password</mat-label>
-    <input type="password" (keydown.enter)="performRegistration()" [(ngModel)]="credentials.password" name="password2" matInput> <!-- (keydown.enter) specifies an event-handler for pressing the enter key, while this input is focussed -->
+    <input type="password" (keydown.enter)="performRegistration()" [(ngModel)]="credentials.password" name="password2"
+      matInput>
+    <!-- (keydown.enter) specifies an event-handler for pressing the enter key, while this input is focussed -->
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>repeat password</mat-label>
-    <input type="password" (keydown.enter)="performRegistration()" [(ngModel)]="pwRepeat" name="password2" matInput> <!-- (keydown.enter) specifies an event-handler for pressing the enter key, while this input is focussed -->
+    <input type="password" (keydown.enter)="performRegistration()" [(ngModel)]="pwRepeat" name="password2" matInput>
+    <!-- (keydown.enter) specifies an event-handler for pressing the enter key, while this input is focussed -->
   </mat-form-field>
   <span class="error" *ngIf="registrationError">{{registrationError}}</span>
-  <button class="register" (click)="performRegistration()" mat-raised-button color="primary">Register</button> <!-- (click) creates a one-way output-binding, which is invoked by click events  -->
+  <span class="success" *ngIf="registrationSuccess">{{registrationSuccess}}</span>
+  <button class="register" (click)="performRegistration()" mat-raised-button color="primary">Register</button>
+  <!-- (click) creates a one-way output-binding, which is invoked by click events  -->
 </mat-card>
-
-<button class="switchToLogin" (click)="switchView()" mat-raised-button color="secondary">Back to Login</button> <!-- (click) creates a one-way output-binding, which is invoked by click events  -->

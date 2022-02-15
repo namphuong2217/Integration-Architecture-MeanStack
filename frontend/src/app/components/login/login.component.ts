@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Credentials } from '../../models/Credentials';
 import { Router } from '@angular/router';
@@ -11,8 +11,6 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   //object for input-binding
   credentials: Credentials;
-
-  @Input() switchView: () => void;
 
   loginError: string;
 

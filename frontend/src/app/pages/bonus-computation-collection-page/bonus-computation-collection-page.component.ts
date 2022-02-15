@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BonusCompCollection } from '../../models/BonusCompCollection';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BonusComputationCollectionService } from '../../services/bonus-computation-collection.service';
@@ -8,6 +8,7 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../models/User';
 import { Permissions } from '../../Global';
 import { SocialPerformanceTargetService } from 'src/app/services/social-performance-target.service';
+import { SocialPerformanceComponent } from 'src/app/components/social-performance/social-performance.component';
 
 @Component({
   selector: 'app-bonus-computation-collection',
@@ -28,6 +29,10 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   confirmedMessage: string;
   confirmedInfoClass: string;
   remarks: string;
+  isUpdatedSocialPerformance = false;
+
+  @ViewChild(SocialPerformanceComponent)
+  spComponent: SocialPerformanceComponent;
 
   constructor(
     private bonusCompCollectionService: BonusComputationCollectionService,
@@ -96,6 +101,10 @@ export class BonusComputationCollectionPageComponent implements OnInit {
       );
   }
 
+  setValuesUpdated(updated: boolean) {
+    this.isUpdatedSocialPerformance = updated;
+  }
+
   selectYearAndEmployee(data: { year: string }) {
     this.currentYear = data.year;
     const curRoute = this.route.snapshot.routeConfig.path;
@@ -108,16 +117,33 @@ export class BonusComputationCollectionPageComponent implements OnInit {
   }
 
   confirmBonusCompCollection(): void {
+    if (this.isUpdatedSocialPerformance) {
+      this.updateValues();
+      return;
+    }
     this.bonusCompCollectionService
       .postBonusComputationCollection(this.bonusCompCollection)
       .subscribe(
         () => {
-          if (this.user?.role === 'Leader') {
-            this.bonusCompCollection.approvedByCEO = true;
-          }
-          if (this.user?.role === 'HR') {
-            this.bonusCompCollection.approvedByHR = true;
-          }
+          this.setBonusCompCollectionAndSalesman();
+          this.spComponent.updateSocialPerformance();
+        },
+        (error) => {
+          this.confirmedMessage = error?.error;
+          this.confirmedInfoClass = 'error';
+        }
+      );
+  }
+
+  updateValues(): void {
+    this.bonusCompCollectionService
+      .updateBonusSocialPerformance(this.bonusCompCollection)
+      .subscribe(
+        (res) => {
+          this.bonusCompCollection.approvedByCEO = false;
+          this.bonusCompCollection.approvedByHR = true;
+          this.setValuesUpdated(false);
+          this.bonusCompCollection = res;
         },
         (error) => {
           this.confirmedMessage = error?.error;
@@ -185,6 +211,10 @@ export class BonusComputationCollectionPageComponent implements OnInit {
     return (
       (role === 'Leader' && approvedByCEO) || (role === 'HR' && approvedByHR)
     );
+  }
+
+  confirmButtonText() {
+    return this.isUpdatedSocialPerformance ? 'Update and Confirm' : 'Confirm';
   }
 
   permissionToConfirm() {

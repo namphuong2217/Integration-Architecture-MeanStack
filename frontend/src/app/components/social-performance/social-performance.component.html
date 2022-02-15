@@ -9,12 +9,32 @@
 
   <ng-container matColumnDef="Target Value">
     <th mat-header-cell *matHeaderCellDef>Target Value</th>
-    <td mat-cell *matCellDef="let element">{{element.target}}</td>
+    <td mat-cell *matCellDef="let element">
+      <mat-form-field *ngIf="permissionToAlterSocialPerformance(); else a" appearance="fill">
+        <mat-label>{{element.name}}</mat-label>
+        <mat-select [(value)]="element.target" (valueChange)="updateRating('target', element.name, element.target)">
+          <mat-option *ngFor="let el of ratings" [value]="el">{{el}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <ng-template #a>
+        {{element.target}}
+      </ng-template>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="Actual Value">
     <th mat-header-cell *matHeaderCellDef>Actual Value</th>
-    <td mat-cell *matCellDef="let element">{{element.actual}}</td>
+    <td mat-cell *matCellDef="let element">
+      <mat-form-field *ngIf="permissionToAlterSocialPerformance(); else a" appearance="fill">
+        <mat-label>{{element.name}}</mat-label>
+        <mat-select [(value)]="element.actual" (valueChange)="updateRating('actual', element.name, element.actual)">
+          <mat-option *ngFor="let el of ratings" [value]="el">{{el}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <ng-template #a>
+        {{element.actual}}
+      </ng-template>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="Bonus">
