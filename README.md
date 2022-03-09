@@ -15,12 +15,15 @@ Suitable authentication mechanisms are applied and integrated accordingly.
  1. **OrangeHRM data**
 
     ![NodeJs Website](readme_resources/Final5 OrangeHRM.png)
+
     ![NodeJs Website](readme_resources/Final6 OrangeHRM.png)
+
     ![NodeJs Website](readme_resources/Final7 OrangeHRM.png)
 
 
  2. **OpenCRX data**
 
     ![NodeJs Website](readme_resources/Final8 OpenCRX.png)
+
     ![NodeJs Website](readme_resources/Final9 OpenCRX.png)
  
