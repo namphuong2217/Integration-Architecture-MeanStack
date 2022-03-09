@@ -1,5 +1,5 @@
 
-**This is the automatically generated default-README of angular. You will find information about the *Integration Architectures* MEAN-template in the README in the [parent directory](../README.md).**
+**This is the automatically generated default-README of angular. You will find information about the *Integration Architectures* MEAN-template in the README in the [parent directory](../READMEOriginal.md).**
 
 # App
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.

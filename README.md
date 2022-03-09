@@ -1,52 +1,30 @@
-# *Integration Architectures* MEAN-Template
+# *Integration Architectures* MEAN Final Results
 
 This template is meant to support students getting started with the Integration Architectures project.
 
-## Prerequisites
- 1. You need a **Node.js** runtime. It is available at: https://nodejs.org/ .
-    
-    [![NodeJs Website](readme_resources/node.png)](https://nodejs.org/)
-    Please download a version >14.x.x (The current LTS version 14.18.x works, but also the newest version 16.11.x should
-    be fine).
- 
-    __!!! Important: On Windows (and maybe also other operating systems) it is necessary to reboot the device after this
-    step, to refresh the PATH and make `node` commands available in shell.__
+## Final GUI
+
+![NodeJs Website](readme_resources/Final1.png)
+![NodeJs Website](readme_resources/Final2.png)
+![NodeJs Website](readme_resources/Final3.png)
+![NodeJs Website](readme_resources/Final4.png)
 
 
- 2. Access to a **MongoDB** server is necessary. If you don't have one already, you should download the community server at:
-    https://www.mongodb.com/try/download/community .
-    [![MongoDB Website](readme_resources/mongodb.png)](https://www.mongodb.com/try/download/community)
-    Upon installation, I would recommend you to select, that MongoDB
-    Compass should also be installed. It's a nice GUI-application for managing MongoDB Servers and Databases.
+## Enterprise Applications OrangeHRM & OpenCRX data
+The data above coming from OrangeHRM & OpenCRX servers on the Internet are managed and processed within the MEAN applications.
+Suitable authentication mechanisms are applied and integrated accordingly.
 
-## Setup
-You can use your favourite IDE to work on your applications. But please note, that our examples mostly cover the IDEs from 
-Jetbrains (IntelliJ, WebStorm etc.).
+ 1. **OrangeHRM data**
 
- 1. **Cloning this git repository**
-
-    You need to clone this repository. It can simply be done through your IDE or using git bash.
-    
-    ![IntelliJ git clone](readme_resources/new_from_version_control.png)
-    In the IDEs from Jetbrains git repositories can be cloned by selecting *File > New > Project from Version Control* (Shown on the left of the screenshot).
-    Also, there is a "Get from VCS" button on the welcome-screen, when no project is opened.
-    Either way a dialog is displayed (shown on the right), where you can paste the URL and clone it.
- <br><br>
-    Alternatively git bash can be used. Simply type/paste this at the desired location:
-
-    `git clone https://github.com/aldaGit/iar-framework`
+    ![NodeJs Website](readme_resources/Final5 OrangeHRM.png)
+    ![NodeJs Website](readme_resources/Final6 OrangeHRM.png)
+    ![NodeJs Website](readme_resources/Final7 OrangeHRM.png)
 
 
- 2. **Installing dependencies**
+ 2. **OpenCRX data**
 
-    The dependencies of this software can be installed with node package manager (npm). Both front- and backend need to be
-    handled separately.<br>
-    
-    ![npm install in InteliJ](readme_resources/npm_backend.png)
-    In IntelliJ and Webstorm you can just right-click the `package.json` file and select "Run 'npm install'" to install
-    the dependencies.<br> Alternatively you navigate to the location of the `package.json` inside your shell and then run `npm install`.
-    <br><br>
-    __Either way, this has to be done both in the directory `frontend/` and `backend/`.__
+    ![NodeJs Website](readme_resources/Final8 OpenCRX.png)
+    ![NodeJs Website](readme_resources/Final9 OpenCRX.png)
 
 ## Launching the Applications
 
